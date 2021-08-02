@@ -1,4 +1,4 @@
-# vim: noet:ts=8:sw=8:softtabstop=0
+# vim: noet:ts=8:sw=8:softtabstop=0:filetype=gitconfig:
 
 [user]
 	signingkey = DAD4B1A9
@@ -73,7 +73,7 @@
 	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
 [core]
 	quotepath = false
-	excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 	editor = mvim -vf
 	ignorecase = false
 [interactive]

@@ -1,0 +1,130 @@
+# vim: noet:ts=8:sw=8:softtabstop=0
+
+[user]
+	signingkey = DAD4B1A9
+	name = Timon Wong
+	email = timon86.wang@gmail.com
+
+[delta]
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
+	syntax-theme = Dracula
+	plus-style = syntax "#003800"
+	minus-style = syntax "#3f0001"
+	side-by-side = false
+
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+	hunk-header-decoration-style = cyan box ul
+
+[delta "line-numbers"]
+	line-numbers-left-style = cyan
+	line-numbers-right-style = cyan
+	line-numbers-minus-style = 124
+	line-numbers-plus-style = 28
+
+# so much color
+[color]
+	ui = always
+[color "diff"]
+	meta = yellow bold
+	commit = green bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[push]
+	default = current
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit
+	dt = difftool --dir-diff # --no-symlinks
+	mt = mergetool
+	le = log --oneline --decorate
+	ls = log --pretty=format:%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate
+	ll = log --pretty=format:%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate --numstat
+	filelog = log -u
+	fl = log -u
+	lasttag = describe --tags --abbrev=0
+	lt = describe --tags --abbrev=0
+	;diff = diff --word-diff
+	dc = diff --cached
+	root = !pwd
+	fp = fetch -p # Fetch and prune.
+	change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f "
+[core]
+	quotepath = false
+	excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
+	editor = mvim -vf
+	ignorecase = false
+[interactive]
+	;diffFilter = delta --color-only
+[i18n]
+	logOutputEncoding = utf-8
+	commitEncoding = utf-8
+[pager]
+	;show = diff-so-fancy | less --tabs=1,5 -RFX
+	;diff = diff-so-fancy | less --tabs=1,5 -RFX
+	;show = delta
+	;diff = delta
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+
+[difftool "idea"]
+	cmd = idea diff \
+		\"$(realpath \"${LOCAL}\")\" \
+		\"$(realpath \"${REMOTE}\")\" \
+
+[mergetool "idea"]
+	cmd = idea merge \
+		\"$(realpath \"${LOCAL}\")\" \
+		\"$(realpath \"${REMOTE}\")\" \
+		\"$(realpath \"${BASE}\")\" \
+		\"$(realpath \"${MERGED}\")\"
+
+[mergetool]
+	bc3 = trustExitCode
+
+[diff]
+	noprefix = false
+	;compactionHeuristic = true
+	tool = bc3
+	guitool = bc3
+
+[merge]
+	tool = bc3
+	guitool = bc3
+
+[tag]
+	forceSignAnnotated = true
+[pull]
+	ff = only
+[url "ssh://git@gitlab-ce.alauda.cn"]
+	insteadOf = https://gitlab-ce.alauda.cn
+[init]
+	defaultBranch = master
+

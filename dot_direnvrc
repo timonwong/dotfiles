@@ -1,0 +1,11 @@
+#export DIRENV_LOG_FORMAT=
+
+use_venv() {
+    export VIRTUAL_ENV = "${HOME}/.virtualenvs/${1}"
+    PATH_add "${VIRTUAL_ENV}/bin"
+}
+
+use_vwrapper() {
+    source /usr/local/bin/virtualenvwrapper.sh
+}
+

@@ -4,6 +4,8 @@
 #set vertical-split = false
 
 set mouse = yes
+set main-view-id-display = yes
+#set main-view-id-width = 10
 
 # general
 color   default                 15      235

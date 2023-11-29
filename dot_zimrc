@@ -1,9 +1,43 @@
+#
+# This is not sourced during shell startup, and it's only used to configure the
+# zimfw plugin manager.
+#
+
+#
+# Modules
+#
+
+# Sets sane Zsh built-in environment options.
+#zmodule environment
+# Provides handy git aliases and functions.
+#zmodule git
+# Applies correct bindkeys for input events.
+#zmodule input
+
+#
+# Completion
+#
+# Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions --fpath src
+if [[ -d /opt/homebrew/share/zsh ]] && [[ $(uname) == Darwin ]] ; then
+    zmodule /opt/homebrew/share/zsh --fpath site-functions
+fi
+# Enables and configures smart and extensive tab completion.
+# completion must be sourced after all modules that add completion definitions.
 zmodule completion
-zmodule zsh-users/zsh-syntax-highlighting
-zmodule zsh-users/zsh-autosuggestions
-zmodule zsh-users/zsh-history-substring-search
 
-zmodule Aloxaf/fzf-tab
-
+zmodule fzf
 zmodule kiesman99/zim-zoxide
+zmodule zdharma-continuum/history-search-multi-word
+
+#
+# Modules that must be initialized last
+#
+# Fish-like syntax highlighting for Zsh.
+# zsh-users/zsh-syntax-highlighting must be sourced after completion
+zmodule zsh-users/zsh-syntax-highlighting
+# Fish-like history search (up arrow) for Zsh.
+# zsh-users/zsh-history-substring-search must be sourced after zsh-users/zsh-syntax-highlighting
+zmodule zsh-users/zsh-history-substring-search
+# Fish-like autosuggestions for Zsh.
+zmodule zsh-users/zsh-autosuggestions

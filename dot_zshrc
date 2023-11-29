@@ -20,6 +20,16 @@ alias la="lsd -la"
 #
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+# Bind up and down keys
+zmodload -F zsh/terminfo +p:terminfo
+if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+  bindkey ${terminfo[kcuu1]} history-substring-search-up
+  bindkey ${terminfo[kcud1]} history-substring-search-down
+fi
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 case "${TERM}" in
   cons25*|linux) # plain BSD/Linux console
@@ -93,8 +103,6 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
 
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 export LC_CTYPE=en_US.UTF-8
 
 export VOLTA_HOME="$HOME/.volta"
@@ -106,4 +114,3 @@ export PATH="$PATH:/Users/timonwong/.local/bin"
 export HOMEBREW_GITHUB_API_TOKEN=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
 
 eval "$(github-copilot-cli alias -- "$0")"
-

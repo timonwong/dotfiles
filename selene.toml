@@ -3,9 +3,9 @@
 std = "lua52"
 
 [lints]
-# Allow undefined globals (hs, vim, spoon are defined at runtime)
+# Allow undefined globals defined at runtime
 undefined_variable = "allow"
 # Allow mixed tables (required for lazy.nvim plugin specs)
 mixed_table = "allow"
-# Allow unscoped variables (hs, spoon, vim are Hammerspoon/Neovim globals)
+# Allow unscoped variables used by editor/runtime environments
 unscoped_variables = "allow"

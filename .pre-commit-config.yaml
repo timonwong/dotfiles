@@ -45,7 +45,7 @@ repos:
         name: Selene (Lua)
         language: system
         files: \.lua$
-        exclude: (\.tmpl$|Spoons/)
+        exclude: \.tmpl$
         entry: selene
       #####################################
       # Lint: Nix files (non-template)
@@ -66,7 +66,6 @@ repos:
         name: Validate templates (render + check)
         language: system
         files: \.tmpl$
-        exclude: Spoons/
         pass_filenames: false
         entry: |
           bash -c '
@@ -118,7 +117,7 @@ repos:
               return 0
             }
 
-            for f in $(find . \( -name "*.sh.tmpl" -o -name "*.lua.tmpl" -o -name "*.json.tmpl" -o -name "*.yaml.tmpl" -o -name "*.yml.tmpl" -o -name "*.md.tmpl" \) ! -path "*/node_modules/*" ! -path "*/Spoons/*"); do
+            for f in $(find . \( -name "*.sh.tmpl" -o -name "*.lua.tmpl" -o -name "*.json.tmpl" -o -name "*.yaml.tmpl" -o -name "*.yml.tmpl" -o -name "*.md.tmpl" \) ! -path "*/node_modules/*"); do
               render_template "$f" "$tmpdir/$(basename "${f%.tmpl}")" || true
             done
 

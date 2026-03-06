@@ -133,9 +133,7 @@ This repository combines `chezmoi` templating with Nix-based package management 
 ├── .chezmoidata/
 │   ├── nix.yaml                # Nix package sets (shared/work/private)
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
-│   ├── claude.yaml             # Claude provider + account model settings
-│   ├── versions.yaml           # Pinned tool/plugin revisions
-│   └── hammerspoon.yaml        # Hammerspoon data
+│   └── versions.yaml           # Pinned tool/plugin revisions
 ├── .chezmoiscripts/            # Bootstrap + maintenance pipeline (00..11)
 ├── nix-config/
 │   ├── flake.nix.tmpl

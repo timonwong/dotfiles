@@ -133,9 +133,7 @@
 ├── .chezmoidata/
 │   ├── nix.yaml                # Nix パッケージ定義（shared/work/private）
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
-│   ├── claude.yaml             # Claude Provider と account モデル設定
-│   ├── versions.yaml           # ツール/プラグインのピン留め
-│   └── hammerspoon.yaml        # Hammerspoon データ
+│   └── versions.yaml           # ツール/プラグインのピン留め
 ├── .chezmoiscripts/            # ブートストラップ/保守パイプライン（00..11）
 ├── nix-config/
 │   ├── flake.nix.tmpl

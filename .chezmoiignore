@@ -37,7 +37,6 @@ nix-config/modules/host-users.nix
 
 # macOS-only GUI apps (target paths)
 .config/karabiner/
-.config/hammerspoon/
 {{- end }}
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -46,7 +45,6 @@ nix-config/modules/host-users.nix
 {{- if .headless }}
 # GUI apps (not needed on headless servers)
 .config/karabiner/
-.config/hammerspoon/
 {{- end }}
 
 # ─────────────────────────────────────────────────────────────────────────────

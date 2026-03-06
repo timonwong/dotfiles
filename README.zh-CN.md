@@ -131,9 +131,7 @@
 ├── .chezmoidata/
 │   ├── nix.yaml                # Nix 包集合（shared/work/private）
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
-│   ├── claude.yaml             # Claude provider 与 account 模型配置
-│   ├── versions.yaml           # 工具与插件版本固定
-│   └── hammerspoon.yaml        # Hammerspoon 数据
+│   └── versions.yaml           # 工具与插件版本固定
 ├── .chezmoiscripts/            # Bootstrap 与维护脚本链（00..11）
 ├── nix-config/
 │   ├── flake.nix.tmpl

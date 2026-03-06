@@ -500,17 +500,8 @@ chezmoi init --apply --promptBool headless=true signalridge
 境界と責務:
 
 - `C1` は助言専用で、ファイル変更は行いません。
-- `C2` の決定論的変更は OpenSpec の対象外です。
-- OpenSpec は `C3` と `C4` 実装フェーズの実行/検証を担います。
-- 分類が `C3` または `C4` の場合は governed mode に切り替え、実装前に OpenSpec gate に入ります。
-
-OpenSpec フロー（`C3`/`C4`）:
-
-```bash
-openspec new change <change-name>
-openspec status --change <change-name>
-# その後は /opsx-*（導入済みの場合）または openspec CLI ステップを使用
-```
+- `C2` の決定論的変更は直接実装できます。
+- `C3` と `C4` は governed 実行（明示的なステップ毎の確認）が必要です。
 
 ---
 

@@ -498,17 +498,8 @@ chezmoi init --apply --promptBool headless=true signalridge
 边界与职责:
 
 - `C1` 为只读分析，不涉及文件变更。
-- `C2` 确定性变更不需要 OpenSpec。
-- OpenSpec 负责 `C3` 和 `C4` 实施阶段的执行与验证治理。
-- 若分类为 `C3` 或 `C4`，需切换到 governed mode，并在编码前进入 OpenSpec gate。
-
-OpenSpec 流程（`C3`/`C4`）:
-
-```bash
-openspec new change <change-name>
-openspec status --change <change-name>
-# 然后继续 /opsx-*（已安装时）或 openspec CLI 步骤
-```
+- `C2` 确定性变更可直接实现。
+- `C3` 和 `C4` 需要 governed 执行（逐步显式确认）。
 
 ---
 

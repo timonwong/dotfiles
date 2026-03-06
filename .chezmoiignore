@@ -62,4 +62,3 @@ nix-config/modules/host-users.nix
 # ─────────────────────────────────────────────────────────────────────────────
 backup/
 tests/
-openspec/

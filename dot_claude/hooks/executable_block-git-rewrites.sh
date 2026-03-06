@@ -72,13 +72,6 @@ fi
 
 # --- ASK rules (risky but recoverable) ---
 
-if matches '(^|[[:space:]])openspec[[:space:]]+archive([[:space:]]|$)'; then
-    if matches '(^|[[:space:]])--yes([[:space:]]|$)'; then
-        ask "OPENSPEC-ARCHIVE-YES" "openspec archive --yes finalizes the change." "Confirm explicitly (never auto-chain)."
-    fi
-    ask "OPENSPEC-ARCHIVE" "openspec archive finalizes the change." "Confirm explicitly (one step at a time)."
-fi
-
 if matches 'git[[:space:]]+push' && matches '(^|[[:space:]])(--force|-f)([[:space:]]|$)'; then
     ask "GIT-FORCE-PUSH" "Force push rewrites remote history." "Confirm you want to rewrite."
 fi

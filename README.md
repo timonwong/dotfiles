@@ -500,17 +500,8 @@ See:
 Boundary and ownership:
 
 - `C1` is advisory only and does not include file changes.
-- `C2` deterministic changes do not require OpenSpec.
-- OpenSpec governs execution and verification for `C3` and `C4` implementation.
-- If category is `C3` or `C4`, switch to governed mode and enter OpenSpec gate before coding.
-
-OpenSpec workflow (`C3`/`C4`):
-
-```bash
-openspec new change <change-name>
-openspec status --change <change-name>
-# then continue with /opsx-* wrappers (if installed) or openspec CLI steps
-```
+- `C2` deterministic changes can be implemented directly.
+- `C3` and `C4` require governed execution with explicit step-by-step confirmation.
 
 ---
 

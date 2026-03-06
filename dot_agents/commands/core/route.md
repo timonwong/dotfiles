@@ -41,19 +41,13 @@ L4 precedence (when multiple triggers match): `major_refactor` > `new_project` >
 
 - `C1`: advisory-only; no implementation.
 - `C2`: direct implementation for deterministic change.
-- `C3`: OpenSpec standard governed implementation (scan -> step-by-step -> validate -> archive).
-- `C4`: OpenSpec discovery-first governed implementation (explore -> scope approval -> implement -> validate -> archive).
-- If category is `C3` or `C4`, switch to `Governed` mode and enter OpenSpec gate before coding.
+- `C3`: standard governed implementation (scan -> step-by-step -> validate -> archive).
+- `C4`: discovery-first governed implementation (explore -> scope approval -> implement -> validate -> archive).
+- If category is `C3` or `C4`, switch to `Governed` mode before coding.
 
-## OpenSpec Gate (C3/C4)
+## Governed Gate (C3/C4)
 
-For `C3` and `C4`, enforce:
-
-- First executable command MUST be: `openspec new change <change-name>`
-- Optional wrapper shortcuts (when installed):
-  - Claude Code: `/opsx:new <change-name>`
-  - Codex: `/opsx-new <change-name>`
-- If wrapper shortcuts are missing/outdated, run `openspec update` (or `openspec init --tools <tool>` if not initialized)
+For `C3` and `C4`, enforce governed workflow with explicit step-by-step confirmation.
 
 ## Required Output Contract
 

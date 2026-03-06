@@ -2,22 +2,19 @@ homebrew:
   taps:
     shared: []
     work: []
-    private: []
+    private:
+      - nguyenphutrong/tap
   brews:
     shared:
       - macos-trash
       - mole
-    work:
-      - cliclick # macOS only - GUI automation
-      - awscli
-      - aws-sam-cli
-      - azure-cli
+    work: []
     private:
       - mas # Required for masApps installation
   casks:
     shared:
+      - codex
       - codex-app
-      - conductor # Claude code parallelisation
       - visual-studio-code
       - hammerspoon
       - karabiner-elements
@@ -32,7 +29,7 @@ homebrew:
       - discord
       - iina # video player
       - telegram
-      - zoom
+      - quotio
   masApps:
     shared: []
     work: []

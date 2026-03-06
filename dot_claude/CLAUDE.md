@@ -134,7 +134,7 @@ L1/L2: Kind, Level, Route Reason, Next Step are sufficient.
 
 ### L3/L4 Gate
 
-If no active change: run `openspec new change <change-name>` (optional shortcut: `/opsx:new <change-name>`).
+If no active change: create a tracking note for the change.
 
 **L4 additional requirement**: before implementation, complete a mandatory exploration phase (map codebase, enumerate unknowns, write discovery summary) and obtain user approval on scope.
 
@@ -157,15 +157,6 @@ Open change -> scan patterns -> step-by-step implementation -> validate -> archi
 ### L4 (Discovery-First Governed)
 
 Open change -> **mandatory exploration phase** (map codebase, enumerate unknowns, write discovery summary) -> **user approval on scope** -> step-by-step implementation -> validate -> archive. Cannot begin implementation until discovery phase is complete and user approves.
-
-OpenSpec checkpoints:
-
-- CLI: `openspec new change <change-name>` -> `openspec status --change <change-name>` -> `openspec validate <change-name>` -> `openspec archive <change-name>`
-- Shortcuts (optional): `/opsx:new` -> `/opsx:ff` -> `/opsx:apply` -> `/opsx:verify` -> `/opsx:archive`
-
-Cross-tool syntax note: Claude `/opsx:*` (colon), Codex `/opsx-*` (hyphen).
-
-Always track `openspec/**` in git and archive active changes before merge.
 
 ## Worktree Policy
 

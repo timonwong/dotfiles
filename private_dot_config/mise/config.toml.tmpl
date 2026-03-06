@@ -5,17 +5,11 @@
 # Node.js (used for global JS CLIs via npm/npx)
 node = "lts"
 
-# Terraform (replaces tenv)
-terraform = "latest"
-
 # Python (for tools that need it)
 python = "3.12"
 
 # uv (Python package manager)
 uv = "latest"
-
-# Poetry (Python dependency manager, via pipx/uvx)
-"pipx:poetry" = "latest"
 
 # Go
 go = "latest"
@@ -26,21 +20,12 @@ rust = "latest"
 # Lua 5.4 runtime (replaces nix lua5_4)
 lua = "5.4"
 
-{{ if eq .chezmoi.os "darwin" -}}
-# Python CLI tools (via pipx) - macOS only
-"pipx:mac-cleanup" = "latest"
-{{ end -}}
-
-# OpenSpec CLI managed declaratively via mise npm backend
-"npm:@fission-ai/openspec" = "1.2.0"
-
 # HAPI CLI for remote control of local AI coding sessions
 "npm:@twsxtd/hapi" = "latest"
 
-# Gemini CLI managed via npm backend (replaces nix gemini-cli)
-"npm:@google/gemini-cli" = "latest"
-
 [settings]
+lockfile = true
+
 # Keep auto_install enabled for normal mise workflow.
 # Process storms were caused by shell PATH/init ordering, not this flag.
 auto_install = true
@@ -56,6 +41,7 @@ experimental = true
 trusted_config_paths = [
     "~/Projects",
     "~/Work",
+    "~/.codex/worktrees",
 ]
 
 # Always keep latest versions

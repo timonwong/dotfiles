@@ -3,7 +3,7 @@
 --
 -- Note: Config path is ~/.config/hammerspoon (via HS_CONFIG_DIR in exports.sh)
 --
--- Features & Hotkeys (Ctrl+Cmd prefix, Alt reserved for AeroSpace):
+-- Features & Hotkeys (Ctrl+Cmd prefix):
 --   Ctrl+Cmd+.  IME debug (show app name/bundle ID/input source)
 --   Ctrl+Cmd+/  KSheet (show current app's shortcuts)
 --   Ctrl+Cmd+T  AClock (big clock display)
@@ -29,7 +29,6 @@ local log = hs.logger.new("init", "debug")
 -- Modifier Key Configuration
 -- ==============================================================================
 -- Using Ctrl+Cmd as prefix (simpler than Ctrl+Alt+Cmd)
--- Alt+* is reserved for AeroSpace
 
 local hyper = { "cmd", "ctrl" }
 
@@ -223,7 +222,7 @@ hs.hotkey.bind(hyper, "l", function()
 end)
 
 -- ==============================================================================
--- Window Management (supplements AeroSpace)
+-- Window Management
 -- ==============================================================================
 
 -- Move window to next/previous monitor

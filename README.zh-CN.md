@@ -136,7 +136,6 @@
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
 │   ├── claude.yaml             # Claude provider 与 account 模型配置
 │   ├── versions.yaml           # 工具与插件版本固定
-│   ├── aerospace.yaml          # Aerospace WM 数据
 │   └── hammerspoon.yaml        # Hammerspoon 数据
 ├── .chezmoiscripts/            # Bootstrap 与维护脚本链（00..11）
 ├── nix-config/

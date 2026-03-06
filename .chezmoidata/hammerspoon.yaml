@@ -25,8 +25,6 @@ hammerspoon:
         ime: en
       - app: Karabiner-EventViewer
         ime: en
-      - app: AeroSpace
-        ime: en
       - app: Raycast
         ime: en
     work:

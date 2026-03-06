@@ -34,7 +34,6 @@ homebrew:
       # - "mactex"
       - mockoon
       - notion
-      - nikitabobko/tap/aerospace
       - obs
       - orbstack
       - pdf-expert

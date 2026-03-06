@@ -138,7 +138,6 @@ This repository combines `chezmoi` templating with Nix-based package management 
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
 │   ├── claude.yaml             # Claude provider + account model settings
 │   ├── versions.yaml           # Pinned tool/plugin revisions
-│   ├── aerospace.yaml          # Aerospace WM data
 │   └── hammerspoon.yaml        # Hammerspoon data
 ├── .chezmoiscripts/            # Bootstrap + maintenance pipeline (00..11)
 ├── nix-config/

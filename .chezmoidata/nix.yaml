@@ -20,6 +20,7 @@ nix:
       - tmux
       - wget
       - zstd
+      - eza
     work:
       - mariadb
       - postgresql

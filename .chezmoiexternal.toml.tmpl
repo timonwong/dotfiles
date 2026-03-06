@@ -154,54 +154,6 @@
 {{- end }}
 
 # ------------------------------------------------------------------------------
-# huggingface/skills ML workflow set
-# ------------------------------------------------------------------------------
-{{- $huggingfaceSkills := list
-  "hugging-face-datasets"
-  "hugging-face-evaluation"
-  "hugging-face-jobs"
-  "hugging-face-model-trainer"
-  "hugging-face-paper-publisher"
-  "hugging-face-tool-builder"
-  "hugging-face-trackio"
-  "hugging-face-cli"
-}}
-{{- range $skill := $huggingfaceSkills }}
-[".agents/skills/ecosystem/huggingface/{{ $skill }}"]
-    type = "archive"
-    url = "https://github.com/huggingface/skills/archive/{{ $.versions.huggingfaceSkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 3
-    include = ["skills-*/skills/{{ $skill }}/**"]
-    refreshPeriod = "168h"
-
-{{- end }}
-
-# ------------------------------------------------------------------------------
-# getsentry/skills engineering set
-# ------------------------------------------------------------------------------
-{{- $getsentrySkills := list
-  "find-bugs"
-  "code-review"
-  "iterate-pr"
-  "security-review"
-  "create-pr"
-  "commit"
-  "code-simplifier"
-  "skill-scanner"
-}}
-{{- range $skill := $getsentrySkills }}
-[".agents/skills/ecosystem/getsentry/{{ $skill }}"]
-    type = "archive"
-    url = "https://github.com/getsentry/skills/archive/{{ $.versions.getsentrySkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 5
-    include = ["skills-*/plugins/sentry-skills/skills/{{ $skill }}/**"]
-    refreshPeriod = "168h"
-
-{{- end }}
-
-# ------------------------------------------------------------------------------
 # trailofbits/skills security review and static analysis set
 # ------------------------------------------------------------------------------
 [".agents/skills/ecosystem/trailofbits/differential-review"]
@@ -320,136 +272,12 @@
 {{- end }}
 
 # ------------------------------------------------------------------------------
-# vercel-labs/agent-skills frontend set
-# ------------------------------------------------------------------------------
-{{- $vercelSkills := list
-  "react-best-practices"
-  "composition-patterns"
-  "web-design-guidelines"
-  "react-native-skills"
-}}
-{{- range $skill := $vercelSkills }}
-[".agents/skills/ecosystem/vercel-labs/{{ $skill }}"]
-    type = "archive"
-    url = "https://github.com/vercel-labs/agent-skills/archive/{{ $.versions.vercelLabsAgentSkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 3
-    include = ["agent-skills-*/skills/{{ $skill }}/**"]
-    refreshPeriod = "168h"
-
-{{- end }}
-
-# ------------------------------------------------------------------------------
-# vercel-labs/next-skills next.js set
-# ------------------------------------------------------------------------------
-{{- $vercelNextSkills := list
-  "next-best-practices"
-  "next-upgrade"
-  "next-cache-components"
-}}
-{{- range $skill := $vercelNextSkills }}
-[".agents/skills/ecosystem/vercel-labs/{{ $skill }}"]
-    type = "archive"
-    url = "https://github.com/vercel-labs/next-skills/archive/{{ $.versions.vercelLabsNextSkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 3
-    include = ["next-skills-*/skills/{{ $skill }}/**"]
-    refreshPeriod = "168h"
-
-{{- end }}
-
-# ------------------------------------------------------------------------------
-# supabase/agent-skills database best practices
-# ------------------------------------------------------------------------------
-[".agents/skills/ecosystem/supabase/supabase-postgres-best-practices"]
-    type = "archive"
-    url = "https://github.com/supabase/agent-skills/archive/{{ $.versions.supabaseAgentSkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 3
-    include = ["agent-skills-*/skills/supabase-postgres-best-practices/**"]
-    refreshPeriod = "168h"
-
-# ------------------------------------------------------------------------------
-# expo/skills deployment workflows
-# ------------------------------------------------------------------------------
-[".agents/skills/ecosystem/expo/expo-deployment"]
-    type = "archive"
-    url = "https://github.com/expo/skills/archive/{{ $.versions.expoSkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 5
-    include = ["skills-*/plugins/expo-deployment/skills/expo-deployment/**"]
-    refreshPeriod = "168h"
-
-[".agents/skills/ecosystem/expo/expo-cicd-workflows"]
-    type = "archive"
-    url = "https://github.com/expo/skills/archive/{{ $.versions.expoSkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 5
-    include = ["skills-*/plugins/expo-deployment/skills/expo-cicd-workflows/**"]
-    refreshPeriod = "168h"
-
-# ------------------------------------------------------------------------------
-# microsoft/skills azure deployment workflow
-# ------------------------------------------------------------------------------
-[".agents/skills/ecosystem/microsoft/azd-deployment"]
-    type = "archive"
-    url = "https://github.com/microsoft/skills/archive/{{ $.versions.microsoftSkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 4
-    include = ["skills-*/.github/skills/azd-deployment/**"]
-    refreshPeriod = "168h"
-
-# ------------------------------------------------------------------------------
-# sickn33/antigravity-awesome-skills aws deployment workflow (non-MCP)
-# ------------------------------------------------------------------------------
-[".agents/skills/ecosystem/sickn33/aws-serverless"]
-    type = "archive"
-    url = "https://github.com/sickn33/antigravity-awesome-skills/archive/{{ $.versions.sickn33AntigravitySkillsRev }}.tar.gz"
-    exact = true
-    stripComponents = 3
-    include = ["antigravity-awesome-skills-*/skills/aws-serverless/**"]
-    refreshPeriod = "168h"
-
-# ------------------------------------------------------------------------------
-# nextlevelbuilder/ui-ux-pro-max-skill (skills only)
-# - Shared UI/UX design intelligence skill for Claude + Codex
-# - Keep SKILL.md and runtime assets in ~/.agents/skills/
-# ------------------------------------------------------------------------------
-[".agents/skills/ui-ux-pro-max"]
-    type = "archive"
-    url = "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/archive/{{ $.versions.uiUxProMaxSkillRev }}.tar.gz"
-    checksum.sha256 = "{{ $.versions.uiUxProMaxSkillSha256 }}"
-    exact = false
-    stripComponents = 4
-    include = ["ui-ux-pro-max-skill-*/.claude/skills/ui-ux-pro-max/SKILL.md"]
-    refreshPeriod = "168h"
-
-[".agents/skills/ui-ux-pro-max/data"]
-    type = "archive"
-    url = "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/archive/{{ $.versions.uiUxProMaxSkillRev }}.tar.gz"
-    checksum.sha256 = "{{ $.versions.uiUxProMaxSkillSha256 }}"
-    exact = true
-    stripComponents = 4
-    include = ["ui-ux-pro-max-skill-*/src/ui-ux-pro-max/data/**"]
-    refreshPeriod = "168h"
-
-[".agents/skills/ui-ux-pro-max/scripts"]
-    type = "archive"
-    url = "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/archive/{{ $.versions.uiUxProMaxSkillRev }}.tar.gz"
-    checksum.sha256 = "{{ $.versions.uiUxProMaxSkillSha256 }}"
-    exact = true
-    stripComponents = 4
-    include = ["ui-ux-pro-max-skill-*/src/ui-ux-pro-max/scripts/**"]
-    refreshPeriod = "168h"
-
-# ------------------------------------------------------------------------------
 # Multilingual Humanizer pack (multilingual namespace layout)
 # - Shared for Claude + Codex under ~/.agents/skills/multilingual/
 # - Keep stable language-suffixed names:
 #   - multilingual/humanizer-en
 #   - multilingual/stop-slop-en
 #   - multilingual/humanizer-zh
-#   - multilingual/humanizer-ja
 # - Commit-pinned via revisions in .chezmoidata/versions.yaml
 # ------------------------------------------------------------------------------
 
@@ -486,17 +314,5 @@
       "Humanizer-zh-*/SKILL.md",
       "Humanizer-zh-*/README.md",
       "Humanizer-zh-*/LICENSE"
-    ]
-    refreshPeriod = "168h"
-
-[".agents/skills/multilingual/humanizer-ja"]
-    type = "archive"
-    url = "https://github.com/kgraph57/humanizer-ja/archive/{{ $.versions.humanizerJaRev }}.tar.gz"
-    exact = true
-    stripComponents = 1
-    include = [
-      "humanizer-ja-*/SKILL.md",
-      "humanizer-ja-*/README.md",
-      "humanizer-ja-*/LICENSE"
     ]
     refreshPeriod = "168h"

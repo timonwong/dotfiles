@@ -23,6 +23,7 @@ error_symbol = "[❯](bold red)"
 
 # Command duration
 [cmd_duration]
+disabled = true
 style = "bold yellow"
 
 [custom.worktree]
@@ -46,6 +47,7 @@ style_user = "bold cyan"
 style_root = "bold red"
 
 [aws]
+disabled = true
 style = "bold orange"
 symbol = "  "
 

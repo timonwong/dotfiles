@@ -3,16 +3,11 @@ nix:
     - git
   homepkgs:
     shared:
-      - "(texliveFull.withPackages (ps: with ps; [ ]))"
       - aria2
       - certbot
-      - dasel
       - dust
       - ffmpeg
-      - ghostscript # gs - PDF/PostScript processor (Snacks.image dependency)
       - hyperfine
-      - mermaid-cli # mmdc - Mermaid diagram renderer (render-markdown.nvim dependency)
-      - imagemagick # magick/convert - image processing (Snacks.image dependency)
       - mise # runtime/tool version manager
       - navi
       - ouch
@@ -20,11 +15,8 @@ nix:
       - sheldon # shell plugin manager (prefer nix build over aqua binary on macOS)
       - openssh
       - openssl
-      - poppler
-      - sniffnet
       - statix # Nix linter
       - nixfmt
-      - tlrc
       - tmux
       - wget
       - zstd

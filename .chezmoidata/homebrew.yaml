@@ -13,12 +13,10 @@ homebrew:
       - mas # Required for masApps installation
   casks:
     shared:
-      - codex
       - codex-app
       - visual-studio-code
       - hammerspoon
       - karabiner-elements
-      # - "mactex"
       - obs
       - orbstack
       - pdf-expert

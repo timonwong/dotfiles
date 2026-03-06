@@ -30,3 +30,7 @@ setopt print_eight_bit
 if [[ -r $HOME/.custom/local.sh ]]; then
   source "$HOME/.custom/local.sh"
 fi
+
+# Start tmux automatically for top-level terminal shells, but always create a
+# fresh session for each terminal window.
+autostart_tmux_new_session

@@ -79,15 +79,11 @@ export JUSTFILE="${XDG_CONFIG_HOME:-$HOME/.config}/just/.justfile"
 # Must be set before sheldon loads the plugin
 # ─────────────────────────────────────────────────────────────
 export ZSH_TMUX_CONFIG="$HOME/.config/tmux/tmux.conf"
-# Disable tmux autostart in non-TTY/nested/managed environments.
-# This prevents startup loops for tool-driven shells.
-if [[ "$TERM_PROGRAM" == "vscode" ]] || [[ -n "$TMUX" ]] || [[ ! -t 0 ]] || [[ ! -t 1 ]]; then
-    export ZSH_TMUX_AUTOSTART=false
-    export ZSH_TMUX_AUTOCONNECT=false
-else
-    export ZSH_TMUX_AUTOSTART=true
-    export ZSH_TMUX_AUTOCONNECT=true
-fi
+# Keep the Oh My Zsh tmux plugin for aliases/helpers, but handle autostart
+# ourselves so each terminal gets a fresh session instead of reconnecting to
+# the shared default session.
+export ZSH_TMUX_AUTOSTART=false
+export ZSH_TMUX_AUTOCONNECT=false
 export ZSH_TMUX_AUTOQUIT=false
 export ZSH_TMUX_DEFAULT_SESSION_NAME="main"
 {{- if eq .chezmoi.os "darwin" }}

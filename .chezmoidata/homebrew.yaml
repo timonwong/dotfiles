@@ -26,7 +26,6 @@ homebrew:
       - 1password
       - 1password-cli
       - betterdisplay
-      - bob-app
       - discord
       - iina # video player
       - telegram
@@ -35,7 +34,6 @@ homebrew:
       - jordanbaird-ice
       - alt-tab
       - nguyenphutrong/tap/quotio
-      - linearmouse
   masApps:
     shared: []
     work: []

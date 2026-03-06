@@ -51,6 +51,10 @@
 [alias]
     # Quick commands (use lazygit for everything else)
     st = status -sb
+    ci = commit -s
+    # dt = difftool --dir-diff --no-symlinks
+	# mt = mergetool
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit
     lg = log --oneline --graph --decorate -10
 
     # Amend without editor (useful for quick fixes)
@@ -94,3 +98,6 @@
 
 [url "ssh://git@bitbucket.org/"]
     insteadOf = https://bitbucket.org/
+
+[url "ssh://git@gitlab-ce.alauda.cn"]
+	insteadOf = https://gitlab-ce.alauda.cn

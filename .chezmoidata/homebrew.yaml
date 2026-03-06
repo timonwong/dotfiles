@@ -13,7 +13,7 @@ homebrew:
       - mas # Required for masApps installation
   casks:
     shared:
-      - ghostty
+      - ghostty@tip
       - codex-app
       - visual-studio-code
       - karabiner-elements

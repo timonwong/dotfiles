@@ -29,11 +29,11 @@ homebrew:
       - discord
       - iina # video player
       - telegram
-      - quotio
       - loop
       - itsycal
       - jordanbaird-ice
       - alt-tab
+      - nguyenphutrong/tap/quotio
   masApps:
     shared: []
     work: []

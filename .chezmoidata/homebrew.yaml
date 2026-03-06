@@ -22,6 +22,9 @@ homebrew:
       - tailscale-app
     work: []
     private:
+      - 1password
+      - 1password-cli
+      - betterdisplay
       - bob-app
       - discord
       - iina # video player

@@ -27,7 +27,6 @@ packages:
   - name: junegunn/fzf@v0.70.0
   - name: gopasspw/gopass@v1.16.1
   - name: cli/cli@v2.87.3
-  - name: dlvhdr/gh-dash@v4.23.0
   - name: x-motemen/ghq@v1.9.4
   - name: git-lfs/git-lfs@v3.7.1
   - name: charmbracelet/glow@v2.1.1

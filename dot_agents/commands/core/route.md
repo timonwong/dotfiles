@@ -52,7 +52,7 @@ For `C3` and `C4`, enforce:
 - First executable command MUST be: `openspec new change <change-name>`
 - Optional wrapper shortcuts (when installed):
   - Claude Code: `/opsx:new <change-name>`
-  - Codex/OpenCode: `/opsx-new <change-name>`
+  - Codex: `/opsx-new <change-name>`
 - If wrapper shortcuts are missing/outdated, run `openspec update` (or `openspec init --tools <tool>` if not initialized)
 
 ## Required Output Contract

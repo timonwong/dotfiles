@@ -163,7 +163,7 @@ OpenSpec checkpoints:
 - CLI: `openspec new change <change-name>` -> `openspec status --change <change-name>` -> `openspec validate <change-name>` -> `openspec archive <change-name>`
 - Shortcuts (optional): `/opsx-new` -> `/opsx-ff` -> `/opsx-apply` -> `/opsx-verify` -> `/opsx-archive`
 
-Cross-tool syntax note: Claude `/opsx:*` (colon), Codex/OpenCode `/opsx-*` (hyphen).
+Cross-tool syntax note: Claude `/opsx:*` (colon), Codex `/opsx-*` (hyphen).
 
 Always track `openspec/**` in git and archive active changes before merge.
 

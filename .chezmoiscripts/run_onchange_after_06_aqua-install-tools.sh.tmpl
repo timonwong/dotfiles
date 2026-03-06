@@ -3,7 +3,7 @@
 set -euo pipefail
 
 {{ $aquaConfig := joinPath .chezmoi.homeDir ".config/aquaproj-aqua/aqua.yaml" -}}
-# aqua config: {{ if stat $aquaConfig }}{{ output "sha256sum" $aquaConfig | trim }}{{ else }}n/a{{ end }}
+# aqua config: {{ if stat $aquaConfig }}{{ include $aquaConfig | sha256sum }}{{ else }}n/a{{ end }}
 # weekly trigger: {{ output "date" "+%G-%V" | trim }}
 
 echo ":: [06] Installing aqua tools"

@@ -83,7 +83,7 @@ repos:
               fi
             done
 
-            # Chezmoi config with claude data for template rendering
+            # Chezmoi config for template rendering
             cat > "$tmpdir/chezmoi.toml" << EOF
           [data]
           hostname = "test"
@@ -99,7 +99,6 @@ repos:
           headless = false
           gopassRepository = "git@github.com:test/pass.git"
           keysRepository = "git@github.com:test/keys.git"
-          codexProviderAccount = "openai"
           EOF
 
             # Render templates to tmpdir

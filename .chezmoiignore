@@ -36,9 +36,7 @@ nix-config/modules/host-users.nix
 .chezmoiscripts/10_update_homebrew_packages.sh
 
 # macOS-only GUI apps (target paths)
-.config/borders/
 .config/karabiner/
-.config/ghostty/
 .config/hammerspoon/
 {{- end }}
 
@@ -47,9 +45,7 @@ nix-config/modules/host-users.nix
 # ─────────────────────────────────────────────────────────────────────────────
 {{- if .headless }}
 # GUI apps (not needed on headless servers)
-.config/borders/
 .config/karabiner/
-.config/ghostty/
 .config/hammerspoon/
 {{- end }}
 

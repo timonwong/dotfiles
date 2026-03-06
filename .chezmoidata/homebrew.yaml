@@ -1,15 +1,12 @@
 homebrew:
   taps:
-    shared:
-      - nikitabobko/tap
-      - FelixKratz/formulae
+    shared: []
     work: []
     private: []
   brews:
     shared:
       - macos-trash
       - mole
-      - borders
     work:
       - cliclick # macOS only - GUI automation
       - awscli
@@ -29,7 +26,6 @@ homebrew:
       - orbstack
       - pdf-expert
       - tailscale-app
-      - zen
     work: []
     private:
       - bob-app

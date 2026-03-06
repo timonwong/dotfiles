@@ -45,18 +45,19 @@
       # customize dock
       dock = {
         autohide = true;
+        autohide-delay = 0.3;
         show-recents = false; # disable recent apps
 
         # customize Hot Corners
-        wvous-tl-corner = 2; # top-left - Mission Control
+        wvous-tl-corner = 1; # top-left - Disabled (was Lock Screen)
         wvous-tr-corner = 1; # top-right - Disabled (was Lock Screen)
-        wvous-bl-corner = 3; # bottom-left - Application Windows
-        wvous-br-corner = 4; # bottom-right - Desktop
+        wvous-bl-corner = 1; # bottom-left - Disabled (was Lock Screen)
+        wvous-br-corner = 14; # bottom-right - Quick Note
       };
 
       # customize finder
       finder = {
-        _FXShowPosixPathInTitle = true; # show full path in finder title
+        _FXShowPosixPathInTitle = false; # show full path in finder title
         AppleShowAllExtensions = true; # show all file extensions
         FXEnableExtensionChangeWarning = false; # disable warning when changing file extension
         QuitMenuItem = true; # enable quit menu item
@@ -69,6 +70,10 @@
         Clicking = true; # enable tap to click
         TrackpadRightClick = true; # enable two finger right click
         TrackpadThreeFingerDrag = false; # disable to allow three-finger swipe for Mission Control
+        TrackpadThreeFingerVertSwipeGesture = 0;
+        TrackpadThreeFingerHorizSwipeGesture = 0;
+        TrackpadFourFingerVertSwipeGesture = 2;
+        TrackpadFourFingerHorizSwipeGesture = 2;
       };
 
       # customize settings that not supported by nix-darwin directly
@@ -77,7 +82,7 @@
       NSGlobalDomain = {
         # `defaults read NSGlobalDomain "xxx"`
         "_HIHideMenuBar" = false; # always show menu bar
-        "com.apple.swipescrolldirection" = false; # enable natural scrolling(default to true)
+        # "com.apple.swipescrolldirection" = false; # enable natural scrolling(default to true)
         "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
         "com.apple.keyboard.fnState" = true; # F1-F12 as standard function keys (REQUIRES RESTART)
         AppleInterfaceStyle = null; # dark mode

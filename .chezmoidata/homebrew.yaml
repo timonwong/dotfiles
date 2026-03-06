@@ -3,8 +3,7 @@ homebrew:
     shared:
       - nikitabobko/tap
       - FelixKratz/formulae
-    work:
-      - azure/functions
+    work: []
     private: []
   brews:
     shared:
@@ -16,79 +15,33 @@ homebrew:
       - awscli
       - aws-sam-cli
       - azure-cli
-      - azure-functions-core-tools
     private:
       - mas # Required for masApps installation
   casks:
     shared:
-      - bitwarden # Password manager (backup age key and daily passwords)
       - codex-app
       - conductor # Claude code parallelisation
-      - dockdoor
       - visual-studio-code
       - hammerspoon
       - karabiner-elements
-      - keka
-      - keyboardcleantool
-      - ghostty
       # - "mactex"
-      - mockoon
-      - notion
       - obs
       - orbstack
       - pdf-expert
-      - raycast # (HotKey: alt/option + space)search, caculate and run scripts(with many plugins)
-      - rustdesk
-      - slack
-      - slidepilot
-      - stats
       - tailscale-app
       - zen
-    work:
-      - dbeaver-community
-      - obsidian
-      - cursor
-      - gcloud-cli
+    work: []
     private:
-      - cherry-studio # Multi-model AI desktop client
-      - adguard
-      - balenaetcher
       - bob-app
       - discord
-      - grammarly-desktop
       - iina # video player
-      - logseq
-      - notion-calendar
-      - setapp
-      - soundsource
-      - surge
       - telegram
       - zoom
   masApps:
     shared: []
     work: []
     private:
-      - - KeystrokePro
-        - "1572206224"
-      - - Messenger
-        - "1480068668"
-      - - Texifier
-        - "458866234"
-      - - Notability
-        - "360593530"
-      - - Goodnotes6
-        - "1444383602"
-      - - MSWord
-        - "462054704"
-      - - MSExcel
-        - "462058435"
-      - - MSPowerPoint
-        - "462062816"
-      - - OneDrive
-        - "823766827"
       - - WeChat
         - "836500024"
       - - QQ
         - "451108668"
-      - - Spokenly
-        - "6740315592"

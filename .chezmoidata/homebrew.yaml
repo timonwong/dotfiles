@@ -30,6 +30,7 @@ homebrew:
       - iina # video player
       - telegram
       - quotio
+      - loop
   masApps:
     shared: []
     work: []

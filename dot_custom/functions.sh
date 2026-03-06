@@ -23,65 +23,6 @@ bindkey '^[[1;3B' _cd_back
 bindkey '^[^[[A' _cd_up
 bindkey '^[^[[B' _cd_back
 
-# Autostart tmux with a fresh per-terminal session.
-_is_managed_terminal() {
-    [[ "$TERM_PROGRAM" == "vscode" ]] ||
-        [[ "$TERM_PROGRAM" == "zed" ]] ||
-        [[ -n "$VSCODE_PID" ]] ||
-        [[ -n "$ZED_TERM" ]] ||
-        [[ -n "$INSIDE_EMACS" ]] ||
-        [[ -n "$EMACS" ]] ||
-        [[ "${TERMINAL_EMULATOR:-}" == "JetBrains-JediTerm" ]]
-}
-
-_tmux_autostart_session_base() {
-    local base=""
-
-    case "$PWD" in
-    "$HOME") base="home" ;;
-    /) base="root" ;;
-    *)
-        base="${PWD:t}"
-        ;;
-    esac
-
-    base="${base//[^[:alnum:]._-]/-}"
-    [[ -n "$base" ]] || base="shell"
-    printf '%s\n' "$base"
-}
-
-_run_tmux() {
-    local tmux_config="${ZSH_TMUX_CONFIG/#\~/$HOME}"
-
-    if [[ -n "$ZSH_TMUX_CONFIG" ]] && [[ -r "$tmux_config" ]]; then
-        command tmux -f "$tmux_config" "$@"
-    else
-        command tmux "$@"
-    fi
-}
-
-autostart_tmux_new_session() {
-    local base=""
-    local name=""
-    local suffix=2
-
-    [[ -o interactive ]] || return 0
-    [[ -t 0 && -t 1 ]] || return 0
-    [[ -n "$TMUX" ]] && return 0
-    (( ${SHLVL:-1} <= 1 )) || return 0
-    _is_managed_terminal && return 0
-    command -v tmux >/dev/null 2>&1 || return 0
-
-    base="$(_tmux_autostart_session_base)"
-    name="$base"
-    while _run_tmux has-session -t "$name" >/dev/null 2>&1; do
-        name="${base}-${suffix}"
-        ((suffix++))
-    done
-
-    _run_tmux new-session -s "$name"
-}
-
 # FZF-powered shell functions
 
 # ─────────────────────────────────────────────────────────────

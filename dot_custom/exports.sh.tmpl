@@ -79,9 +79,7 @@ export JUSTFILE="${XDG_CONFIG_HOME:-$HOME/.config}/just/.justfile"
 # Must be set before sheldon loads the plugin
 # ─────────────────────────────────────────────────────────────
 export ZSH_TMUX_CONFIG="$HOME/.config/tmux/tmux.conf"
-# Keep the Oh My Zsh tmux plugin for aliases/helpers, but handle autostart
-# ourselves so each terminal gets a fresh session instead of reconnecting to
-# the shared default session.
+# Keep the Oh My Zsh tmux plugin for aliases/helpers only.
 export ZSH_TMUX_AUTOSTART=false
 export ZSH_TMUX_AUTOCONNECT=false
 export ZSH_TMUX_AUTOQUIT=false

@@ -83,20 +83,50 @@
 
 ## 目录
 
-- [快速开始](#快速开始)
-- [首次运行会询问什么](#首次运行会询问什么)
+- [这个仓库是什么](#这个仓库是什么)
+- [亮点](#亮点)
+- [为什么选择这个仓库](#为什么选择这个仓库)
+- [设计理念](#设计理念)
+- [目录](#目录)
 - [架构](#架构)
 - [仓库结构](#仓库结构)
 - [Bootstrap 流程（实际执行顺序）](#bootstrap-流程实际执行顺序)
+- [快速开始](#快速开始)
+  - [方式 1：直接运行 `init.sh`](#方式-1直接运行-initsh)
+  - [方式 2：固定 tag/branch 并先审阅](#方式-2固定-tagbranch-并先审阅)
+  - [方式 3：本地 clone 后执行（审计性最佳）](#方式-3本地-clone-后执行审计性最佳)
+  - [`init.sh` 常用参数](#initsh-常用参数)
+- [首次运行会询问什么](#首次运行会询问什么)
 - [日常操作](#日常操作)
+  - [Chezmoi](#chezmoi)
+  - [Nix](#nix)
+  - [macOS（`nix-darwin`）](#macosnix-darwin)
+  - [测试](#测试)
 - [Claude Code 集成](#claude-code-集成)
+  - [插件系统](#插件系统)
+  - [质量协议](#质量协议)
+  - [Provider 管理](#provider-管理)
+  - [Hooks](#hooks)
 - [AI 工具链（Claude + Codex）](#ai-工具链claude--codex)
+  - [共享 Skills 分发](#共享-skills-分发)
+  - [Account 与 Provider 管理](#account-与-provider-管理)
+  - [Token Helpers](#token-helpers)
+  - [MCP 集成](#mcp-集成)
+    - [任务 -\> MCP 路由](#任务---mcp-路由)
 - [工具链](#工具链)
+  - [现代 CLI 替代](#现代-cli-替代)
+  - [Shell 环境](#shell-环境)
+  - [开发工具](#开发工具)
 - [Shell 函数](#shell-函数)
+  - [项目跳转](#项目跳转)
+  - [Git 工作流](#git-工作流)
+  - [环境初始化](#环境初始化)
 - [包管理](#包管理)
 - [多 Profile 配置](#多-profile-配置)
 - [安全与加密](#安全与加密)
 - [CI 与自动化](#ci-与自动化)
+  - [校验流水线](#校验流水线)
+  - [自动维护](#自动维护)
 - [工作流路由（C1-C4）](#工作流路由c1-c4)
 - [更多文档](#更多文档)
 - [致谢](#致谢)
@@ -163,9 +193,8 @@
 7. `06` 根据 `private_dot_config/aquaproj-aqua/aqua.yaml` 安装工具
 8. `07` 通过 `mise` 安装 runtime 与工具
 9. `08` 下载固定版本 nix-index 数据库
-10. `09` macOS：安装/更新 Paperlib
-11. `10` 周期性 Homebrew 更新（7 天间隔）
-12. `11` 同步 Claude MCP servers（仅缺失/不一致时更新）
+10. `09` 周期性 Homebrew 更新（7 天间隔）
+11. `10` 同步 Claude MCP servers（仅缺失/不一致时更新）
 
 ---
 

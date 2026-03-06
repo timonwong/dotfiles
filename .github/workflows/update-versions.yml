@@ -31,8 +31,6 @@ jobs:
           aqua_installer_sha256=$(curl_sha256 "https://raw.githubusercontent.com/aquaproj/aqua-installer/${aqua_installer}/aqua-installer")
           aqua_version=$(gh release view --repo aquaproj/aqua --json tagName -q '.tagName')
           nix_index_db=$(gh release view --repo nix-community/nix-index-database --json tagName -q '.tagName')
-          # paperlib tag format: release-electron-X.Y.Z -> extract X.Y.Z
-          paperlib=$(gh release view --repo Future-Scholars/paperlib --json tagName -q '.tagName' | sed 's/release-electron-//')
 
           claude_wshobson_agents_rev=$(gh api repos/wshobson/agents/commits/main -q '.sha')
           claude_wshobson_agents_sha256=$(curl_sha256 "https://github.com/wshobson/agents/archive/${claude_wshobson_agents_rev}.tar.gz")
@@ -65,7 +63,6 @@ jobs:
             echo "aqua_installer_sha256=$aqua_installer_sha256"
             echo "aqua_version=$aqua_version"
             echo "nix_index_db=$nix_index_db"
-            echo "paperlib=$paperlib"
             echo "claude_wshobson_agents_rev=$claude_wshobson_agents_rev"
             echo "claude_wshobson_agents_sha256=$claude_wshobson_agents_sha256"
             echo "claude_superpowers_rev=$claude_superpowers_rev"
@@ -100,7 +97,6 @@ jobs:
           sed -i 's/aquaInstallerSha256: .*/aquaInstallerSha256: ${{ steps.versions.outputs.aqua_installer_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/aquaVersion: .*/aquaVersion: ${{ steps.versions.outputs.aqua_version }}/' .chezmoidata/versions.yaml
           sed -i 's/nixIndexDb: .*/nixIndexDb: ${{ steps.versions.outputs.nix_index_db }}/' .chezmoidata/versions.yaml
-          sed -i 's/paperlib: .*/paperlib: ${{ steps.versions.outputs.paperlib }}/' .chezmoidata/versions.yaml
           sed -i 's/claudeWshobsonAgentsRev: .*/claudeWshobsonAgentsRev: ${{ steps.versions.outputs.claude_wshobson_agents_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/claudeWshobsonAgentsSha256: .*/claudeWshobsonAgentsSha256: ${{ steps.versions.outputs.claude_wshobson_agents_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/claudeSuperpowersRev: .*/claudeSuperpowersRev: ${{ steps.versions.outputs.claude_superpowers_rev }}/' .chezmoidata/versions.yaml
@@ -158,7 +154,6 @@ jobs:
             | aqua-installer sha256 | `${{ steps.versions.outputs.aqua_installer_sha256 }}` |
             | aqua | `${{ steps.versions.outputs.aqua_version }}` |
             | nix-index-database | `${{ steps.versions.outputs.nix_index_db }}` |
-            | paperlib | `${{ steps.versions.outputs.paperlib }}` |
             | openai/skills | `${{ steps.versions.outputs.openai_skills_rev }}` |
             | huggingface/skills | `${{ steps.versions.outputs.huggingface_skills_rev }}` |
             | getsentry/skills | `${{ steps.versions.outputs.getsentry_skills_rev }}` |

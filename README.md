@@ -3,7 +3,7 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0:282a36,100:bd93f9&height=200&section=header&text=~/.dotfiles&fontSize=48&fontColor=f8f8f2&fontAlignY=30&desc=Chezmoi%20%C2%B7%20Nix%20%C2%B7%20AI%20tooling&descSize=16&descColor=8be9fd&descAlignY=55&animation=fadeIn)
 
 <p>
-  <a href="https://github.com/timonwong/dotfiles/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/timonwong/dotfiles/ci.yml?style=for-the-badge&logo=github&label=CI"></a>&nbsp;
+  <a href="https://github.com/signalridge/dotfiles/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/signalridge/dotfiles/ci.yml?style=for-the-badge&logo=github&label=CI"></a>&nbsp;
   <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge"></a>&nbsp;
   <img alt="macOS" src="https://img.shields.io/badge/macOS-Sonoma+-000000?style=for-the-badge&logo=apple&logoColor=white">&nbsp;
   <img alt="Linux" src="https://img.shields.io/badge/Linux-supported-FCC624?style=for-the-badge&logo=linux&logoColor=black">
@@ -85,20 +85,50 @@ Core principles:
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
-- [First Run Prompts](#first-run-prompts)
+- [What This Repo Is](#what-this-repo-is)
+- [Highlights](#highlights)
+- [Why This Repo](#why-this-repo)
+- [Motivation](#motivation)
+- [Table of Contents](#table-of-contents)
 - [Architecture](#architecture)
 - [Repository Map](#repository-map)
 - [Bootstrap Flow (What Actually Runs)](#bootstrap-flow-what-actually-runs)
+- [Quick Start](#quick-start)
+  - [Option 1: Run `init.sh` directly](#option-1-run-initsh-directly)
+  - [Option 2: Pin to a tag/branch and review first](#option-2-pin-to-a-tagbranch-and-review-first)
+  - [Option 3: Clone and run locally (best auditability)](#option-3-clone-and-run-locally-best-auditability)
+  - [Useful `init.sh` flags](#useful-initsh-flags)
+- [First Run Prompts](#first-run-prompts)
 - [Daily Operations](#daily-operations)
+  - [Chezmoi](#chezmoi)
+  - [Nix](#nix)
+  - [macOS (`nix-darwin`)](#macos-nix-darwin)
+  - [Tests](#tests)
 - [Claude Code Integration](#claude-code-integration)
+  - [Plugin System](#plugin-system)
+  - [Quality Protocols](#quality-protocols)
+  - [Provider Management](#provider-management)
+  - [Hooks](#hooks)
 - [AI Tooling (Claude + Codex)](#ai-tooling-claude--codex)
+  - [Shared Skill Distribution](#shared-skill-distribution)
+  - [Account + Provider Control](#account--provider-control)
+  - [Token Helpers](#token-helpers)
+  - [MCP Integration](#mcp-integration)
+    - [Task -\> MCP Routing](#task---mcp-routing)
 - [Tool Chains](#tool-chains)
+  - [Modern CLI Replacements](#modern-cli-replacements)
+  - [Shell Environment](#shell-environment)
+  - [Development Tools](#development-tools)
 - [Shell Functions](#shell-functions)
+  - [Project Navigation](#project-navigation)
+  - [Git Workflow](#git-workflow)
+  - [Environment Setup](#environment-setup)
 - [Package Management](#package-management)
 - [Multi-Profile Configuration](#multi-profile-configuration)
-- [Security & Secrets](#security--secrets)
+- [Security \& Secrets](#security--secrets)
 - [CI and Automation](#ci-and-automation)
+  - [Validation](#validation)
+  - [Automated Upkeep](#automated-upkeep)
 - [Workflow Routing (C1-C4)](#workflow-routing-c1-c4)
 - [Additional Docs](#additional-docs)
 - [Acknowledgements](#acknowledgements)
@@ -165,9 +195,8 @@ The `chezmoi` script chain is staged and numbered:
 7. `06` install tools from `private_dot_config/aquaproj-aqua/aqua.yaml`
 8. `07` install runtimes/tools via `mise`
 9. `08` install pinned nix-index database
-10. `09` macOS: install/update Paperlib
-11. `10` periodic Homebrew update/upgrade (7-day interval)
-12. `11` sync Claude MCP servers (add/update only when needed)
+10. `10` periodic Homebrew update/upgrade (7-day interval)
+11. `11` sync Claude MCP servers (add/update only when needed)
 
 ---
 
@@ -180,14 +209,14 @@ The `chezmoi` script chain is staged and numbered:
 ### Option 1: Run `init.sh` directly
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh
+curl -fsSL https://raw.githubusercontent.com/signalridge/dotfiles/main/init.sh | sh
 ```
 
 ### Option 2: Pin to a tag/branch and review first
 
 ```bash
 REF="<tag-or-branch>"
-curl -fsSLo init.sh "https://raw.githubusercontent.com/timonwong/dotfiles/${REF}/init.sh"
+curl -fsSLo init.sh "https://raw.githubusercontent.com/signalridge/dotfiles/${REF}/init.sh"
 shasum -a 256 init.sh || sha256sum init.sh
 sh init.sh --ref "${REF}"
 ```
@@ -195,7 +224,7 @@ sh init.sh --ref "${REF}"
 ### Option 3: Clone and run locally (best auditability)
 
 ```bash
-git clone https://github.com/timonwong/dotfiles.git
+git clone https://github.com/signalridge/dotfiles.git
 cd dotfiles
 git checkout <tag-or-commit>
 ./init.sh
@@ -204,7 +233,7 @@ git checkout <tag-or-commit>
 ### Useful `init.sh` flags
 
 ```bash
-./init.sh --repo timonwong/dotfiles
+./init.sh --repo signalridge/dotfiles
 ./init.sh --ref v1.2.3
 ./init.sh --depth 1
 ./init.sh --ssh
@@ -434,13 +463,13 @@ Package lists live in `.chezmoidata/` and support `shared` / `work` / `private` 
 
 ```bash
 # For work machines
-chezmoi init --apply --promptBool work=true timonwong
+chezmoi init --apply --promptBool work=true signalridge
 
 # For personal machines (default)
-chezmoi init --apply timonwong
+chezmoi init --apply signalridge
 
 # For headless servers (no GUI configs)
-chezmoi init --apply --promptBool headless=true timonwong
+chezmoi init --apply --promptBool headless=true signalridge
 ```
 
 ---

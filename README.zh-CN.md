@@ -3,7 +3,7 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0:282a36,100:bd93f9&height=200&section=header&text=~/.dotfiles&fontSize=48&fontColor=f8f8f2&fontAlignY=30&desc=Chezmoi%20%C2%B7%20Nix%20%C2%B7%20AI%20tooling&descSize=16&descColor=8be9fd&descAlignY=55&animation=fadeIn)
 
 <p>
-  <a href="https://github.com/signalridge/dotfiles/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/signalridge/dotfiles/ci.yml?style=for-the-badge&logo=github&label=CI"></a>&nbsp;
+  <a href="https://github.com/timonwong/dotfiles/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/timonwong/dotfiles/ci.yml?style=for-the-badge&logo=github&label=CI"></a>&nbsp;
   <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge"></a>&nbsp;
   <img alt="macOS" src="https://img.shields.io/badge/macOS-Sonoma+-000000?style=for-the-badge&logo=apple&logoColor=white">&nbsp;
   <img alt="Linux" src="https://img.shields.io/badge/Linux-supported-FCC624?style=for-the-badge&logo=linux&logoColor=black">
@@ -178,14 +178,14 @@
 ### 方式 1：直接运行 `init.sh`
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/signalridge/dotfiles/main/init.sh | sh
+curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh
 ```
 
 ### 方式 2：固定 tag/branch 并先审阅
 
 ```bash
 REF="<tag-or-branch>"
-curl -fsSLo init.sh "https://raw.githubusercontent.com/signalridge/dotfiles/${REF}/init.sh"
+curl -fsSLo init.sh "https://raw.githubusercontent.com/timonwong/dotfiles/${REF}/init.sh"
 shasum -a 256 init.sh || sha256sum init.sh
 sh init.sh --ref "${REF}"
 ```
@@ -193,7 +193,7 @@ sh init.sh --ref "${REF}"
 ### 方式 3：本地 clone 后执行（审计性最佳）
 
 ```bash
-git clone https://github.com/signalridge/dotfiles.git
+git clone https://github.com/timonwong/dotfiles.git
 cd dotfiles
 git checkout <tag-or-commit>
 ./init.sh
@@ -202,7 +202,7 @@ git checkout <tag-or-commit>
 ### `init.sh` 常用参数
 
 ```bash
-./init.sh --repo signalridge/dotfiles
+./init.sh --repo timonwong/dotfiles
 ./init.sh --ref v1.2.3
 ./init.sh --depth 1
 ./init.sh --ssh
@@ -432,13 +432,13 @@ create_py_project   # 使用 uv 快速初始化 Python 项目
 
 ```bash
 # 工作机器
-chezmoi init --apply --promptBool work=true signalridge
+chezmoi init --apply --promptBool work=true timonwong
 
 # 个人机器（默认）
-chezmoi init --apply signalridge
+chezmoi init --apply timonwong
 
 # 无头服务器（不需要 GUI 配置）
-chezmoi init --apply --promptBool headless=true signalridge
+chezmoi init --apply --promptBool headless=true timonwong
 ```
 
 ---

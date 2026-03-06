@@ -13,8 +13,8 @@ usage() {
 Usage: init.sh [options] [-- <chezmoi init flags>]
 
 Options:
-  --repo <repo>     Repo to init from (default: signalridge)
-                   Examples: signalridge, signalridge/dotfiles, git@github.com:signalridge/dotfiles.git
+  --repo <repo>     Repo to init from (default: timonwong)
+                   Examples: timonwong, timonwong/dotfiles, git@github.com:timonwong/dotfiles.git
   --ref <ref>       Branch or tag to checkout (maps to: chezmoi init --branch)
   --depth <n>       Shallow clone depth (maps to: chezmoi init --depth)
   --ssh             Use SSH when guessing repo URL (maps to: chezmoi init --ssh)
@@ -26,11 +26,11 @@ Environment:
 Examples:
   ./init.sh
   ./init.sh --ref <tag-or-branch>
-  curl -fsLS https://raw.githubusercontent.com/signalridge/dotfiles/<tag-or-branch>/init.sh | sh -s -- --ref <tag-or-branch>
+  curl -fsLS https://raw.githubusercontent.com/timonwong/dotfiles/<tag-or-branch>/init.sh | sh -s -- --ref <tag-or-branch>
 EOF
 }
 
-repo="${DOTFILES_REPO:-signalridge}"
+repo="${DOTFILES_REPO:-timonwong}"
 ref="${DOTFILES_REF:-}"
 depth="${DOTFILES_DEPTH:-}"
 ssh="${DOTFILES_SSH:-}"

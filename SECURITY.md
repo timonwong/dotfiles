@@ -14,7 +14,7 @@ Please do **not** disclose vulnerabilities in public issues or pull requests.
 
 Use GitHub private vulnerability reporting:
 
-- https://github.com/signalridge/dotfiles/security/advisories/new
+- https://github.com/timonwong/dotfiles/security/advisories/new
 
 ## What to Include
 

@@ -3,7 +3,7 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0:282a36,100:bd93f9&height=200&section=header&text=~/.dotfiles&fontSize=48&fontColor=f8f8f2&fontAlignY=30&desc=Chezmoi%20%C2%B7%20Nix%20%C2%B7%20AI%20tooling&descSize=16&descColor=8be9fd&descAlignY=55&animation=fadeIn)
 
 <p>
-  <a href="https://github.com/signalridge/dotfiles/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/signalridge/dotfiles/ci.yml?style=for-the-badge&logo=github&label=CI"></a>&nbsp;
+  <a href="https://github.com/timonwong/dotfiles/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/timonwong/dotfiles/ci.yml?style=for-the-badge&logo=github&label=CI"></a>&nbsp;
   <a href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge"></a>&nbsp;
   <img alt="macOS" src="https://img.shields.io/badge/macOS-Sonoma+-000000?style=for-the-badge&logo=apple&logoColor=white">&nbsp;
   <img alt="Linux" src="https://img.shields.io/badge/Linux-supported-FCC624?style=for-the-badge&logo=linux&logoColor=black">
@@ -180,14 +180,14 @@ The `chezmoi` script chain is staged and numbered:
 ### Option 1: Run `init.sh` directly
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/signalridge/dotfiles/main/init.sh | sh
+curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh
 ```
 
 ### Option 2: Pin to a tag/branch and review first
 
 ```bash
 REF="<tag-or-branch>"
-curl -fsSLo init.sh "https://raw.githubusercontent.com/signalridge/dotfiles/${REF}/init.sh"
+curl -fsSLo init.sh "https://raw.githubusercontent.com/timonwong/dotfiles/${REF}/init.sh"
 shasum -a 256 init.sh || sha256sum init.sh
 sh init.sh --ref "${REF}"
 ```
@@ -195,7 +195,7 @@ sh init.sh --ref "${REF}"
 ### Option 3: Clone and run locally (best auditability)
 
 ```bash
-git clone https://github.com/signalridge/dotfiles.git
+git clone https://github.com/timonwong/dotfiles.git
 cd dotfiles
 git checkout <tag-or-commit>
 ./init.sh
@@ -204,7 +204,7 @@ git checkout <tag-or-commit>
 ### Useful `init.sh` flags
 
 ```bash
-./init.sh --repo signalridge/dotfiles
+./init.sh --repo timonwong/dotfiles
 ./init.sh --ref v1.2.3
 ./init.sh --depth 1
 ./init.sh --ssh
@@ -434,13 +434,13 @@ Package lists live in `.chezmoidata/` and support `shared` / `work` / `private` 
 
 ```bash
 # For work machines
-chezmoi init --apply --promptBool work=true signalridge
+chezmoi init --apply --promptBool work=true timonwong
 
 # For personal machines (default)
-chezmoi init --apply signalridge
+chezmoi init --apply timonwong
 
 # For headless servers (no GUI configs)
-chezmoi init --apply --promptBool headless=true signalridge
+chezmoi init --apply --promptBool headless=true timonwong
 ```
 
 ---

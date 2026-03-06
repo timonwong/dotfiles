@@ -8,7 +8,6 @@ versions:
   aquaInstallerSha256: acd21cbb06609dd9a701b0032ba4c21fa37b0e3b5cc4c9d721cc02f25ea33a28
   aquaVersion: v2.56.7
   nixIndexDb: 2026-03-01-044622
-  paperlib: 3.1.12
   claudeWshobsonAgentsRev: ade0c7a211d04fa1354d10359737cace5c6fc5b0
   claudeWshobsonAgentsSha256: 9c6ca3e8b637de4f443d210497c263ff697f377c56b27e8f92752514bb0c798c
   claudeSuperpowersRev: e4a2375cb705ca5800f0833528ce36a3faf9017a

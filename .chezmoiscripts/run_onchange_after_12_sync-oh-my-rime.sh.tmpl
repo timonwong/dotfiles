@@ -3,9 +3,11 @@
 set -euo pipefail
 
 {{ $defaultCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/default.custom.yaml.tmpl" -}}
+{{ $rimeMintCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/rime_mint.custom.yaml.tmpl" -}}
 {{ $squirrelCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/squirrel.custom.yaml.tmpl" -}}
 {{ $ibusCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/ibus_rime.custom.yaml.tmpl" -}}
 # default.custom.yaml.tmpl: {{ if stat $defaultCustom }}{{ include $defaultCustom | sha256sum }}{{ else }}n/a{{ end }}
+# rime_mint.custom.yaml.tmpl: {{ if stat $rimeMintCustom }}{{ include $rimeMintCustom | sha256sum }}{{ else }}n/a{{ end }}
 # squirrel.custom.yaml.tmpl: {{ if stat $squirrelCustom }}{{ include $squirrelCustom | sha256sum }}{{ else }}n/a{{ end }}
 # ibus_rime.custom.yaml.tmpl: {{ if stat $ibusCustom }}{{ include $ibusCustom | sha256sum }}{{ else }}n/a{{ end }}
 

@@ -1,0 +1,105 @@
+# Rime schema
+# encoding: utf-8
+
+patch:
+  speller/algebra:
+    - xlit/āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜü/aaaaooooeeeeiiiiuuuuvvvvv/  # 万象词库 Start
+    - xform/^ng$/eng/
+    - xform/ńg|ňg|ǹg/eng/
+    - xform/ń|ň|ǹ/en/                                            # 万象词库 End
+    - erase/^xx$/ # 首选保留
+    # 模糊音
+    - derive/^([zcs])h/$1/ # zh, ch, sh => z, c, s
+    - derive/^([zcs])([^h])/$1h$2/ # z, c, s => zh, ch, sh
+    - derive/([ei])n$/$1ng/ # an => ang, en => eng, in => ing
+    - derive/([ei])ng$/$1n/ # ang => an, eng => en, ing => in
+    # - derive/([aei])n$/$1ng/ # an => ang, en => eng, in => ing
+    # - derive/([aei])ng$/$1n/ # ang => an, eng => en, ing => in
+    # - derive/([iu])an$/$lan/ # ian => iang, uan => uang
+    # - derive/([iu])ang$/$lan/ # iang => ian, uang => uan
+    - derive/([aeiou])ng$/$1gn/            # dagn => dang
+    - derive/([dtngkhrzcs])o(u|ng)$/$1o/   # zho => zhong|zhou
+    - derive/ong$/on/                      # zhonguo => zhong guo
+    - derive/un$/ong/                      # yuntong = yongtong
+    ## 简拼
+    - derive/^([zcs]h).+$/$1/              # 特别处理 zh, ch, sh 的首字母简写
+    - abbrev/^([a-z]).+$/$1/               # 允许使用首字母作为缩写
+    # 简拼: 允许使用前两个字母作为缩写
+    # - abbrev/^([a-z]{2,}).+$/$1/         # zem -> zen me -> 怎么
+    ### 自动纠错
+    # 有些规则对全拼简拼混输有副作用：如「x'ai 喜爱」被纠错为「xia 下」
+    # zh、ch、sh
+    - derive/([zcs])h(a|e|i|u|ai|ei|an|en|ou|uo|ua|un|ui|uan|uai|uang|ang|eng|ong)$/h$1$2/  # hzi → zhi
+    - derive/([zcs])h([aeiu])$/$1$2h/      # zih → zhi
+    # ai
+    - derive/^([wghk])ai$/$1ia/            # wia → wai
+    # ia
+    - derive/([qjx])ia$/$1ai/              # qai → qia
+    # ei
+    - derive/([wtfghkz])ei$/$1ie/
+    # ie
+    - derive/([jqx])ie$/$1ei/
+    # ao
+    - derive/([rtypsdghklzcbnm])ao$/$1oa/
+    # ou
+    - derive/([ypfm])ou$/$1uo/
+    # uo（无）
+    # an
+    - derive/([wrtypsdfghklzcbnm])an$/$1na/
+    # en
+    - derive/([wrpsdfghklzcbnm])en$/$1ne/
+    # ang
+    - derive/([wrtypsdfghklzcbnm])ang$/$1nag/
+    - derive/([wrtypsdfghklzcbnm])ang$/$1agn/
+    # eng
+    - derive/([wrtpsdfghklzcbnm])eng$/$1neg/
+    - derive/([wrtpsdfghklzcbnm])eng$/$1egn/
+    # ing
+    - derive/([qtypdjlxbnm])ing$/$1nig/
+    - derive/([qtypdjlxbnm])ing$/$1ign/
+    # ong
+    - derive/([rtysdghklzcn])ong$/$1nog/
+    - derive/([rtysdghklzcn])ong$/$1ogn/
+    # iao
+    - derive/([qtpdjlxbnm])iao$/$1ioa/
+    - derive/([qtpdjlxbnm])iao$/$1oia/
+    # ui
+    - derive/([rtsghkzc])ui$/$1iu/
+    # iu
+    - derive/([qjlxnm])iu$/$1ui/
+    # ian
+    - derive/([qtpdjlxbnm])ian$/$1ain/
+    # - derive/([qtpdjlxbnm])ian$/$1ina/   # 和「李娜、蒂娜、缉拿」等常用词有冲突
+    # in
+    - derive/([qypjlxbnm])in$/$1ni/
+    # iang
+    - derive/([qjlxn])iang$/$1aing/
+    - derive/([qjlxn])iang$/$1inag/
+    # ua
+    - derive/([g|k|h|zh|sh])ua$/$1au/
+    # uai
+    - derive/([g|h|k|zh|ch|sh])uai$/$1aui/
+    - derive/([g|h|k|zh|ch|sh])uai$/$1uia/
+    # uan
+    - derive/([qrtysdghjklzxcn])uan$/$1aun/
+    # - derive/([qrtysdghjklzxcn])uan$/$1una/ # 和「去哪、露娜」等常用词有冲突
+    # un
+    - derive/([qrtysdghjklzxc])un$/$1nu/
+    # ue
+    - derive/([nlyjqx])ue$/$1eu/
+    # uang
+    - derive/([g|h|k|zh|ch|sh])uang$/$1aung/
+    - derive/([g|h|k|zh|ch|sh])uang$/$1uagn/
+    - derive/([g|h|k|zh|ch|sh])uang$/$1unag/
+    - derive/([g|h|k|zh|ch|sh])uang$/$1augn/
+    # iong
+    - derive/([jqx])iong$/$1inog/
+    - derive/([jqx])iong$/$1oing/
+    - derive/([jqx])iong$/$1iogn/
+    - derive/([jqx])iong$/$1oign/
+    # 其他
+    - derive/([rtsdghkzc])o(u|ng)$/$1o/    # do → dou|dong
+    - derive/ong$/on/                      # lon → long
+    - derive/([tl])eng$/$1en/              # ten → teng
+    - derive/([qwrtypsdfghjklzxcbnm])([aeio])ng$/$1ng/  # lng → lang、leng、ling、long
+    - derive/un$/ong/                      # yuntong = yongtong

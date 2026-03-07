@@ -37,7 +37,7 @@ show_help = true
 # ─────────────────────────────────────────────────────────────
 # What to do when pressing Enter on a command
 # true = execute immediately, false = copy to input line
-enter_accept = true
+enter_accept = false
 
 # Record command exit code and duration
 exit_mode = "return-original"

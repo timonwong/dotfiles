@@ -74,16 +74,6 @@ export AICOMMIT_PROVIDER="${AICOMMIT_PROVIDER:-codex}"
 # Global Justfile location (XDG)
 export JUSTFILE="${XDG_CONFIG_HOME:-$HOME/.config}/just/.justfile"
 
-# ─────────────────────────────────────────────────────────────
-# TMux plugin configuration (ohmyzsh/plugins/tmux)
-# Must be set before sheldon loads the plugin
-# ─────────────────────────────────────────────────────────────
-export ZSH_TMUX_CONFIG="$HOME/.config/tmux/tmux.conf"
-# Keep the Oh My Zsh tmux plugin for aliases/helpers only.
-export ZSH_TMUX_AUTOSTART=false
-export ZSH_TMUX_AUTOCONNECT=false
-export ZSH_TMUX_AUTOQUIT=false
-export ZSH_TMUX_DEFAULT_SESSION_NAME="main"
 {{- if eq .chezmoi.os "darwin" }}
 
 {{- end }}

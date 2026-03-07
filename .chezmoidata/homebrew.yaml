@@ -34,7 +34,6 @@ homebrew:
       - jordanbaird-ice
       - alt-tab
       - nguyenphutrong/tap/quotio
-      - linearmouse
   masApps:
     shared: []
     work: []

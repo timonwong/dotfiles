@@ -1,4 +1,3 @@
-# # https://ghostty.zerebos.com/
 theme = Dracula
 font-family = "CaskaydiaCove NFM"
 macos-titlebar-proxy-icon = hidden
@@ -10,6 +9,11 @@ macos-option-as-alt = true
 window-padding-y = 0,2
 window-padding-x = 12,8
 keybind = shift+enter=text:\n
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+clipboard-paste-protection = false
 
 # Quick Terminal
 keybind = global:cmd+grave_accent=toggle_quick_terminal

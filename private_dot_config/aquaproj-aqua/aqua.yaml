@@ -52,3 +52,4 @@ packages:
   - name: zellij-org/zellij@v0.43.1
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: derailed/k9s@v0.50.18
+  - name: cloudflare/cloudflared@2026.2.0

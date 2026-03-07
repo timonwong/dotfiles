@@ -27,7 +27,7 @@ use = ['{{ name }}.zsh']
 post = """
 zsh-defer -c '
 # Autosuggestions keybindings
-bindkey "^e" autosuggest-accept   # Ctrl+E: accept suggestion (fill command line)
+bindkey "^@" autosuggest-accept   # Ctrl+Space: accept suggestion (fill command line)
 bindkey "^w" autosuggest-execute  # Ctrl+W: execute suggestion directly
 '
 """

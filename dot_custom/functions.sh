@@ -15,6 +15,16 @@ _cd_back() {
 zle -N _cd_up
 zle -N _cd_back
 
+# Home/End should work consistently across terminals and tmux.
+[[ -n ${terminfo[khome]-} ]] && bindkey -- "$terminfo[khome]" beginning-of-line
+[[ -n ${terminfo[kend]-} ]] && bindkey -- "$terminfo[kend]" end-of-line
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[OH' beginning-of-line
+bindkey '^[OF' end-of-line
+bindkey '^[[1~' beginning-of-line
+bindkey '^[[4~' end-of-line
+
 # Alt+Up = cd .., Alt+Down = cd -
 bindkey '^[[1;3A' _cd_up
 bindkey '^[[1;3B' _cd_back

@@ -54,6 +54,19 @@ forbid_line ".claude"
 require_line ".chezmoiscripts/01_setup-encryption-key.sh"
 require_line ".chezmoiscripts/04_setup-gopass.sh"
 # Chezmoi may report source entries as either target-style or template/encrypted names.
-require_any_line ".ssh/config" ".ssh/config.tmpl.age"
+if rg -q '(^|/)(dot_ssh|private_dot_ssh)(/|$)' "$ROOT"; then
+    require_any_line ".ssh/config" ".ssh/config.tmpl.age"
+fi
+
+case "$(uname -s)" in
+Darwin)
+    require_line ".config/ibus/rime"
+    forbid_line "Library/Rime"
+    ;;
+Linux)
+    require_line "Library/Rime"
+    forbid_line ".config/ibus/rime"
+    ;;
+esac
 
 echo "test_chezmoiignore: OK"

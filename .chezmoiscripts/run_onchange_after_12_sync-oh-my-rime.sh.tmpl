@@ -1,0 +1,225 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{ $defaultCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/default.custom.yaml.tmpl" -}}
+{{ $squirrelCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/squirrel.custom.yaml.tmpl" -}}
+{{ $ibusCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/ibus_rime.custom.yaml.tmpl" -}}
+# default.custom.yaml.tmpl: {{ if stat $defaultCustom }}{{ include $defaultCustom | sha256sum }}{{ else }}n/a{{ end }}
+# squirrel.custom.yaml.tmpl: {{ if stat $squirrelCustom }}{{ include $squirrelCustom | sha256sum }}{{ else }}n/a{{ end }}
+# ibus_rime.custom.yaml.tmpl: {{ if stat $ibusCustom }}{{ include $ibusCustom | sha256sum }}{{ else }}n/a{{ end }}
+
+{{ include ".chezmoitemplates/shell/source_nix_env.sh" }}
+if [[ -d "$HOME/.nix-profile/bin" ]]; then
+    export PATH="$HOME/.nix-profile/bin:$PATH"
+fi
+PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+OH_MY_RIME_REPO_URL="https://github.com/Mintimate/oh-my-rime"
+OH_MY_RIME_COMMIT="cf1a4083236b57a5f49a69e0bba254078e99b79b"
+OH_MY_RIME_TARBALL_URL="${OH_MY_RIME_REPO_URL}/archive/${OH_MY_RIME_COMMIT}.tar.gz"
+
+echo ":: [12] Syncing oh-my-rime"
+echo "    Source: ${OH_MY_RIME_REPO_URL}"
+echo "    Commit: ${OH_MY_RIME_COMMIT}"
+
+platform="{{ .chezmoi.os }}"
+case "$platform" in
+darwin)
+    TARGET_DIR="$HOME/Library/Rime"
+    PLATFORM_FILE="squirrel.yaml"
+    ;;
+linux)
+    TARGET_DIR="$HOME/.config/ibus/rime"
+    PLATFORM_FILE="ibus_rime.yaml"
+    ;;
+*)
+    echo "    Skipped (unsupported OS: $platform)"
+    exit 0
+    ;;
+esac
+
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/oh-my-rime"
+INSTALLED_COMMIT_FILE="$STATE_DIR/installed_commit"
+UPSTREAM_MANAGED_FILES_FILE="$STATE_DIR/upstream-managed-files.txt"
+upstream_changed=false
+
+pretty_path() {
+    local path="$1"
+    printf '%s\n' "${path/#$HOME/~}"
+}
+
+download_file() {
+    local url="$1"
+    local output="$2"
+
+    if command -v curl >/dev/null 2>&1; then
+        curl -fsSL --retry 3 "$url" -o "$output"
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO "$output" "$url"
+    else
+        echo "    Error: curl or wget is required" >&2
+        exit 1
+    fi
+}
+
+manifest_is_complete() {
+    local manifest_file="$1"
+
+    [[ -s "$manifest_file" ]] || return 1
+
+    while IFS= read -r rel; do
+        [[ -n "$rel" ]] || continue
+        [[ -e "$TARGET_DIR/$rel" ]] || return 1
+    done <"$manifest_file"
+}
+
+copy_file() {
+    local repo_root="$1"
+    local rel="$2"
+    local manifest="$3"
+    local src="$repo_root/$rel"
+    local dst="$TARGET_DIR/$rel"
+
+    [[ -f "$src" ]] || return 0
+    mkdir -p "$(dirname "$dst")"
+    cp -f "$src" "$dst"
+    printf '%s\n' "$rel" >>"$manifest"
+}
+
+copy_dir_files() {
+    local repo_root="$1"
+    local dir_rel="$2"
+    local manifest="$3"
+    local src_dir="$repo_root/$dir_rel"
+
+    [[ -d "$src_dir" ]] || return 0
+
+    while IFS= read -r src; do
+        [[ -n "$src" ]] || continue
+        local rel="${src#"$repo_root"/}"
+        local dst="$TARGET_DIR/$rel"
+        mkdir -p "$(dirname "$dst")"
+        cp -f "$src" "$dst"
+        printf '%s\n' "$rel" >>"$manifest"
+    done < <(find "$src_dir" -type f | LC_ALL=C sort)
+}
+
+prune_empty_dirs() {
+    local dir="$1"
+
+    while [[ "$dir" != "$TARGET_DIR" && "$dir" != "/" ]]; do
+        rmdir "$dir" 2>/dev/null || break
+        dir="$(dirname "$dir")"
+    done
+}
+
+remove_stale_managed_files() {
+    local manifest="$1"
+    local new_manifest="$2"
+
+    [[ -f "$manifest" ]] || return 0
+
+    while IFS= read -r rel; do
+        [[ -n "$rel" ]] || continue
+        if ! grep -qxF "$rel" "$new_manifest"; then
+            rm -f "$TARGET_DIR/$rel"
+            prune_empty_dirs "$(dirname "$TARGET_DIR/$rel")"
+        fi
+    done <"$manifest"
+}
+
+deploy_rime() {
+    case "$platform" in
+    linux)
+        if command -v ibus >/dev/null 2>&1; then
+            if ibus restart >/dev/null 2>&1; then
+                echo "    Deployed: ibus restart"
+                return 0
+            fi
+            echo "    Auto deploy failed: ibus restart"
+        fi
+
+        if command -v ibus-daemon >/dev/null 2>&1; then
+            if ibus-daemon -drx >/dev/null 2>&1; then
+                echo "    Deployed: ibus-daemon -drx"
+                return 0
+            fi
+            echo "    Auto deploy failed: ibus-daemon -drx"
+        fi
+
+        echo "    Next step: run 'ibus restart' or restart your input method service."
+        ;;
+    darwin)
+        echo "    Next step: choose 'Deploy' from the Squirrel input method menu."
+        ;;
+    esac
+}
+
+mkdir -p "$STATE_DIR"
+if [[ ! -d "$TARGET_DIR" ]]; then
+    mkdir -p "$TARGET_DIR"
+    echo "    Created: $(pretty_path "$TARGET_DIR")"
+fi
+
+if [[ -f "$INSTALLED_COMMIT_FILE" ]] && [[ "$(cat "$INSTALLED_COMMIT_FILE")" == "$OH_MY_RIME_COMMIT" ]] && manifest_is_complete "$UPSTREAM_MANAGED_FILES_FILE"; then
+    echo "    Upstream already synced: $(pretty_path "$TARGET_DIR")"
+else
+    tmpdir="$(mktemp -d "${TMPDIR:-/tmp}/oh-my-rime.XXXXXX")"
+    cleanup() {
+        rm -rf "$tmpdir"
+    }
+    trap cleanup EXIT
+
+    archive_file="$tmpdir/oh-my-rime.tar.gz"
+    extract_dir="$tmpdir/extract"
+    new_upstream_manifest="$tmpdir/upstream-managed-files.txt"
+
+    mkdir -p "$extract_dir"
+    : >"$new_upstream_manifest"
+
+    download_file "$OH_MY_RIME_TARBALL_URL" "$archive_file"
+    tar -xzf "$archive_file" -C "$extract_dir"
+
+    repo_root="$(find "$extract_dir" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+    if [[ -z "$repo_root" ]]; then
+        echo "    Error: failed to locate extracted oh-my-rime sources" >&2
+        exit 1
+    fi
+
+    while IFS= read -r src; do
+        [[ -n "$src" ]] || continue
+        rel="$(basename "$src")"
+
+        case "$rel" in
+        ibus_rime.yaml)
+            [[ "$PLATFORM_FILE" == "$rel" ]] || continue
+            ;;
+        squirrel.yaml)
+            [[ "$PLATFORM_FILE" == "$rel" ]] || continue
+            ;;
+        weasel.yaml)
+            continue
+            ;;
+        *.yaml | *.schema.yaml | *.dict.yaml | rime.lua)
+            copy_file "$repo_root" "$rel" "$new_upstream_manifest"
+            ;;
+        esac
+    done < <(find "$repo_root" -mindepth 1 -maxdepth 1 -type f | LC_ALL=C sort)
+
+    copy_dir_files "$repo_root" "dicts" "$new_upstream_manifest"
+    copy_dir_files "$repo_root" "lua" "$new_upstream_manifest"
+    copy_dir_files "$repo_root" "opencc" "$new_upstream_manifest"
+
+    LC_ALL=C sort -u "$new_upstream_manifest" -o "$new_upstream_manifest"
+    remove_stale_managed_files "$UPSTREAM_MANAGED_FILES_FILE" "$new_upstream_manifest"
+    cp "$new_upstream_manifest" "$UPSTREAM_MANAGED_FILES_FILE"
+    printf '%s\n' "$OH_MY_RIME_COMMIT" >"$INSTALLED_COMMIT_FILE"
+    upstream_changed=true
+    echo "    Synced upstream: $(pretty_path "$TARGET_DIR")"
+fi
+
+if [[ "$upstream_changed" == false ]]; then
+    echo "    Custom templates are managed directly by chezmoi."
+fi
+deploy_rime

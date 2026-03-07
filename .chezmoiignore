@@ -37,6 +37,14 @@ nix-config/modules/host-users.nix
 # macOS-only GUI apps (target paths)
 .config/karabiner/
 .config/ghostty/
+Library/Rime/
+{{- end }}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Linux-only exclusions (skip on macOS)
+# ─────────────────────────────────────────────────────────────────────────────
+{{- if eq .chezmoi.os "darwin" }}
+.config/ibus/rime/
 {{- end }}
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -47,6 +55,20 @@ nix-config/modules/host-users.nix
 .config/karabiner/
 .config/ghostty/
 {{- end }}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Rime runtime artifacts (never sync generated state back into chezmoi)
+# ─────────────────────────────────────────────────────────────────────────────
+Library/Rime/build/
+Library/Rime/installation.yaml
+Library/Rime/user.yaml
+Library/Rime/*.userdb*
+Library/Rime/*.log
+.config/ibus/rime/build/
+.config/ibus/rime/installation.yaml
+.config/ibus/rime/user.yaml
+.config/ibus/rime/*.userdb*
+.config/ibus/rime/*.log
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Encryption-related exclusions (skip when useEncryption is false)

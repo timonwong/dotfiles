@@ -140,7 +140,6 @@ claude:
 | Provider definitions   | `.chezmoidata/claude.yaml` → `providers`                   |
 | Account configurations | `.chezmoidata/claude.yaml` → `accounts`                    |
 | API keys               | gopass: `claude/{provider}/{account}/api_key`              |
-| Default account        | `~/.config/chezmoi/chezmoi.toml` → `claudeProviderAccount` |
 
 **Namespace policy:** prefixes are tool-scoped and fixed by wrapper context:
 

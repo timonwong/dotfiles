@@ -249,7 +249,6 @@ git checkout <tag-or-commit>
 - `headless` (container/server without full desktop assumptions)
 - `useEncryption` (enable encrypted key restore flow)
 - `installMasApps` (macOS App Store apps)
-- `claudeProviderAccount` / `codexProviderAccount`
 
 For most first-time users of this repo: keep `useEncryption = false` unless you have your own keys-manage backup repo and key material.
 

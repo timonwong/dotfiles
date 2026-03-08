@@ -247,7 +247,6 @@ git checkout <tag-or-commit>
 - `headless`（是否无 GUI 场景）
 - `useEncryption`（是否启用加密密钥恢复流）
 - `installMasApps`（是否安装 MAS 应用）
-- `claudeProviderAccount` / `codexProviderAccount`
 
 对大多数首次使用者：除非你已经有自己的 keys-manage 备份仓库与密钥材料，否则建议保持 `useEncryption = false`。
 

@@ -62,8 +62,8 @@ history_filter = [
 # Style: auto, full, compact
 style = "auto"
 
-# Inline height (0 = full screen)
-inline_height = 0
+# Inline height for the history menu (set >0 to avoid full screen UI)
+inline_height = 10
 
 # Show timestamp in search results
 show_tabs = true

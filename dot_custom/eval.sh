@@ -26,7 +26,6 @@ eval_if_mise_activate() {
     */aquaproj-aqua/bin/mise) return 0 ;;
     esac
 
-    "$mise_cmd" --version >/dev/null 2>&1 || return 0
     out="$("$mise_cmd" activate zsh 2>/dev/null || true)"
     [[ -n "$out" ]] && eval "$out"
 }

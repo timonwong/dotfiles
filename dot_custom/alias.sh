@@ -71,3 +71,6 @@ alias galias="alias -g"
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias mkdir="mkdir -pv"
+
+# Claude
+alias cc-start="claude --dangerously-skip-permissions"

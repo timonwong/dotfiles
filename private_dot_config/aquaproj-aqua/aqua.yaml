@@ -12,14 +12,14 @@ packages:
     # keep a known-good release pinned.
     update:
       enabled: false
-  - name: anthropics/claude-code@v2.1.68
-  - name: openai/codex@rust-v0.107.0
+  - name: anthropics/claude-code@v2.1.71
+  - name: openai/codex@rust-v0.112.0
   - name: direnv/direnv@v2.37.1
   - name: muesli/duf@v0.9.1
   - name: dandavison/delta@0.18.2
   - name: Wilfred/difftastic@0.67.0
   - name: fastfetch-cli/fastfetch@2.60.0
-  - name: sharkdp/fd@v10.3.0
+  - name: sharkdp/fd@v10.4.1
   - name: junegunn/fzf@v0.70.0
   - name: gopasspw/gopass@v1.16.1
   - name: cli/cli@v2.87.3
@@ -32,20 +32,20 @@ packages:
   - name: neovim/neovim@v0.11.6
   - name: LuaLS/lua-language-server@3.17.1
   - name: tree-sitter/tree-sitter@v0.26.6
-  - name: rclone/rclone@v1.73.1
+  - name: rclone/rclone@v1.73.2
   - name: BurntSushi/ripgrep@15.1.0
   - name: phiresky/ripgrep-all@v0.10.10
   - name: chmln/sd@v1.1.0
   - name: joshmedeski/sesh@v2.24.2
-  - name: skim-rs/skim@v3.6.2
+  - name: skim-rs/skim@v3.7.0
   - name: starship/starship@v1.24.2
-  - name: JohnnyMorganz/StyLua@v2.3.1
+  - name: JohnnyMorganz/StyLua@v2.4.0
   - name: Kampfkarren/selene@0.30.1
   - name: koalaman/shellcheck@v0.11.0
-  - name: mvdan/sh@v3.12.0
+  - name: mvdan/sh@v3.13.0
   - name: rhysd/actionlint@v1.7.11
-  - name: golangci/golangci-lint@v2.10.1
-  - name: goreleaser/goreleaser@v2.14.1
+  - name: golangci/golangci-lint@v2.11.2
+  - name: goreleaser/goreleaser@v2.14.2
   - name: numtide/treefmt@v2.4.1
   - name: XAMPPRocky/tokei@v12.1.2
     update:

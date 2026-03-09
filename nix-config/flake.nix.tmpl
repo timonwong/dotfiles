@@ -58,7 +58,12 @@
         {{- $arch = "x86_64" -}}
       {{- end }}
       system = "{{ $arch }}-{{ .platform }}";
+      {{- $computerName := .hostname -}}
+      {{- if hasKey . "computerName" -}}
+        {{- $computerName = .computerName -}}
+      {{- end }}
       hostname = "{{ .hostname }}";
+      computerName = "{{ $computerName }}";
       username = "{{ .chezmoi.username }}";
 
       pkgs = import nixpkgs {
@@ -73,7 +78,7 @@
 {{- if eq .platform "darwin" }}
 
       specialArgs = inputs // {
-        inherit username hostname;
+        inherit username hostname computerName;
       };
 {{- end }}
     in

@@ -18,6 +18,14 @@ encryption = "age"
 {{- $hostname = promptStringOnce . "hostname" "Hostname" -}}{{/* set the hostname */}}
 {{- end -}}
 
+{{- $computerName := $hostname -}}
+{{- if hasKey . "computerName" -}}
+{{-   $computerName = .computerName -}}
+{{- end -}}
+{{- if and (eq .chezmoi.os "darwin") (stdinIsATTY) -}}
+{{-   $computerName = promptStringOnce . "computerName" "Computer name" $hostname -}}
+{{- end -}}
+
 {{/* prompt for user specific configuration */}}
 {{- $useremail := promptStringOnce . "useremail" "Email address" -}}{{/* set the useremail address */}}
 {{- $gitUsername := promptStringOnce . "gitUsername" "GitHub username" -}}{{/* set the github username */}}
@@ -106,6 +114,7 @@ encryption = "age"
 
 [data]
 hostname = {{ $hostname | quote }}
+computerName = {{ $computerName | quote }}
 platform = {{ .chezmoi.os | quote }}
 useremail = {{ $useremail | quote }}
 gitUsername = {{ $gitUsername | quote }}

@@ -1,6 +1,7 @@
 {
   username,
   hostname,
+  computerName ? hostname,
   ...
 }@args:
 #############################################################
@@ -10,7 +11,7 @@
 #############################################################
 {
   networking.hostName = hostname;
-  networking.computerName = hostname;
+  networking.computerName = computerName;
   system.defaults.smb.NetBIOSName = hostname;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

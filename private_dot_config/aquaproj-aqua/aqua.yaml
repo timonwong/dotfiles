@@ -47,7 +47,10 @@ packages:
   - name: golangci/golangci-lint@v2.10.1
   - name: goreleaser/goreleaser@v2.14.1
   - name: numtide/treefmt@v2.4.1
-  - name: XAMPPRocky/tokei@v12.1.2  # 注意新版本没有二进制包
+  - name: XAMPPRocky/tokei@v12.1.2
+    update:
+      # 注意新版本没有二进制包
+      enabled: false
   - name: dduan/tre@v0.4.0
   - name: sxyazi/yazi@v26.1.22
   - name: mikefarah/yq@v4.52.4

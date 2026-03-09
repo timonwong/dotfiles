@@ -27,7 +27,7 @@ use = ['{{ name }}.zsh']
 post = """
 zsh-defer -c '
 # Autosuggestions keybindings
-bindkey "^@" autosuggest-accept   # Ctrl+Space: accept suggestion (fill command line)
+bindkey "^ " autosuggest-accept   # Ctrl+Space: accept suggestion (fill command line)
 bindkey "^w" autosuggest-execute  # Ctrl+W: execute suggestion directly
 '
 """
@@ -68,6 +68,11 @@ apply = ["fpath", "defer"]
 
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins.fzf]
+github = "junegunn/fzf"
+use = ["shell/completion.zsh", "shell/key-bindings.zsh"]
+apply = ["defer-more"]
 
 # fzf-tab: replaces default completion menu with fzf
 [plugins.fzf-tab]

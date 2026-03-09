@@ -130,10 +130,6 @@ timezone = {{ $timezone | quote }}
 gopassRepository = {{ $gopassRepository | quote }}
 keysRepository = {{ $keysRepository | quote }}
 
-[edit]
-command = "code"
-args = ["--wait"]
-
 [diff]
 pager = "sh -c 'delta --config ~/.config/delta/config --paging=never || less -FRX'"
 exclude = ["scripts"]

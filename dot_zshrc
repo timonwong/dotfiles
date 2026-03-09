@@ -30,3 +30,6 @@ setopt print_eight_bit
 if [[ -r $HOME/.custom/local.sh ]]; then
   source "$HOME/.custom/local.sh"
 fi
+
+# 1Password plugin
+source "${HOME}/.config/op/plugins.sh"

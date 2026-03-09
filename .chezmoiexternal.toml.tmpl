@@ -56,6 +56,31 @@
 {{- end }}
 
 # ------------------------------------------------------------------------------
+# NowledgeMem community skills pack
+# - Namespace: .agents/skills/nowledge-mem/
+# - Keep this focused on curated third-party packs that don't fit ecosystem/*
+# ------------------------------------------------------------------------------
+{{- $nowledgeCommunitySkills := list
+  "distill-memory"
+  "read-working-memory"
+  "save-thread"
+  "search-memory"
+}}
+{{- range $skill := $nowledgeCommunitySkills }}
+[".agents/skills/nowledge-mem/{{ $skill }}"]
+    type = "archive"
+    url = "https://github.com/nowledge-co/community/archive/{{ $.versions.nowledgeCommunityRev }}.tar.gz"
+    checksum.sha256 = "{{ $.versions.nowledgeCommunitySha256 }}"
+    exact = true
+    stripComponents = 3
+    include = [
+      "community-*/nowledge-mem-npx-skills/skills/{{ $skill }}/**"
+    ]
+    refreshPeriod = "168h"
+
+{{- end }}
+
+# ------------------------------------------------------------------------------
 # obra/superpowers (skills only)
 # - Keep only OpenSpec-complementary skills
 # - Hardcoded skill list

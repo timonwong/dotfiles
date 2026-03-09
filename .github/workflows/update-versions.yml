@@ -51,6 +51,8 @@ jobs:
           expo_skills_rev=$(gh api repos/expo/skills/commits/main -q '.sha')
           microsoft_skills_rev=$(gh api repos/microsoft/skills/commits/main -q '.sha')
           sickn33_antigravity_skills_rev=$(gh api repos/sickn33/antigravity-awesome-skills/commits/main -q '.sha')
+          nowledge_co_community_rev=$(gh api repos/nowledge-co/community/commits/main -q '.sha')
+          nowledge_co_community_sha256=$(curl_sha256 "https://github.com/nowledge-co/community/archive/${nowledge_co_community_rev}.tar.gz")
           humanizer_en_rev=$(gh api repos/blader/humanizer/commits/main -q '.sha')
           stop_slop_en_rev=$(gh api repos/hardikpandya/stop-slop/commits/main -q '.sha')
           humanizer_zh_rev=$(gh api repos/op7418/Humanizer-zh/commits/main -q '.sha')
@@ -82,6 +84,8 @@ jobs:
             echo "expo_skills_rev=$expo_skills_rev"
             echo "microsoft_skills_rev=$microsoft_skills_rev"
             echo "sickn33_antigravity_skills_rev=$sickn33_antigravity_skills_rev"
+            echo "nowledge_co_community_rev=$nowledge_co_community_rev"
+            echo "nowledge_co_community_sha256=$nowledge_co_community_sha256"
             echo "zig_development_playbook_skill_rev=$zig_development_playbook_skill_rev"
             echo "rust_development_playbook_skill_rev=$rust_development_playbook_skill_rev"
             echo "humanizer_en_rev=$humanizer_en_rev"
@@ -116,6 +120,8 @@ jobs:
           sed -i 's/expoSkillsRev: .*/expoSkillsRev: ${{ steps.versions.outputs.expo_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/microsoftSkillsRev: .*/microsoftSkillsRev: ${{ steps.versions.outputs.microsoft_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/sickn33AntigravitySkillsRev: .*/sickn33AntigravitySkillsRev: ${{ steps.versions.outputs.sickn33_antigravity_skills_rev }}/' .chezmoidata/versions.yaml
+          sed -i 's/nowledgeCommunityRev: .*/nowledgeCommunityRev: ${{ steps.versions.outputs.nowledge_co_community_rev }}/' .chezmoidata/versions.yaml
+          sed -i 's/nowledgeCommunitySha256: .*/nowledgeCommunitySha256: ${{ steps.versions.outputs.nowledge_co_community_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/zigDevelopmentPlaybookSkillRev: .*/zigDevelopmentPlaybookSkillRev: ${{ steps.versions.outputs.zig_development_playbook_skill_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/rustDevelopmentPlaybookSkillRev: .*/rustDevelopmentPlaybookSkillRev: ${{ steps.versions.outputs.rust_development_playbook_skill_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/humanizerEnRev: .*/humanizerEnRev: ${{ steps.versions.outputs.humanizer_en_rev }}/' .chezmoidata/versions.yaml
@@ -165,6 +171,8 @@ jobs:
             | expo/skills | `${{ steps.versions.outputs.expo_skills_rev }}` |
             | microsoft/skills | `${{ steps.versions.outputs.microsoft_skills_rev }}` |
             | sickn33/antigravity-awesome-skills | `${{ steps.versions.outputs.sickn33_antigravity_skills_rev }}` |
+            | nowledge-co/community | `${{ steps.versions.outputs.nowledge_co_community_rev }}` |
+            | nowledge-co/community sha256 | `${{ steps.versions.outputs.nowledge_co_community_sha256 }}` |
             | humanizer-en | `${{ steps.versions.outputs.humanizer_en_rev }}` |
             | stop-slop-en | `${{ steps.versions.outputs.stop_slop_en_rev }}` |
             | humanizer-zh | `${{ steps.versions.outputs.humanizer_zh_rev }}` |

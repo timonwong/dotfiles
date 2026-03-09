@@ -18,9 +18,9 @@ alias_if_cmd_exists "nvim" "vim"
 alias_if_cmd_exists "nvim" "view"
 
 # Modern CLI replacements
-alias_if_cmd_exists "eza" "ls"
 alias la="ls -a"
 if command -v eza >/dev/null 2>&1; then
+    alias ls="eza --icons"
     alias ll="ls -l --git"
     alias lla="ls -la --git"
     alias lt="ls --tree"
@@ -28,11 +28,11 @@ else
     alias ll="ls -l"
 fi
 
-alias_if_cmd_exists "bat" "cat"
+#alias_if_cmd_exists "bat" "cat"
 if command -v bat >/dev/null 2>&1; then
     alias byaml='bat -lyaml'
 fi
-alias_if_cmd_exists "dust" "du"
+# alias_if_cmd_exists "dust" "du"
 alias_if_cmd_exists "duf" "df"
 alias_if_cmd_exists "tldr" "man"
 alias_if_cmd_exists "hyperfine" "hf"

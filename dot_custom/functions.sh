@@ -90,31 +90,6 @@ dev() {
     fi
 }
 
-# Ctrl+G: Quick ghq jump (ZLE widget for instant access)
-_ghq_fzf_cd() {
-    local repo
-    repo=$(
-        ghq list | fzf \
-            --height=40% \
-            --reverse \
-            --preview 'eza --tree --level=1 --color=always --icons "$(ghq root)/{}"' \
-            --preview-window='right:40%:border-left'
-    )
-    if [[ -n "$repo" ]]; then
-        # shellcheck disable=SC2034  # BUFFER is used by zle
-        BUFFER="cd \"$(ghq root)/$repo\""
-        zle accept-line
-    fi
-    zle reset-prompt
-}
-zle -N _ghq_fzf_cd
-bindkey '^g' _ghq_fzf_cd # Ctrl+G for ghq jump
-
-# Rebind navi to Ctrl+N (default is Ctrl+G which we use for ghq)
-if [[ -n "$(whence _navi_widget)" ]]; then
-    bindkey '^n' _navi_widget
-fi
-
 # ghq wrapper: no args = fzf select, with args = normal ghq
 ghq() {
     if [[ $# -eq 0 ]]; then

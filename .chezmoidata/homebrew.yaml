@@ -21,6 +21,7 @@ homebrew:
       - orbstack
       - pdf-expert
       - tailscale-app
+      - kitty
     work: []
     private:
       - 1password

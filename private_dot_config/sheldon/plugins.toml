@@ -18,6 +18,7 @@ github = "romkatv/zsh-defer"
 
 [templates]
 defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+defer-more = """{{ hooks?.pre | nl }}{% for file in files %}zsh-defer -t 0.5 source "{{ file }}"\n{% endfor %}{{ hooks?.post | nl }}"""
 
 [plugins.zsh-autosuggestions]
 apply = ["defer"]
@@ -66,13 +67,8 @@ fi
 local = "~/.config/sheldon/completions"
 apply = ["fpath", "defer"]
 
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
-
-[plugins.fzf]
-github = "junegunn/fzf"
-use = ["shell/completion.zsh", "shell/key-bindings.zsh"]
-apply = ["defer-more"]
+[plugins.fast-syntax-highlighting]
+github = "zdharma-continuum/fast-syntax-highlighting"
 
 # fzf-tab: replaces default completion menu with fzf
 [plugins.fzf-tab]

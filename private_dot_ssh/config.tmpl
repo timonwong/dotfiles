@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "darwin" }}
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+{{- end }}
+
+Host *
+{{- if eq .chezmoi.os "darwin" }}
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+{{- end }}
+    # IgnoreUnknown UseKeychain
+    # AddKeysToAgent yes
+    # UseKeychain yes
+    # ControlMaster auto
+    # ControlPath /tmp/ssh-%h-%p-%r
+    # ControlPersist yes
+    ServerAliveInterval 60
+    ForwardAgent yes
+    #PubkeyAcceptedKeyTypes +ssh-rsa
+
+Include ~/.ssh/hosts.d/*.conf

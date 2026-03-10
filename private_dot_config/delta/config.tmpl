@@ -1,0 +1,17 @@
+[include]
+    path = {{ .chezmoi.homeDir }}/.config/delta/themes/catppuccin.gitconfig
+
+[delta]
+    navigate = true
+    line-numbers = true
+    side-by-side = false
+    dark = true
+    syntax-theme = catppuccin-mocha
+
+    commit-style = raw
+    # Keep diff UI on Catppuccin Mocha colors without relying on delta syntax themes.
+    # hunk-header-style = "file line-number syntax"
+
+    # Keep line numbers informative without overpowering content.
+    line-numbers-left-format = "{nm:>4}│"
+    line-numbers-right-format = "{np:>4}│"

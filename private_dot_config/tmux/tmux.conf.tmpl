@@ -194,7 +194,7 @@ set -g @plugin 'tmux-plugins/tmux-open'
 # Status bar / UI
 # ------------------------------------------------------------------------------
 
-# tmux2k - status bar with Dracula theme
+# tmux2k - status bar with a Catppuccin Mocha palette
 set -g @plugin '2kabhishek/tmux2k'
 set -g @tmux2k-theme 'default'
 set -g @tmux2k-show-powerline true
@@ -212,9 +212,8 @@ set -g @tmux2k-window-list-compact true
 set -g @tmux2k-window-list-format '#I:#W'
 set -g @tmux2k-window-list-flags true
 
-# Dracula + Catppuccin hybrid colors
-# Base: Dracula dark | Accents: Catppuccin pastel
-set -g @tmux2k-black '#282A36'
+# Catppuccin Mocha colors
+set -g @tmux2k-black '#1e1e2e'
 set -g @tmux2k-dark-gray '#45475a'
 set -g @tmux2k-white '#cdd6f4'
 set -g @tmux2k-light-blue '#89dceb'
@@ -233,13 +232,13 @@ set -g @tmux2k-red '#f38ba8'
 set -g @tmux2k-light-yellow '#f9e2af'
 set -g @tmux2k-yellow '#f9e2af'
 
-# UI colors (Dracula base + Catppuccin accents)
-set -g @tmux2k-bg-main '#282A36'
-set -g @tmux2k-bg-alt '#45475a'
+# UI colors (Catppuccin Mocha base + accents)
+set -g @tmux2k-bg-main '#1e1e2e'
+set -g @tmux2k-bg-alt '#313244'
 set -g @tmux2k-text '#1e1e2e'
-set -g @tmux2k-message-bg '#45475a'
+set -g @tmux2k-message-bg '#313244'
 set -g @tmux2k-message-fg '#cdd6f4'
-set -g @tmux2k-pane-border '#45475a'
+set -g @tmux2k-pane-border '#6c7086'
 set -g @tmux2k-pane-active-border '#cba6f7'
 set -g @tmux2k-prefix-highlight '#f5c2e7'
 
@@ -247,7 +246,7 @@ set -g @tmux2k-prefix-highlight '#f5c2e7'
 set -g @tmux2k-left-plugins "session git cpu ram"
 set -g @tmux2k-right-plugins "battery network time"
 
-# Per-module colors: "bg fg" - Dracula + Catppuccin pastel scheme
+# Per-module colors: "bg fg" using Catppuccin Mocha accents
 # Left side: cool pastels (mauve → pink → sky → green)
 set -g @tmux2k-session-colors "purple text"
 set -g @tmux2k-git-colors "pink text"
@@ -325,55 +324,54 @@ run '~/.config/tmux/plugins/tpm/tpm'
 
 # ==============================================================================
 # Post-TPM overrides (UI elements tmux2k doesn't theme)
-# Dracula base (#282A36) + accents
-# Reference: catppuccin/tmux, rose-pine/tmux
+# Catppuccin Mocha base + accents
 # ==============================================================================
 
-# -- Dracula color palette -----------------------------------------------------
-# Base:    #282a36 (background)
-# Current: #44475a (current line / selection)
-# Comment: #6272a4 (muted)
-# Fg:      #f8f8f2 (foreground)
-# Purple:  #bd93f9 (accent)
-# Pink:    #ff79c6
-# Cyan:    #8be9fd
-# Green:   #50fa7b
-# Orange:  #ffb86c
-# Yellow:  #f1fa8c
-# Red:     #ff5555
+# -- Catppuccin Mocha color palette --------------------------------------------
+# Base:      #1e1e2e
+# Surface 0: #313244
+# Overlay 0: #6c7086
+# Text:      #cdd6f4
+# Mauve:     #cba6f7
+# Pink:      #f5c2e7
+# Sky:       #89dceb
+# Green:     #a6e3a1
+# Peach:     #fab387
+# Yellow:    #f9e2af
+# Red:       #f38ba8
 
 # -- Pane borders --------------------------------------------------------------
-set -g pane-border-style "fg=#6272a4"
-set -g pane-active-border-style "fg=#bd93f9"
+set -g pane-border-style "fg=#6c7086"
+set -g pane-active-border-style "fg=#cba6f7"
 
 # -- Display panes (prefix + q) ------------------------------------------------
-set -g display-panes-colour "#6272a4"
-set -g display-panes-active-colour "#bd93f9"
+set -g display-panes-colour "#6c7086"
+set -g display-panes-active-colour "#cba6f7"
 
 # -- Messages ------------------------------------------------------------------
-set -g message-style "fg=#f8f8f2,bg=#44475a"
-set -g message-command-style "fg=#282a36,bg=#ffb86c"
+set -g message-style "fg=#cdd6f4,bg=#313244"
+set -g message-command-style "fg=#1e1e2e,bg=#fab387"
 
 # -- Mode (copy mode / tree mode selection) ------------------------------------
-set -g mode-style "fg=#f8f8f2,bg=#44475a,bold"
+set -g mode-style "fg=#cdd6f4,bg=#313244,bold"
 
 # -- Clock (prefix + t) --------------------------------------------------------
-set -g clock-mode-colour "#bd93f9"
+set -g clock-mode-colour "#cba6f7"
 
 # -- Window status (activity/bell indicators) ---------------------------------
-set -g window-status-activity-style "fg=#282a36,bg=#ff79c6"
-set -g window-status-bell-style "fg=#282a36,bg=#f1fa8c"
+set -g window-status-activity-style "fg=#1e1e2e,bg=#f5c2e7"
+set -g window-status-bell-style "fg=#1e1e2e,bg=#f9e2af"
 
 # -- Copy mode cursor ----------------------------------------------------------
-set -g copy-mode-match-style "fg=#282a36,bg=#f1fa8c"
-set -g copy-mode-current-match-style "fg=#282a36,bg=#ffb86c,bold"
-set -g copy-mode-mark-style "fg=#282a36,bg=#ff79c6"
+set -g copy-mode-match-style "fg=#1e1e2e,bg=#f9e2af"
+set -g copy-mode-current-match-style "fg=#1e1e2e,bg=#fab387,bold"
+set -g copy-mode-mark-style "fg=#1e1e2e,bg=#f5c2e7"
 
 # -- Popup & Menu (tmux 3.4+) --------------------------------------------------
-set -g popup-style "fg=#f8f8f2,bg=#282a36"
-set -g popup-border-style "fg=#6272a4"
+set -g popup-style "fg=#cdd6f4,bg=#1e1e2e"
+set -g popup-border-style "fg=#6c7086"
 set -g popup-border-lines "rounded"
-set -g menu-style "fg=#f8f8f2,bg=#282a36"
-set -g menu-selected-style "fg=#f8f8f2,bg=#44475a,bold"
-set -g menu-border-style "fg=#6272a4"
+set -g menu-style "fg=#cdd6f4,bg=#1e1e2e"
+set -g menu-selected-style "fg=#cdd6f4,bg=#313244,bold"
+set -g menu-border-style "fg=#6c7086"
 set -g menu-border-lines "rounded"

@@ -1,121 +1,121 @@
-# yazi Dracula theme
+# yazi Catppuccin Mocha theme
 # https://yazi-rs.github.io/docs/configuration/theme
-# Colors match starship and lazygit Dracula palette
+# Colors match the Catppuccin Mocha palette used across terminal tools
 
 [flavor]
 use = ""
 
 [manager]
-cwd = { fg = "#8be9fd" }
-hovered = { bg = "#44475a", bold = true }
-preview_hovered = { bg = "#44475a" }
-find_keyword = { fg = "#f1fa8c", bold = true, italic = true }
-find_position = { fg = "#ff79c6", bg = "#282a36", bold = true }
-marker_copied = { fg = "#50fa7b", bg = "#50fa7b" }
-marker_cut = { fg = "#ff5555", bg = "#ff5555" }
-marker_marked = { fg = "#bd93f9", bg = "#bd93f9" }
-marker_selected = { fg = "#f1fa8c", bg = "#f1fa8c" }
-tab_active = { fg = "#282a36", bg = "#bd93f9", bold = true }
-tab_inactive = { fg = "#f8f8f2", bg = "#44475a" }
+cwd = { fg = "#89dceb" }
+hovered = { bg = "#313244", bold = true }
+preview_hovered = { bg = "#313244" }
+find_keyword = { fg = "#f9e2af", bold = true, italic = true }
+find_position = { fg = "#f5c2e7", bg = "#1e1e2e", bold = true }
+marker_copied = { fg = "#1e1e2e", bg = "#a6e3a1" }
+marker_cut = { fg = "#1e1e2e", bg = "#f38ba8" }
+marker_marked = { fg = "#1e1e2e", bg = "#cba6f7" }
+marker_selected = { fg = "#1e1e2e", bg = "#f9e2af" }
+tab_active = { fg = "#1e1e2e", bg = "#cba6f7", bold = true }
+tab_inactive = { fg = "#cdd6f4", bg = "#313244" }
 tab_width = 1
-count_copied = { fg = "#282a36", bg = "#50fa7b" }
-count_cut = { fg = "#282a36", bg = "#ff5555" }
-count_selected = { fg = "#282a36", bg = "#f1fa8c" }
+count_copied = { fg = "#1e1e2e", bg = "#a6e3a1" }
+count_cut = { fg = "#1e1e2e", bg = "#f38ba8" }
+count_selected = { fg = "#1e1e2e", bg = "#f9e2af" }
 border_symbol = "│"
-border_style = { fg = "#6272a4" }
+border_style = { fg = "#6c7086" }
 syntect_theme = ""
 
 [mode]
-normal_main = { fg = "#282a36", bg = "#bd93f9", bold = true }
-normal_alt = { fg = "#bd93f9", bg = "#44475a" }
-select_main = { fg = "#282a36", bg = "#50fa7b", bold = true }
-select_alt = { fg = "#50fa7b", bg = "#44475a" }
-unset_main = { fg = "#282a36", bg = "#ff5555", bold = true }
-unset_alt = { fg = "#ff5555", bg = "#44475a" }
+normal_main = { fg = "#1e1e2e", bg = "#cba6f7", bold = true }
+normal_alt = { fg = "#cba6f7", bg = "#313244" }
+select_main = { fg = "#1e1e2e", bg = "#a6e3a1", bold = true }
+select_alt = { fg = "#a6e3a1", bg = "#313244" }
+unset_main = { fg = "#1e1e2e", bg = "#f38ba8", bold = true }
+unset_alt = { fg = "#f38ba8", bg = "#313244" }
 
 [status]
 separator_open = ""
 separator_close = ""
-separator_style = { fg = "#44475a", bg = "#44475a" }
-mode_normal = { fg = "#282a36", bg = "#bd93f9", bold = true }
-mode_select = { fg = "#282a36", bg = "#50fa7b", bold = true }
-mode_unset = { fg = "#282a36", bg = "#ff5555", bold = true }
-progress_label = { fg = "#f8f8f2", bold = true }
-progress_normal = { fg = "#bd93f9", bg = "#44475a" }
-progress_error = { fg = "#ff5555", bg = "#44475a" }
-perm_type = { fg = "#8be9fd" }
-perm_read = { fg = "#50fa7b" }
-perm_write = { fg = "#ff5555" }
-perm_exec = { fg = "#f1fa8c" }
-perm_sep = { fg = "#6272a4" }
+separator_style = { fg = "#313244", bg = "#313244" }
+mode_normal = { fg = "#1e1e2e", bg = "#cba6f7", bold = true }
+mode_select = { fg = "#1e1e2e", bg = "#a6e3a1", bold = true }
+mode_unset = { fg = "#1e1e2e", bg = "#f38ba8", bold = true }
+progress_label = { fg = "#cdd6f4", bold = true }
+progress_normal = { fg = "#cba6f7", bg = "#313244" }
+progress_error = { fg = "#f38ba8", bg = "#313244" }
+perm_type = { fg = "#89dceb" }
+perm_read = { fg = "#a6e3a1" }
+perm_write = { fg = "#f38ba8" }
+perm_exec = { fg = "#f9e2af" }
+perm_sep = { fg = "#6c7086" }
 
 [input]
-border = { fg = "#bd93f9" }
-title = { fg = "#bd93f9" }
-value = { fg = "#f8f8f2" }
-selected = { bg = "#44475a" }
+border = { fg = "#cba6f7" }
+title = { fg = "#cba6f7" }
+value = { fg = "#cdd6f4" }
+selected = { bg = "#313244" }
 
 [select]
-border = { fg = "#8be9fd" }
-active = { fg = "#ff79c6", bold = true }
-inactive = { fg = "#f8f8f2" }
+border = { fg = "#89dceb" }
+active = { fg = "#f5c2e7", bold = true }
+inactive = { fg = "#cdd6f4" }
 
 [tasks]
-border = { fg = "#bd93f9" }
-title = { fg = "#bd93f9" }
-hovered = { fg = "#ff79c6", underline = true }
+border = { fg = "#cba6f7" }
+title = { fg = "#cba6f7" }
+hovered = { fg = "#f5c2e7", underline = true }
 
 [which]
 cols = 3
-mask = { bg = "#282a36" }
-cand = { fg = "#8be9fd" }
-rest = { fg = "#6272a4" }
-desc = { fg = "#ff79c6" }
+mask = { bg = "#1e1e2e" }
+cand = { fg = "#89dceb" }
+rest = { fg = "#6c7086" }
+desc = { fg = "#f5c2e7" }
 separator = "  "
-separator_style = { fg = "#6272a4" }
+separator_style = { fg = "#6c7086" }
 
 [help]
-on = { fg = "#8be9fd" }
-run = { fg = "#ff79c6" }
-desc = { fg = "#6272a4" }
-hovered = { bg = "#44475a", bold = true }
-footer = { fg = "#f8f8f2", bg = "#282a36" }
+on = { fg = "#89dceb" }
+run = { fg = "#f5c2e7" }
+desc = { fg = "#6c7086" }
+hovered = { bg = "#313244", bold = true }
+footer = { fg = "#cdd6f4", bg = "#1e1e2e" }
 
 [notify]
-title_info = { fg = "#50fa7b" }
-title_warn = { fg = "#f1fa8c" }
-title_error = { fg = "#ff5555" }
+title_info = { fg = "#a6e3a1" }
+title_warn = { fg = "#f9e2af" }
+title_error = { fg = "#f38ba8" }
 
 [filetype]
 rules = [
   # Directories
-  { name = "*/", fg = "#8be9fd", bold = true },
+  { name = "*/", fg = "#89dceb", bold = true },
 
   # Hidden files
-  { name = ".*", fg = "#6272a4" },
+  { name = ".*", fg = "#6c7086" },
 
   # Code files
-  { name = "*.rs", fg = "#ffb86c" },
-  { name = "*.go", fg = "#8be9fd" },
-  { name = "*.py", fg = "#f1fa8c" },
-  { name = "*.js", fg = "#f1fa8c" },
-  { name = "*.ts", fg = "#8be9fd" },
-  { name = "*.tsx", fg = "#8be9fd" },
-  { name = "*.jsx", fg = "#f1fa8c" },
-  { name = "*.nix", fg = "#bd93f9" },
-  { name = "*.sh", fg = "#50fa7b" },
+  { name = "*.rs", fg = "#fab387" },
+  { name = "*.go", fg = "#89dceb" },
+  { name = "*.py", fg = "#f9e2af" },
+  { name = "*.js", fg = "#f9e2af" },
+  { name = "*.ts", fg = "#89dceb" },
+  { name = "*.tsx", fg = "#89dceb" },
+  { name = "*.jsx", fg = "#f9e2af" },
+  { name = "*.nix", fg = "#cba6f7" },
+  { name = "*.sh", fg = "#a6e3a1" },
 
   # Config files
-  { name = "*.{json,yaml,yml,toml}", fg = "#ff79c6" },
+  { name = "*.{json,yaml,yml,toml}", fg = "#f5c2e7" },
 
   # Documents
-  { name = "*.{md,txt,pdf}", fg = "#f8f8f2" },
+  { name = "*.{md,txt,pdf}", fg = "#cdd6f4" },
 
   # Media
-  { name = "*.{jpg,jpeg,png,gif,webp,svg}", fg = "#ffb86c" },
-  { name = "*.{mp3,flac,wav,m4a}", fg = "#50fa7b" },
-  { name = "*.{mp4,mkv,avi,mov}", fg = "#ff79c6" },
+  { name = "*.{jpg,jpeg,png,gif,webp,svg}", fg = "#fab387" },
+  { name = "*.{mp3,flac,wav,m4a}", fg = "#a6e3a1" },
+  { name = "*.{mp4,mkv,avi,mov}", fg = "#f5c2e7" },
 
   # Archives
-  { name = "*.{zip,tar,gz,7z,rar}", fg = "#ff5555" },
+  { name = "*.{zip,tar,gz,7z,rar}", fg = "#f38ba8" },
 ]

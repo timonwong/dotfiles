@@ -3,27 +3,28 @@
     line-numbers = true
     side-by-side = false
     dark = true
-    syntax-theme = Dracula
+    syntax-theme = none
 
-    # Keep headers readable while preserving syntax colors in hunks.
+    # Keep diff UI on Catppuccin Mocha colors without relying on delta syntax themes.
     commit-style = raw
-    file-style = "bold #8BE9FD"
-    file-decoration-style = "#6272A4 ul"
+    file-style = "bold #CDD6F4"
+    file-decoration-style = "#6C7086 ul"
     hunk-header-style = "file line-number syntax"
-    hunk-header-file-style = "bold #BD93F9"
-    hunk-header-line-number-style = "#8BE9FD"
-    hunk-header-decoration-style = "#6272A4 box"
+    hunk-header-file-style = "bold #CDD6F4"
+    hunk-header-line-number-style = "bold #A6ADC8"
+    hunk-header-decoration-style = "#6C7086 box"
 
-    # Low-glare add/remove backgrounds with stronger emphasis on changed tokens.
-    plus-style = "syntax #1C3A2A"
-    plus-emph-style = "syntax bold #2A5A3F"
-    minus-style = "syntax #4A2631"
-    minus-emph-style = "syntax bold #6A3342"
+    # Low-glare add/remove backgrounds based on the Catppuccin delta port.
+    plus-style = "syntax #394545"
+    plus-emph-style = "syntax bold #4E6356"
+    minus-style = "syntax #493447"
+    minus-emph-style = "syntax bold #694559"
 
     # Keep line numbers informative without overpowering content.
-    line-numbers-left-style = "#6272A4"
-    line-numbers-right-style = "#6272A4"
-    line-numbers-plus-style = "#50FA7B"
-    line-numbers-minus-style = "#FF6E93"
+    line-numbers-left-style = "#6C7086"
+    line-numbers-right-style = "#6C7086"
+    line-numbers-plus-style = "bold #A6E3A1"
+    line-numbers-minus-style = "bold #F38BA8"
+    line-numbers-zero-style = "#6C7086"
     line-numbers-left-format = "{nm:>4}│"
     line-numbers-right-format = "{np:>4}│"

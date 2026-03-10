@@ -52,34 +52,34 @@ gui:
   shortTimeFormat: 3:04PM
   # Config relating to colors and styles.
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#color-attributes
-  # DRACULA
+  # Catppuccin Mocha
   theme:
     activeBorderColor:
-      - "#FF79C6"
+      - "#CBA6F7"
       - bold
     inactiveBorderColor:
-      - "#BD93F9"
+      - "#6C7086"
     searchingActiveBorderColor:
-      - "#8BE9FD"
+      - "#89DCEB"
       - bold
     optionsTextColor:
-      - "#6272A4"
+      - "#6C7086"
     selectedLineBgColor:
-      - "#6272A4"
+      - "#313244"
     inactiveViewSelectedLineBgColor:
       - bold
     cherryPickedCommitFgColor:
-      - "#6272A4"
+      - "#A6ADC8"
     cherryPickedCommitBgColor:
-      - "#8BE9FD"
+      - "#94E2D5"
     markedBaseCommitFgColor:
-      - "#8BE9FD"
+      - "#89DCEB"
     markedBaseCommitBgColor:
-      - "#F1FA8C"
+      - "#F9E2AF"
     unstagedChangesColor:
-      - "#FF5555"
+      - "#F38BA8"
     defaultFgColor:
-      - "#F8F8F2"
+      - "#CDD6F4"
   # Config relating to the commit length indicator
   commitLength:
     # If true, show an indicator of commit message length

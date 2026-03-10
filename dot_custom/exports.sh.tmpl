@@ -4,36 +4,22 @@
 export TERM=xterm-256color
 export COLORTERM=truecolor
 
-# Dracula color palette (used for FZF_DEFAULT_OPTS below)
-DRACULA_BG="#282a36"
-DRACULA_FG="#f8f8f2"
-DRACULA_SELECTION="#44475a"
-DRACULA_COMMENT="#6272a4"
-DRACULA_CYAN="#8be9fd"
-DRACULA_GREEN="#50fa7b"
-DRACULA_ORANGE="#ffb86c"
-DRACULA_PINK="#ff79c6"
-DRACULA_PURPLE="#bd93f9"
-DRACULA_RED="#ff5555"
-DRACULA_YELLOW="#f1fa8c"
-
-# fzf configuration with Dracula theme
-export FZF_DEFAULT_OPTS="
-  --color=fg:${DRACULA_FG},bg:${DRACULA_BG},hl:${DRACULA_PURPLE}
-  --color=fg+:${DRACULA_FG},bg+:${DRACULA_SELECTION},hl+:${DRACULA_CYAN}
-  --color=info:${DRACULA_ORANGE},prompt:${DRACULA_GREEN},pointer:${DRACULA_PINK}
-  --color=marker:${DRACULA_CYAN},spinner:${DRACULA_PURPLE},header:${DRACULA_COMMENT}
-  --color=border:${DRACULA_COMMENT}
-  --color=query:${DRACULA_YELLOW},disabled:${DRACULA_RED}
-  --height=60%
-  --layout=reverse
-  --border=rounded
-  --margin=1
-  --padding=1
-  --info=inline
-  --separator='─'
-  --preview-window='right:50%:border-left'
-"
+# FZF_DEFAULT_OPTS colors from:
+# https://github.com/catppuccin/fzf/blob/main/themes/catppuccin-fzf-mocha.sh
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+--color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+--color=selected-bg:#45475A \
+--color=border:#6C7086,label:#CDD6F4 \
+  --height=60% \
+  --layout=reverse \
+  --border=rounded \
+  --margin=1 \
+  --padding=1 \
+  --info=inline \
+  --separator='─' \
+  --preview-window='right:50%:border-left'"
 
 # Use fd for file searching (respects .gitignore)
 if command -v fd >/dev/null 2>&1; then

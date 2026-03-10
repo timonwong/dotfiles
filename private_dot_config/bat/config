@@ -1,8 +1,8 @@
 # bat configuration
 # https://github.com/sharkdp/bat
 
-# Use Dracula theme (matches starship and lazygit)
---theme="Dracula"
+# Use Catppuccin Mocha across terminal tools
+--theme="Catppuccin Mocha"
 
 # Show line numbers and git modifications
 --style="numbers,changes,header,grid"

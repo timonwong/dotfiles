@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# {{ range (glob "private_dot_config/bat/themes/*.tmTheme") }}
+# {{ . }}={{ . | include | sha256sum }}
+# {{ end }}
+
+echo ":: [09] Refreshing bat cache"
+bat cache --build

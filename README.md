@@ -548,7 +548,6 @@ Boundary and ownership:
 - [wshobson/agents](https://github.com/wshobson/agents) - Claude Code plugins marketplace
 - [anthropics/skills](https://github.com/anthropics/skills) - Official Claude Code skills
 - [obra/superpowers](https://github.com/obra/superpowers) - Advanced workflow patterns
-- [Dracula Theme](https://draculatheme.com/) - Theme palette for terminal and fzf styling
 
 ---
 

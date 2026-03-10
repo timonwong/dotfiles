@@ -546,7 +546,6 @@ chezmoi init --apply --promptBool headless=true timonwong
 - [wshobson/agents](https://github.com/wshobson/agents) - Claude Code 插件 marketplace
 - [anthropics/skills](https://github.com/anthropics/skills) - 官方 Claude Code skills
 - [obra/superpowers](https://github.com/obra/superpowers) - 高级工作流模式
-- [Dracula Theme](https://draculatheme.com/) - 终端与 fzf 主题灵感来源
 
 ---
 

@@ -33,9 +33,6 @@ bindkey "^w" autosuggest-execute  # Ctrl+W: execute suggestion directly
 '
 """
 
-[plugins.base16]
-github = 'chriskempson/base16-shell'
-
 [plugins.clipboard]
 apply = ["defer"]
 github = 'zpm-zsh/clipboard'

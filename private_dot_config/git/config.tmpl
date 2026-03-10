@@ -17,13 +17,16 @@
 [pull]
     rebase = true
 
+[include]
+    path = ~/.config/delta/delta
+
 [core]
-    pager = sh -c 'delta --config ~/.config/delta/config --paging=never || less -FRX'
+    pager = delta --paging=never || less -FRX
     editor = nvim
     excludesFile = ~/.config/git/ignore
 
 [interactive]
-    diffFilter = sh -c 'delta --config ~/.config/delta/config --color-only || cat'
+    diffFilter = delta --color-only || cat
 
 [commit]
     template = ~/.config/git/message

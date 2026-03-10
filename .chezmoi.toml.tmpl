@@ -131,7 +131,7 @@ gopassRepository = {{ $gopassRepository | quote }}
 keysRepository = {{ $keysRepository | quote }}
 
 [diff]
-pager = "sh -c 'delta --config ~/.config/delta/config --paging=never || less -FRX'"
+pager = 'delta --paging=never || less -FRX'
 exclude = ["scripts"]
 
 [merge]

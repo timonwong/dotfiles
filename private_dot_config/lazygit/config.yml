@@ -166,7 +166,7 @@ git:
   pagers:
     - externalDiffCommand: difft --color=always
       colorArg: never
-    - pager: 'delta --config ~/.config/delta/config --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'
+    - pager: 'delta --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'
     - pager: "less -FRX"
   # Config relating to committing
   commit:

@@ -1,12 +1,13 @@
 [include]
-    path = {{ .chezmoi.homeDir }}/.config/delta/themes/catppuccin.gitconfig
+    path = ~/.config/delta/themes/catppuccin.gitconfig
 
 [delta]
     navigate = true
     line-numbers = true
+    hyperlinks = true
     side-by-side = false
     dark = true
-    syntax-theme = catppuccin-mocha
+    syntax-theme = "catppuccin-mocha"
 
     commit-style = raw
     # Keep diff UI on Catppuccin Mocha colors without relying on delta syntax themes.

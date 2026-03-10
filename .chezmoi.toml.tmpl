@@ -131,8 +131,7 @@ gopassRepository = {{ $gopassRepository | quote }}
 keysRepository = {{ $keysRepository | quote }}
 
 [diff]
-pager = 'delta --paging=never || less -FRX'
-exclude = ["scripts"]
+pager = 'delta || less -FRX'
 
 [merge]
 command = "bash"

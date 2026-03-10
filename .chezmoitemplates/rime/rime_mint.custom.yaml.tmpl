@@ -3,7 +3,7 @@
 
 patch:
   # 候选词个数
-  menu/page_size: 10
+  menu/page_size: 9
 
   speller/algebra:
     - xlit/āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜü/aaaaooooeeeeiiiiuuuuvvvvv/  # 万象词库 Start
@@ -106,3 +106,4 @@ patch:
     - derive/([tl])eng$/$1en/              # ten → teng
     - derive/([qwrtypsdfghjklzxcbnm])([aeio])ng$/$1ng/  # lng → lang、leng、ling、long
     - derive/un$/ong/                      # yuntong = yongtong
+    - derive/v/u/ # u => ü 默认是只有 v => ü

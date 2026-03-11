@@ -4,7 +4,7 @@ custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl
 
 font-family = "CaskaydiaCove NFM"
 font-size = 12
-font-feature = -liga
+font-feature = -liga, -calt
 
 window-decoration = true
 window-padding-x = 12,8

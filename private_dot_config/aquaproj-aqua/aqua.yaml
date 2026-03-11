@@ -58,3 +58,5 @@ packages:
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: derailed/k9s@v0.50.18
   - name: cloudflare/cloudflared@2026.3.0
+  - name: kubernetes/kubectl@v1.35.2
+  - name: kubernetes-sigs/krew@v0.5.0

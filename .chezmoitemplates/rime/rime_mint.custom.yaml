@@ -6,10 +6,10 @@ patch:
   menu/page_size: 9
 
   speller/algebra:
-    - xlit/āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜü/aaaaooooeeeeiiiiuuuuvvvvv/  # 万象词库 Start
+    - xlit/āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜü/aaaaooooeeeeiiiiuuuuvvvvv/ # 万象词库 Start
     - xform/^ng$/eng/
     - xform/ńg|ňg|ǹg/eng/
-    - xform/ń|ň|ǹ/en/                                            # 万象词库 End
+    - xform/ń|ň|ǹ/en/ # 万象词库 End
     - erase/^xx$/ # 首选保留
     # 模糊音
     - derive/^([zcs])h/$1/ # zh, ch, sh => z, c, s
@@ -20,24 +20,24 @@ patch:
     # - derive/([aei])ng$/$1n/ # ang => an, eng => en, ing => in
     # - derive/([iu])an$/$lan/ # ian => iang, uan => uang
     # - derive/([iu])ang$/$lan/ # iang => ian, uang => uan
-    - derive/([aeiou])ng$/$1gn/            # dagn => dang
-    - derive/([dtngkhrzcs])o(u|ng)$/$1o/   # zho => zhong|zhou
-    - derive/ong$/on/                      # zhonguo => zhong guo
-    - derive/un$/ong/                      # yuntong = yongtong
+    - derive/([aeiou])ng$/$1gn/ # dagn => dang
+    - derive/([dtngkhrzcs])o(u|ng)$/$1o/ # zho => zhong|zhou
+    - derive/ong$/on/ # zhonguo => zhong guo
+    - derive/un$/ong/ # yuntong = yongtong
     ## 简拼
-    - derive/^([zcs]h).+$/$1/              # 特别处理 zh, ch, sh 的首字母简写
-    - abbrev/^([a-z]).+$/$1/               # 允许使用首字母作为缩写
+    - derive/^([zcs]h).+$/$1/ # 特别处理 zh, ch, sh 的首字母简写
+    - abbrev/^([a-z]).+$/$1/ # 允许使用首字母作为缩写
     # 简拼: 允许使用前两个字母作为缩写
     # - abbrev/^([a-z]{2,}).+$/$1/         # zem -> zen me -> 怎么
     ### 自动纠错
     # 有些规则对全拼简拼混输有副作用：如「x'ai 喜爱」被纠错为「xia 下」
     # zh、ch、sh
-    - derive/([zcs])h(a|e|i|u|ai|ei|an|en|ou|uo|ua|un|ui|uan|uai|uang|ang|eng|ong)$/h$1$2/  # hzi → zhi
-    - derive/([zcs])h([aeiu])$/$1$2h/      # zih → zhi
+    - derive/([zcs])h(a|e|i|u|ai|ei|an|en|ou|uo|ua|un|ui|uan|uai|uang|ang|eng|ong)$/h$1$2/ # hzi → zhi
+    - derive/([zcs])h([aeiu])$/$1$2h/ # zih → zhi
     # ai
-    - derive/^([wghk])ai$/$1ia/            # wia → wai
+    - derive/^([wghk])ai$/$1ia/ # wia → wai
     # ia
-    - derive/([qjx])ia$/$1ai/              # qai → qia
+    - derive/([qjx])ia$/$1ai/ # qai → qia
     # ei
     - derive/([wtfghkz])ei$/$1ie/
     # ie
@@ -101,9 +101,9 @@ patch:
     - derive/([jqx])iong$/$1iogn/
     - derive/([jqx])iong$/$1oign/
     # 其他
-    - derive/([rtsdghkzc])o(u|ng)$/$1o/    # do → dou|dong
-    - derive/ong$/on/                      # lon → long
-    - derive/([tl])eng$/$1en/              # ten → teng
-    - derive/([qwrtypsdfghjklzxcbnm])([aeio])ng$/$1ng/  # lng → lang、leng、ling、long
-    - derive/un$/ong/                      # yuntong = yongtong
+    - derive/([rtsdghkzc])o(u|ng)$/$1o/ # do → dou|dong
+    - derive/ong$/on/ # lon → long
+    - derive/([tl])eng$/$1en/ # ten → teng
+    - derive/([qwrtypsdfghjklzxcbnm])([aeio])ng$/$1ng/ # lng → lang、leng、ling、long
+    - derive/un$/ong/ # yuntong = yongtong
     - derive/v/u/ # u => ü 默认是只有 v => ü

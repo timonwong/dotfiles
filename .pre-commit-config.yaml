@@ -142,10 +142,10 @@ repos:
 
             cd "$tmpdir"
 
-            # Format check
+            # # Format check
             echo "Checking format with treefmt..."
             if [[ -f treefmt.toml ]]; then
-              treefmt --fail-on-change || { echo "❌ Format check failed"; exit 1; }
+              treefmt --ci || { echo "❌ Format check failed"; exit 1; }
             fi
 
             # Lint shell scripts (fail on errors)

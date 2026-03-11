@@ -369,16 +369,12 @@ codex-token --check deepseek@private
 - Claude MCP entries are reconciled by `.chezmoiscripts/run_after_11_sync-claude-mcp.sh.tmpl`.
 - Wrapper commands provided in this repo:
   - `~/.local/bin/mcp-context7`
-  - `~/.local/bin/mcp-tavily`
-  - `~/.local/bin/mcp-postgres`
 
 #### Task -> MCP Routing
 
-| Task type                  | Primary MCP | Fallback                      |
-| -------------------------- | ----------- | ----------------------------- |
-| Library/framework/API docs | Context7    | Tavily -> built-in web search |
-| Web/news/general research  | Tavily      | built-in web search           |
-| Symbolic code navigation   | Serena      | repo grep/codesearch + LSP    |
+| Task type                  | Primary MCP | Fallback            |
+| -------------------------- | ----------- | ------------------- |
+| Library/framework/API docs | Context7    | built-in web search |
 
 ---
 

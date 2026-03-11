@@ -1,0 +1,6 @@
+keybinds {
+    normal {
+        bind "Super Alt Left" { GoToPreviousTab; }
+        bind "Super Alt Right" { GoToNextTab; }
+    }
+}

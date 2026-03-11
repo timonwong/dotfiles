@@ -54,3 +54,5 @@ if [[ -f "$AQUA_CONFIG_PATH" ]]; then
     *) export AQUA_GLOBAL_CONFIG="${AQUA_CONFIG_PATH}${AQUA_GLOBAL_CONFIG:+:${AQUA_GLOBAL_CONFIG}}" ;;
     esac
 fi
+
+export ZELLIJ_CONFIG_DIR=$HOME/.config/zellij

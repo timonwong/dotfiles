@@ -20,7 +20,7 @@ alias_if_cmd_exists "nvim" "view"
 # Modern CLI replacements
 alias la="ls -a"
 if command -v eza >/dev/null 2>&1; then
-    alias ls="eza --icons"
+    alias ls="eza --icons=auto"
     alias ll="ls -l --git"
     alias lla="ls -la --git"
     alias lt="ls --tree"

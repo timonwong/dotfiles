@@ -1,4 +1,6 @@
 # shellcheck shell=bash
+# shellcheck disable=SC1087
+
 # ─────────────────────────────────────────────────────────────
 # Alt+Up/Down Directory Navigation
 # ─────────────────────────────────────────────────────────────

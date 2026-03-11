@@ -88,12 +88,7 @@ claude:
   # Provider definitions (base_url + available models)
   providers:
     anthropic:
-      models:
-        [
-          claude-opus-4-5-20251101,
-          claude-sonnet-4-5-20250929,
-          claude-haiku-4-5-20251001,
-        ]
+      models: [claude-opus-4-5-20251101, claude-sonnet-4-5-20250929, claude-haiku-4-5-20251001]
     deepseek:
       base_url: https://api.deepseek.com/anthropic
       models: [deepseek-chat, deepseek-reasoner]
@@ -135,11 +130,11 @@ claude:
 
 ## Data Storage
 
-| Data                   | Location                                                   |
-| ---------------------- | ---------------------------------------------------------- |
-| Provider definitions   | `.chezmoidata/claude.yaml` → `providers`                   |
-| Account configurations | `.chezmoidata/claude.yaml` → `accounts`                    |
-| API keys               | gopass: `claude/{provider}/{account}/api_key`              |
+| Data                   | Location                                      |
+| ---------------------- | --------------------------------------------- |
+| Provider definitions   | `.chezmoidata/claude.yaml` → `providers`      |
+| Account configurations | `.chezmoidata/claude.yaml` → `accounts`       |
+| API keys               | gopass: `claude/{provider}/{account}/api_key` |
 
 **Namespace policy:** prefixes are tool-scoped and fixed by wrapper context:
 

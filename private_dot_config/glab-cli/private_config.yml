@@ -23,18 +23,18 @@ host: gitlab.com
 no_prompt: false
 # Configuration specific for GitLab instances.
 hosts:
-    gitlab.com:
-        # What protocol to use to access the API endpoint. Supported values: http, https.
-        api_protocol: https
-        # Configure host for API endpoint. Defaults to the host itself.
-        api_host: gitlab.com
-        # Your GitLab access token. To get one, read https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html
-        # Token managed by 1password cli plugin
-        token:
-    gitlab-ce.alauda.cn:
-        # Token managed by 1password cli plugin
-        token:
-        api_host: gitlab-ce.alauda.cn
-        git_protocol: ssh
-        api_protocol: https
-        #user: alaudabot
+  gitlab.com:
+    # What protocol to use to access the API endpoint. Supported values: http, https.
+    api_protocol: https
+    # Configure host for API endpoint. Defaults to the host itself.
+    api_host: gitlab.com
+    # Your GitLab access token. To get one, read https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html
+    # Token managed by 1password cli plugin
+    token:
+  gitlab-ce.alauda.cn:
+    # Token managed by 1password cli plugin
+    token:
+    api_host: gitlab-ce.alauda.cn
+    git_protocol: ssh
+    api_protocol: https
+    #user: alaudabot

@@ -13,6 +13,8 @@ homebrew:
       - mas # Required for masApps installation
   casks:
     shared:
+      - 1password
+      - 1password-cli
       - ghostty@tip
       - codex-app
       - visual-studio-code
@@ -23,8 +25,6 @@ homebrew:
       - tailscale-app
     work: []
     private:
-      - 1password
-      - 1password-cli
       - betterdisplay
       - discord
       - iina # video player
@@ -35,6 +35,7 @@ homebrew:
       - alt-tab
       - nguyenphutrong/tap/quotio
       - macpacker # 解压软件
+      - alma
   masApps:
     shared: []
     work: []

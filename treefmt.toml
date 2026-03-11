@@ -14,8 +14,8 @@ includes = ["*.sh"]
 command = "stylua"
 includes = ["*.lua"]
 
-[formatter.prettier]
-command = "prettier"
+[formatter.oxfmt]
+command = "oxfmt"
 options = ["--write"]
 includes = ["*.md", "*.json", "*.yaml", "*.yml"]
 excludes = ["CLAUDE.md"]

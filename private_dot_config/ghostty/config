@@ -28,6 +28,10 @@ quick-terminal-position = top
 quick-terminal-size = 40%,100%
 quick-terminal-autohide = true
 
-# Unbind CMD+... keys so they will be forwarded to Zellij
+# Unbind special keys so they will be forwarded to Zellij
 keybind = cmd+opt+left=unbind
 keybind = cmd+opt+right=unbind
+keybind = opt+left=unbind
+keybind = opt+right=unbind
+keybind = opt+up=unbind
+keybind = opt+down=unbind

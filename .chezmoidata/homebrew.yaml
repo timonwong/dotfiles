@@ -36,6 +36,7 @@ homebrew:
       - nguyenphutrong/tap/quotio
       - macpacker # 解压软件
       - alma
+      - snipaste
   masApps:
     shared: []
     work: []

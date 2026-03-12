@@ -11,8 +11,6 @@ zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':fzf-tab:*' popup-min-size 80 20
 
 # Keybindings
-zstyle ':fzf-tab:*' fzf-bindings 'tab:accept'       # Tab accepts selection
-zstyle ':fzf-tab:*' accept-line enter               # Enter accepts and runs
 zstyle ':fzf-tab:*' continuous-trigger '/'          # / for continuous completion
 zstyle ':fzf-tab:*' switch-group '<' '>'            # <> to switch groups
 

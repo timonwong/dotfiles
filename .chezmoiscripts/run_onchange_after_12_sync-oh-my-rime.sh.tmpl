@@ -20,6 +20,9 @@ PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH"
 OH_MY_RIME_REPO_URL="https://github.com/Mintimate/oh-my-rime"
 OH_MY_RIME_COMMIT="cf1a4083236b57a5f49a69e0bba254078e99b79b"
 OH_MY_RIME_TARBALL_URL="${OH_MY_RIME_REPO_URL}/archive/${OH_MY_RIME_COMMIT}.tar.gz"
+WANXIANG_GRAM_URL="https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram"
+WANXIANG_GRAM_FILENAME="wanxiang-lts-zh-hans.gram"
+SQUIRREL_BIN="/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel"
 
 echo ":: [12] Syncing oh-my-rime"
 echo "    Source: ${OH_MY_RIME_REPO_URL}"
@@ -40,6 +43,8 @@ linux)
     exit 0
     ;;
 esac
+
+GRAM_TARGET_FILE="$TARGET_DIR/$WANXIANG_GRAM_FILENAME"
 
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/oh-my-rime"
 INSTALLED_COMMIT_FILE="$STATE_DIR/installed_commit"
@@ -153,7 +158,19 @@ deploy_rime() {
         echo "    Next step: run 'ibus restart' or restart your input method service."
         ;;
     darwin)
-        echo "    Next step: choose 'Deploy' from the Squirrel input method menu."
+        if [[ ! -x "$SQUIRREL_BIN" ]]; then
+            echo "    Warning: Squirrel reload binary not found: $SQUIRREL_BIN"
+            echo "    Next step: run '$SQUIRREL_BIN --reload' manually."
+            return 0
+        fi
+
+        if "$SQUIRREL_BIN" --reload >/dev/null 2>&1; then
+            echo "    Deployed: $SQUIRREL_BIN --reload"
+            return 0
+        fi
+
+        echo "    Warning: Squirrel reload failed: $SQUIRREL_BIN --reload"
+        echo "    Next step: run '$SQUIRREL_BIN --reload' manually."
         ;;
     esac
 }
@@ -163,6 +180,11 @@ if [[ ! -d "$TARGET_DIR" ]]; then
     mkdir -p "$TARGET_DIR"
     echo "    Created: $(pretty_path "$TARGET_DIR")"
 fi
+
+gram_tmp="$(mktemp "$TARGET_DIR/${WANXIANG_GRAM_FILENAME}.XXXXXX")"
+download_file "$WANXIANG_GRAM_URL" "$gram_tmp"
+mv -f "$gram_tmp" "$GRAM_TARGET_FILE"
+echo "    Synced grammar: $(pretty_path "$GRAM_TARGET_FILE")"
 
 if [[ -f "$INSTALLED_COMMIT_FILE" ]] && [[ "$(cat "$INSTALLED_COMMIT_FILE")" == "$OH_MY_RIME_COMMIT" ]] && manifest_is_complete "$UPSTREAM_MANAGED_FILES_FILE"; then
     echo "    Upstream already synced: $(pretty_path "$TARGET_DIR")"

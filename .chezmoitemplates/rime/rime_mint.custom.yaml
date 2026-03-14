@@ -5,7 +5,7 @@ patch:
   # 候选词个数
   menu/page_size: 9
   # 语言模型
-  "grammar/language": wanxiang-lts-zh-hans.gram
+  "grammar/language": wanxiang-lts-zh-hans
   "grammar/collocation_max_length": 5
   "grammar/collocation_min_length": 2
 

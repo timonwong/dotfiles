@@ -5,14 +5,14 @@ registries:
 
 packages:
   - name: FiloSottile/age@v1.3.1
-  - name: atuinsh/atuin@v18.12.1
+  - name: atuinsh/atuin@v18.13.2
   - name: sharkdp/bat@v0.26.1
   - name: eth-p/bat-extras@v2024.08.24
     # aqua update can downgrade to v20200408 due semver ordering;
     # keep a known-good release pinned.
     update:
       enabled: false
-  - name: anthropics/claude-code@v2.1.74
+  - name: anthropics/claude-code@v2.1.76
   - name: openai/codex@rust-v0.114.0
   - name: direnv/direnv@v2.37.1
   - name: muesli/duf@v0.9.1

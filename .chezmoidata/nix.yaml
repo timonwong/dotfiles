@@ -17,6 +17,7 @@ nix:
       - openssl
       - statix # Nix linter
       - nixfmt
+      - btop
       - tmux
       - wget
       - zstd

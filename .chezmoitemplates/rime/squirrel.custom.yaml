@@ -5,6 +5,8 @@ patch:
   style/candidate_list_layout: linear
   app_options:
     com.apple.Terminal:
-      ascii_mode: true
+      #ascii_mode: true
+      no_inline: true
     com.mitchellh.ghostty:
-      ascii_mode: true
+      #ascii_mode: true
+      no_inline: true

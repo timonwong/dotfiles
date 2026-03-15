@@ -4,6 +4,13 @@
 patch:
   # 候选词个数
   menu/page_size: 9
+
+  # "switches/@next":
+  #   # 开启「声起」功能以显示带声调的拼音注释
+  #   name: tone_display
+  #   states: [ 声杳, 声起 ]
+  #   reset: 0
+
   # 语言模型
   "grammar/language": wanxiang-lts-zh-hans
   "grammar/collocation_max_length": 5

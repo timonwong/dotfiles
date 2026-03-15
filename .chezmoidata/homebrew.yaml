@@ -26,6 +26,7 @@ homebrew:
     work: []
     private:
       - betterdisplay
+      - bettermouse
       - discord
       - iina # video player
       - telegram

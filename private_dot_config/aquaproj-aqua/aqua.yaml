@@ -27,11 +27,11 @@ packages:
   - name: git-lfs/git-lfs@v3.7.1
   - name: charmbracelet/glow@v2.1.1
   - name: jqlang/jq@jq-1.8.1
-  - name: casey/just@1.46.0
+  - name: casey/just@1.47.0
   - name: jesseduffield/lazygit@v0.60.0
   - name: neovim/neovim@v0.11.6
   - name: LuaLS/lua-language-server@3.17.1
-  - name: tree-sitter/tree-sitter@v0.26.6
+  - name: tree-sitter/tree-sitter@v0.26.7
   - name: rclone/rclone@v1.73.2
   - name: BurntSushi/ripgrep@15.1.0
   - name: phiresky/ripgrep-all@v0.10.10

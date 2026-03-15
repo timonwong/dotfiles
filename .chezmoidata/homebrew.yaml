@@ -37,6 +37,7 @@ homebrew:
       - macpacker # 解压软件
       - alma
       - snipaste
+      - raycast
   masApps:
     shared: []
     work: []

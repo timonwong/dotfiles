@@ -2,15 +2,6 @@
 
 set -euo pipefail
 
-{{ $defaultCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/default.custom.yaml.tmpl" -}}
-{{ $rimeMintCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/rime_mint.custom.yaml.tmpl" -}}
-{{ $squirrelCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/squirrel.custom.yaml.tmpl" -}}
-{{ $ibusCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/ibus_rime.custom.yaml.tmpl" -}}
-# default.custom.yaml.tmpl: {{ if stat $defaultCustom }}{{ include $defaultCustom | sha256sum }}{{ else }}n/a{{ end }}
-# rime_mint.custom.yaml.tmpl: {{ if stat $rimeMintCustom }}{{ include $rimeMintCustom | sha256sum }}{{ else }}n/a{{ end }}
-# squirrel.custom.yaml.tmpl: {{ if stat $squirrelCustom }}{{ include $squirrelCustom | sha256sum }}{{ else }}n/a{{ end }}
-# ibus_rime.custom.yaml.tmpl: {{ if stat $ibusCustom }}{{ include $ibusCustom | sha256sum }}{{ else }}n/a{{ end }}
-
 {{ include ".chezmoitemplates/shell/source_nix_env.sh" }}
 if [[ -d "$HOME/.nix-profile/bin" ]]; then
     export PATH="$HOME/.nix-profile/bin:$PATH"
@@ -49,7 +40,6 @@ GRAM_TARGET_FILE="$TARGET_DIR/$WANXIANG_GRAM_FILENAME"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/oh-my-rime"
 INSTALLED_COMMIT_FILE="$STATE_DIR/installed_commit"
 UPSTREAM_MANAGED_FILES_FILE="$STATE_DIR/upstream-managed-files.txt"
-upstream_changed=false
 
 pretty_path() {
     local path="$1"
@@ -135,45 +125,7 @@ remove_stale_managed_files() {
         fi
     done <"$manifest"
 }
-
-deploy_rime() {
-    case "$platform" in
-    linux)
-        if command -v ibus >/dev/null 2>&1; then
-            if ibus restart >/dev/null 2>&1; then
-                echo "    Deployed: ibus restart"
-                return 0
-            fi
-            echo "    Auto deploy failed: ibus restart"
-        fi
-
-        if command -v ibus-daemon >/dev/null 2>&1; then
-            if ibus-daemon -drx >/dev/null 2>&1; then
-                echo "    Deployed: ibus-daemon -drx"
-                return 0
-            fi
-            echo "    Auto deploy failed: ibus-daemon -drx"
-        fi
-
-        echo "    Next step: run 'ibus restart' or restart your input method service."
-        ;;
-    darwin)
-        if [[ ! -x "$SQUIRREL_BIN" ]]; then
-            echo "    Warning: Squirrel reload binary not found: $SQUIRREL_BIN"
-            echo "    Next step: run '$SQUIRREL_BIN --reload' manually."
-            return 0
-        fi
-
-        if "$SQUIRREL_BIN" --reload >/dev/null 2>&1; then
-            echo "    Deployed: $SQUIRREL_BIN --reload"
-            return 0
-        fi
-
-        echo "    Warning: Squirrel reload failed: $SQUIRREL_BIN --reload"
-        echo "    Next step: run '$SQUIRREL_BIN --reload' manually."
-        ;;
-    esac
-}
+{{ include ".chezmoitemplates/shell/rime_deploy.sh" }}
 
 mkdir -p "$STATE_DIR"
 if [[ ! -d "$TARGET_DIR" ]]; then
@@ -239,11 +191,7 @@ else
     remove_stale_managed_files "$UPSTREAM_MANAGED_FILES_FILE" "$new_upstream_manifest"
     cp "$new_upstream_manifest" "$UPSTREAM_MANAGED_FILES_FILE"
     printf '%s\n' "$OH_MY_RIME_COMMIT" >"$INSTALLED_COMMIT_FILE"
-    upstream_changed=true
     echo "    Synced upstream: $(pretty_path "$TARGET_DIR")"
 fi
 
-if [[ "$upstream_changed" == false ]]; then
-    echo "    Custom templates are managed directly by chezmoi."
-fi
 deploy_rime

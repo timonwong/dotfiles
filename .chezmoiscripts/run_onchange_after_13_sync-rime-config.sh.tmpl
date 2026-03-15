@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{ $defaultCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/default.custom.yaml" -}}
+{{ $rimeMintCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/rime_mint.custom.yaml" -}}
+{{ $squirrelCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/squirrel.custom.yaml" -}}
+{{ $ibusCustom := joinPath .chezmoi.sourceDir ".chezmoitemplates/rime/ibus_rime.custom.yaml" -}}
+# default.custom.yaml: {{ if stat $defaultCustom }}{{ include $defaultCustom | sha256sum }}{{ else }}n/a{{ end }}
+# rime_mint.custom.yaml: {{ if stat $rimeMintCustom }}{{ include $rimeMintCustom | sha256sum }}{{ else }}n/a{{ end }}
+# squirrel.custom.yaml: {{ if stat $squirrelCustom }}{{ include $squirrelCustom | sha256sum }}{{ else }}n/a{{ end }}
+# ibus_rime.custom.yaml: {{ if stat $ibusCustom }}{{ include $ibusCustom | sha256sum }}{{ else }}n/a{{ end }}
+
+echo ":: [13] Syncing rime custom templates"
+echo "    Templates are managed directly by chezmoi."
+
+platform="{{ .chezmoi.os }}"
+case "$platform" in
+darwin | linux)
+    ;;
+*)
+    echo "    Skipped (unsupported OS: $platform)"
+    exit 0
+    ;;
+esac
+
+SQUIRREL_BIN="/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel"
+{{ include ".chezmoitemplates/shell/rime_deploy.sh" }}
+deploy_rime

@@ -126,7 +126,6 @@ remove_stale_managed_files() {
     done <"$manifest"
 }
 {{ include ".chezmoitemplates/shell/rime_deploy.sh" }}
-
 mkdir -p "$STATE_DIR"
 if [[ ! -d "$TARGET_DIR" ]]; then
     mkdir -p "$TARGET_DIR"

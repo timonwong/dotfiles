@@ -16,8 +16,7 @@ echo "    Templates are managed directly by chezmoi."
 
 platform="{{ .chezmoi.os }}"
 case "$platform" in
-darwin | linux)
-    ;;
+darwin | linux) ;;
 *)
     echo "    Skipped (unsupported OS: $platform)"
     exit 0

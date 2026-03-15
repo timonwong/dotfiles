@@ -148,7 +148,7 @@ repos:
             echo "Checking format with treefmt..."
             if [[ -f treefmt.toml ]]; then
               if ! treefmt --ci; then
-                git --no-pager diff -- .
+                git --no-pager diff --no-ext-diff -- .
                 echo "❌ Format check failed"; exit 1;
               fi
             fi

@@ -25,6 +25,9 @@ clipboard-read = allow
 clipboard-write = allow
 clipboard-paste-protection = false
 
+# Update
+auto-update-channel = tip
+
 # Quick Terminal
 keybind = global:super+grave_accent=toggle_quick_terminal
 quick-terminal-position = top

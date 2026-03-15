@@ -141,11 +141,16 @@ repos:
             fi
 
             cd "$tmpdir"
+            git init
+            git add .
 
             # # Format check
             echo "Checking format with treefmt..."
             if [[ -f treefmt.toml ]]; then
-              treefmt --ci || { echo "❌ Format check failed"; exit 1; }
+              if ! treefmt --ci; then
+                git --no-pager diff -- .
+                echo "❌ Format check failed"; exit 1;
+              fi
             fi
 
             # Lint shell scripts (fail on errors)

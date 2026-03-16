@@ -1,0 +1,20 @@
+agents:
+  default:
+    - claude
+    - standard
+
+packages:
+  - repo: https://github.com/obra/superpowers
+    target_dir: superpowers
+    agents:
+      excludes:
+        - claude
+  - repo: https://github.com/nowledge-co/community
+  - repo: https://github.com/OthmanAdi/planning-with-files
+    skills:
+      - planning-with-files
+    agents:
+      excludes:
+        - openclaw
+  - repo: https://github.com/blader/humanizer
+  - repo: https://github.com/op7418/Humanizer-zh

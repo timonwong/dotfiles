@@ -27,7 +27,9 @@ background-opacity = 0.97
 background-blur = true
 unfocused-split-opacity = 0.7
 
-keybind = shift+enter=text:\n
+# Performance & Scrollback
+scrollback-limit = 1000000
+link-url = true
 
 # Clipboard
 clipboard-read = allow
@@ -42,6 +44,8 @@ keybind = global:super+grave_accent=toggle_quick_terminal
 quick-terminal-position = top
 quick-terminal-size = 40%, 100%
 quick-terminal-autohide = true
+
+keybind = shift+enter=text:\n
 
 # Unbind special keys so they will be forwarded to Zellij
 keybind = cmd+opt+left=unbind

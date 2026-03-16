@@ -160,6 +160,10 @@
         };
         # Prevent Photos from opening automatically when devices are plugged in
         "com.apple.ImageCapture".disableHotPlug = true;
+        "com.apple.speech.recognition.AppleSpeechRecognition.prefs" = {
+          # Dictation hotkey: 0 = disabled, 2 = press Fn twice (default), 3 = press Ctrl twice
+          DictationHotkey = 0;
+        };
         # Keyboard shortcuts: remap input source switching to Cmd+Space / Cmd+Option+Space,
         # and disable conflicting Spotlight shortcuts (originally on the same keys).
         "com.apple.symbolichotkeys" = {

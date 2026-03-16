@@ -22,6 +22,11 @@ mouse-hide-while-typing = true
 shell-integration = detect
 shell-integration-features = no-ssh-env
 
+# Background
+background-opacity = 0.97
+background-blur = true
+unfocused-split-opacity = 0.7
+
 keybind = shift+enter=text:\n
 
 # Clipboard

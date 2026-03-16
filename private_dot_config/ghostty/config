@@ -1,13 +1,13 @@
 theme = Catppuccin Mocha
 
-# custom-shader = shaders/gloom025.glsl
+custom-shader = shaders/bloom025.glsl
 custom-shader = shaders/cursor_blaze_no_trail.glsl
 custom-shader = shaders/cursor_smear.glsl
 
 cursor-style = block
 
 font-family = "CaskaydiaCove NFM"
-font-size = 13
+font-size = 14
 font-feature = -liga, -calt
 
 window-decoration = true
@@ -35,7 +35,7 @@ auto-update-channel = tip
 # Quick Terminal
 keybind = global:super+grave_accent=toggle_quick_terminal
 quick-terminal-position = top
-quick-terminal-size = 40%,100%
+quick-terminal-size = 40%, 100%
 quick-terminal-autohide = true
 
 # Unbind special keys so they will be forwarded to Zellij

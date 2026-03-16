@@ -51,3 +51,5 @@ Session.vim
 
 # Git
 *.orig
+
+**/.claude/settings.local.json

@@ -6,5 +6,9 @@ set -euo pipefail
 # {{ . }}={{ . | include | sha256sum }}
 # {{- end }}
 
+# {{- range (glob "private_dot_config/bat/syntaxes/*.sublime-syntax") }}
+# {{ . }}={{ . | include | sha256sum }}
+# {{- end }}
+
 echo ":: [09] Refreshing bat cache"
 bat cache --build

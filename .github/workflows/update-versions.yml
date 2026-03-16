@@ -32,8 +32,6 @@ jobs:
           aqua_version=$(gh release view --repo aquaproj/aqua --json tagName -q '.tagName')
           nix_index_db=$(gh release view --repo nix-community/nix-index-database --json tagName -q '.tagName')
 
-          claude_wshobson_agents_rev=$(gh api repos/wshobson/agents/commits/main -q '.sha')
-          claude_wshobson_agents_sha256=$(curl_sha256 "https://github.com/wshobson/agents/archive/${claude_wshobson_agents_rev}.tar.gz")
           claude_superpowers_rev=$(gh api repos/obra/superpowers/commits/main -q '.sha')
           claude_superpowers_sha256=$(curl_sha256 "https://github.com/obra/superpowers/archive/${claude_superpowers_rev}.tar.gz")
           claude_anthropics_skills_rev=$(gh api repos/anthropics/skills/commits/main -q '.sha')
@@ -44,7 +42,6 @@ jobs:
           huggingface_skills_rev=$(gh api repos/huggingface/skills/commits/main -q '.sha')
           getsentry_skills_rev=$(gh api repos/getsentry/skills/commits/main -q '.sha')
           trailofbits_skills_rev=$(gh api repos/trailofbits/skills/commits/main -q '.sha')
-          cloudflare_skills_rev=$(gh api repos/cloudflare/skills/commits/main -q '.sha')
           vercel_labs_agent_skills_rev=$(gh api repos/vercel-labs/agent-skills/commits/main -q '.sha')
           vercel_labs_next_skills_rev=$(gh api repos/vercel-labs/next-skills/commits/main -q '.sha')
           supabase_agent_skills_rev=$(gh api repos/supabase/agent-skills/commits/main -q '.sha')
@@ -53,10 +50,6 @@ jobs:
           sickn33_antigravity_skills_rev=$(gh api repos/sickn33/antigravity-awesome-skills/commits/main -q '.sha')
           nowledge_co_community_rev=$(gh api repos/nowledge-co/community/commits/main -q '.sha')
           nowledge_co_community_sha256=$(curl_sha256 "https://github.com/nowledge-co/community/archive/${nowledge_co_community_rev}.tar.gz")
-          humanizer_en_rev=$(gh api repos/blader/humanizer/commits/main -q '.sha')
-          stop_slop_en_rev=$(gh api repos/hardikpandya/stop-slop/commits/main -q '.sha')
-          humanizer_zh_rev=$(gh api repos/op7418/Humanizer-zh/commits/main -q '.sha')
-
           {
             echo "nix_installer=$nix_installer"
             echo "nix_version=$nix_version"
@@ -64,8 +57,6 @@ jobs:
             echo "aqua_installer_sha256=$aqua_installer_sha256"
             echo "aqua_version=$aqua_version"
             echo "nix_index_db=$nix_index_db"
-            echo "claude_wshobson_agents_rev=$claude_wshobson_agents_rev"
-            echo "claude_wshobson_agents_sha256=$claude_wshobson_agents_sha256"
             echo "claude_superpowers_rev=$claude_superpowers_rev"
             echo "claude_superpowers_sha256=$claude_superpowers_sha256"
             echo "claude_anthropics_skills_rev=$claude_anthropics_skills_rev"
@@ -76,7 +67,6 @@ jobs:
             echo "huggingface_skills_rev=$huggingface_skills_rev"
             echo "getsentry_skills_rev=$getsentry_skills_rev"
             echo "trailofbits_skills_rev=$trailofbits_skills_rev"
-            echo "cloudflare_skills_rev=$cloudflare_skills_rev"
             echo "vercel_labs_agent_skills_rev=$vercel_labs_agent_skills_rev"
             echo "vercel_labs_next_skills_rev=$vercel_labs_next_skills_rev"
             echo "supabase_agent_skills_rev=$supabase_agent_skills_rev"
@@ -85,9 +75,6 @@ jobs:
             echo "sickn33_antigravity_skills_rev=$sickn33_antigravity_skills_rev"
             echo "nowledge_co_community_rev=$nowledge_co_community_rev"
             echo "nowledge_co_community_sha256=$nowledge_co_community_sha256"
-            echo "humanizer_en_rev=$humanizer_en_rev"
-            echo "stop_slop_en_rev=$stop_slop_en_rev"
-            echo "humanizer_zh_rev=$humanizer_zh_rev"
           } >> "$GITHUB_OUTPUT"
       - name: Update .chezmoidata/versions.yaml
         run: |
@@ -97,8 +84,6 @@ jobs:
           sed -i 's/aquaInstallerSha256: .*/aquaInstallerSha256: ${{ steps.versions.outputs.aqua_installer_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/aquaVersion: .*/aquaVersion: ${{ steps.versions.outputs.aqua_version }}/' .chezmoidata/versions.yaml
           sed -i 's/nixIndexDb: .*/nixIndexDb: ${{ steps.versions.outputs.nix_index_db }}/' .chezmoidata/versions.yaml
-          sed -i 's/claudeWshobsonAgentsRev: .*/claudeWshobsonAgentsRev: ${{ steps.versions.outputs.claude_wshobson_agents_rev }}/' .chezmoidata/versions.yaml
-          sed -i 's/claudeWshobsonAgentsSha256: .*/claudeWshobsonAgentsSha256: ${{ steps.versions.outputs.claude_wshobson_agents_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/claudeSuperpowersRev: .*/claudeSuperpowersRev: ${{ steps.versions.outputs.claude_superpowers_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/claudeSuperpowersSha256: .*/claudeSuperpowersSha256: ${{ steps.versions.outputs.claude_superpowers_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/claudeAnthropicsSkillsRev: .*/claudeAnthropicsSkillsRev: ${{ steps.versions.outputs.claude_anthropics_skills_rev }}/' .chezmoidata/versions.yaml
@@ -109,7 +94,6 @@ jobs:
           sed -i 's/huggingfaceSkillsRev: .*/huggingfaceSkillsRev: ${{ steps.versions.outputs.huggingface_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/getsentrySkillsRev: .*/getsentrySkillsRev: ${{ steps.versions.outputs.getsentry_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/trailofbitsSkillsRev: .*/trailofbitsSkillsRev: ${{ steps.versions.outputs.trailofbits_skills_rev }}/' .chezmoidata/versions.yaml
-          sed -i 's/cloudflareSkillsRev: .*/cloudflareSkillsRev: ${{ steps.versions.outputs.cloudflare_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/vercelLabsAgentSkillsRev: .*/vercelLabsAgentSkillsRev: ${{ steps.versions.outputs.vercel_labs_agent_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/vercelLabsNextSkillsRev: .*/vercelLabsNextSkillsRev: ${{ steps.versions.outputs.vercel_labs_next_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/supabaseAgentSkillsRev: .*/supabaseAgentSkillsRev: ${{ steps.versions.outputs.supabase_agent_skills_rev }}/' .chezmoidata/versions.yaml
@@ -118,9 +102,6 @@ jobs:
           sed -i 's/sickn33AntigravitySkillsRev: .*/sickn33AntigravitySkillsRev: ${{ steps.versions.outputs.sickn33_antigravity_skills_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/nowledgeCommunityRev: .*/nowledgeCommunityRev: ${{ steps.versions.outputs.nowledge_co_community_rev }}/' .chezmoidata/versions.yaml
           sed -i 's/nowledgeCommunitySha256: .*/nowledgeCommunitySha256: ${{ steps.versions.outputs.nowledge_co_community_sha256 }}/' .chezmoidata/versions.yaml
-          sed -i 's/humanizerEnRev: .*/humanizerEnRev: ${{ steps.versions.outputs.humanizer_en_rev }}/' .chezmoidata/versions.yaml
-          sed -i 's/stopSlopEnRev: .*/stopSlopEnRev: ${{ steps.versions.outputs.stop_slop_en_rev }}/' .chezmoidata/versions.yaml
-          sed -i 's/humanizerZhRev: .*/humanizerZhRev: ${{ steps.versions.outputs.humanizer_zh_rev }}/' .chezmoidata/versions.yaml
       - name: Check for changes
         id: changes
         run: |
@@ -157,7 +138,6 @@ jobs:
             | huggingface/skills | `${{ steps.versions.outputs.huggingface_skills_rev }}` |
             | getsentry/skills | `${{ steps.versions.outputs.getsentry_skills_rev }}` |
             | trailofbits/skills | `${{ steps.versions.outputs.trailofbits_skills_rev }}` |
-            | cloudflare/skills | `${{ steps.versions.outputs.cloudflare_skills_rev }}` |
             | vercel-labs/agent-skills | `${{ steps.versions.outputs.vercel_labs_agent_skills_rev }}` |
             | vercel-labs/next-skills | `${{ steps.versions.outputs.vercel_labs_next_skills_rev }}` |
             | supabase/agent-skills | `${{ steps.versions.outputs.supabase_agent_skills_rev }}` |
@@ -166,6 +146,3 @@ jobs:
             | sickn33/antigravity-awesome-skills | `${{ steps.versions.outputs.sickn33_antigravity_skills_rev }}` |
             | nowledge-co/community | `${{ steps.versions.outputs.nowledge_co_community_rev }}` |
             | nowledge-co/community sha256 | `${{ steps.versions.outputs.nowledge_co_community_sha256 }}` |
-            | humanizer-en | `${{ steps.versions.outputs.humanizer_en_rev }}` |
-            | stop-slop-en | `${{ steps.versions.outputs.stop_slop_en_rev }}` |
-            | humanizer-zh | `${{ steps.versions.outputs.humanizer_zh_rev }}` |

@@ -9,6 +9,8 @@ homebrew:
       - macos-trash
       - mole
       - cloudflared
+      - goreleaser
+      - syft
     work: []
     private:
       - mas # Required for masApps installation

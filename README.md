@@ -301,8 +301,6 @@ pre-commit run --all-files
 Skills are synced via `.chezmoiexternal.toml.tmpl` from:
 
 - [wshobson/agents](https://github.com/wshobson/agents)
-- [anthropics/skills](https://github.com/anthropics/skills)
-- [obra/superpowers](https://github.com/obra/superpowers)
 - community multilingual Humanizer pack (`humanizer-en`, `stop-slop-en`, `humanizer-zh`, `humanizer-ja`)
 
 They are normalized into `~/.agents/skills` and shared by Claude/Codex.
@@ -335,8 +333,6 @@ Claude hooks in `dot_claude/hooks/` provide workflow guardrails and formatting a
 `chezmoi external` syncs selected skills from:
 
 - `wshobson/agents`
-- `anthropics/skills`
-- `obra/superpowers`
 - multilingual Humanizer community sources (`humanizer-en`, `stop-slop-en`, `humanizer-zh`, `humanizer-ja`)
 
 They are normalized into `~/.agents/skills` and shared by Claude/Codex.
@@ -542,8 +538,6 @@ Boundary and ownership:
 - [nix-darwin](https://github.com/LnL7/nix-darwin) - Declarative macOS configuration
 - [flakey-profile](https://github.com/lf-/flakey-profile) - Cross-platform Nix profile management
 - [wshobson/agents](https://github.com/wshobson/agents) - Claude Code plugins marketplace
-- [anthropics/skills](https://github.com/anthropics/skills) - Official Claude Code skills
-- [obra/superpowers](https://github.com/obra/superpowers) - Advanced workflow patterns
 
 ---
 

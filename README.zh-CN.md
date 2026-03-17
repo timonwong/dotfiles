@@ -102,15 +102,8 @@
   - [Nix](#nix)
   - [macOS（`nix-darwin`）](#macosnix-darwin)
   - [测试](#测试)
-- [Claude Code 集成](#claude-code-集成)
-  - [插件系统](#插件系统)
-  - [质量协议](#质量协议)
-  - [Provider 管理](#provider-管理)
-  - [Hooks](#hooks)
 - [AI 工具链（Claude + Codex）](#ai-工具链claude--codex)
   - [共享 Skills 分发](#共享-skills-分发)
-  - [Account 与 Provider 管理](#account-与-provider-管理)
-  - [Token Helpers](#token-helpers)
   - [MCP 集成](#mcp-集成)
     - [任务 -\> MCP 路由](#任务---mcp-路由)
 - [工具链](#工具链)
@@ -292,71 +285,11 @@ pre-commit run --all-files
 
 ---
 
-## Claude Code 集成
-
-### 插件系统
-
-skills 由 `.chezmoiexternal.toml.tmpl` 从以下来源同步：
-
-- [wshobson/agents](https://github.com/wshobson/agents)
-- 社区多语言 Humanizer 套件（`humanizer-en`、`stop-slop-en`、`humanizer-zh`、`humanizer-ja`）
-
-同步后统一落到 `~/.agents/skills`，可被 Claude/Codex 共用。
-
-### 质量协议
-
-当前指令与 skills 体系内置了质量约束（例如实现前置信度检查、实现后基于证据的自检），并配合项目 guardrails 约束高风险变更。
-
-### Provider 管理
-
-`claude-manage`、`claude-with`、`claude-token` 共同实现 account 切换、provider 路由与模型映射；配置源来自 `.chezmoidata/claude.yaml`，密钥通过 gopass 管理。
-
-详见：`docs/claude-provider.md`。
-
-### Hooks
-
-`dot_claude/hooks/` 提供了流程护栏与格式化自动化，核心包括：
-
-- `block-git-rewrites.sh`
-- `block-main-edits.sh`
-- `format-code.sh`
-- `format-python.sh`
-
----
-
 ## AI 工具链（Claude + Codex）
 
 ### 共享 Skills 分发
 
-`chezmoi external` 会同步这些来源的精选 skills：
-
-- `wshobson/agents`
-- 多语言 Humanizer 社区来源（`humanizer-en`、`stop-slop-en`、`humanizer-zh`、`humanizer-ja`）
-
-最终统一到 `~/.agents/skills`，由 Claude、Codex 共同使用。
-
-### Account 与 Provider 管理
-
-```bash
-# Claude
-claude-manage
-claude-manage list
-claude-manage switch anthropic
-claude-with kimi@private -- --resume
-
-# Codex
-codex-manage
-codex-manage list
-codex-manage switch openai
-codex-with deepseek@private "explain this file"
-```
-
-### Token Helpers
-
-```bash
-claude-token --check kimi@private
-codex-token --check deepseek@private
-```
+由 [skimi](https://github.com/timonwong/skimi) 管理。
 
 ### MCP 集成
 

@@ -31,8 +31,6 @@ jobs:
           aqua_installer_sha256=$(curl_sha256 "https://raw.githubusercontent.com/aquaproj/aqua-installer/${aqua_installer}/aqua-installer")
           aqua_version=$(gh release view --repo aquaproj/aqua --json tagName -q '.tagName')
           nix_index_db=$(gh release view --repo nix-community/nix-index-database --json tagName -q '.tagName')
-
-          trailofbits_skills_rev=$(gh api repos/trailofbits/skills/commits/main -q '.sha')
           {
             echo "nix_installer=$nix_installer"
             echo "nix_version=$nix_version"
@@ -40,7 +38,6 @@ jobs:
             echo "aqua_installer_sha256=$aqua_installer_sha256"
             echo "aqua_version=$aqua_version"
             echo "nix_index_db=$nix_index_db"
-            echo "trailofbits_skills_rev=$trailofbits_skills_rev"
           } >> "$GITHUB_OUTPUT"
       - name: Update .chezmoidata/versions.yaml
         run: |
@@ -50,7 +47,6 @@ jobs:
           sed -i 's/aquaInstallerSha256: .*/aquaInstallerSha256: ${{ steps.versions.outputs.aqua_installer_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/aquaVersion: .*/aquaVersion: ${{ steps.versions.outputs.aqua_version }}/' .chezmoidata/versions.yaml
           sed -i 's/nixIndexDb: .*/nixIndexDb: ${{ steps.versions.outputs.nix_index_db }}/' .chezmoidata/versions.yaml
-          sed -i 's/trailofbitsSkillsRev: .*/trailofbitsSkillsRev: ${{ steps.versions.outputs.trailofbits_skills_rev }}/' .chezmoidata/versions.yaml
       - name: Check for changes
         id: changes
         run: |
@@ -83,4 +79,3 @@ jobs:
             | aqua-installer sha256 | `${{ steps.versions.outputs.aqua_installer_sha256 }}` |
             | aqua | `${{ steps.versions.outputs.aqua_version }}` |
             | nix-index-database | `${{ steps.versions.outputs.nix_index_db }}` |
-            | trailofbits/skills | `${{ steps.versions.outputs.trailofbits_skills_rev }}` |

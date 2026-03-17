@@ -8,6 +8,3 @@ versions:
   aquaInstallerSha256: acd21cbb06609dd9a701b0032ba4c21fa37b0e3b5cc4c9d721cc02f25ea33a28
   aquaVersion: v2.57.0
   nixIndexDb: 2026-03-15-045700
-  trailofbitsSkillsRev: c6097699e4553f0dda4db615330f4a5097c4ff99
-  zigDevelopmentPlaybookSkillRev: 72cab69050cc84793603ea7a9d82de367cdd104c
-  rustDevelopmentPlaybookSkillRev: eea186a4c35edecd47058c62b44cf8643fc7cc07

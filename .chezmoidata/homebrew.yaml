@@ -8,6 +8,7 @@ homebrew:
     shared:
       - macos-trash
       - mole
+      - cloudflared
     work: []
     private:
       - mas # Required for masApps installation

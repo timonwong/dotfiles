@@ -35,16 +35,32 @@ packages:
       excludes:
         - claude
     skills:
-      - "distill-memory"
-      - "read-working-memory"
-      - "save-handoff"
-      - "save-thread"
-      - "search-memory"
+      - distill-memory
+      - read-working-memory
+      - save-handoff
+      - save-thread
+      - search-memory
   - repo: OthmanAdi/planning-with-files
     skills:
       - planning-with-files
     agents:
       excludes:
         - openclaw
+  - repo: trailofbits/skills
+    target_dir: ecosystem/trailofbits
+    agents:
+      excludes:
+        - claude
+    skills:
+      - differential-review
+      - codeql
+      - semgrep
+      - sarif-parsing
+      - insecure-defaults
+      - audit-context-building
+      - second-opinion
+      - sharp-edges
+      - using-gh-cli
+      - variant-analysis
   - repo: https://github.com/blader/humanizer
   - repo: https://github.com/op7418/Humanizer-zh

@@ -104,15 +104,8 @@ Core principles:
   - [Nix](#nix)
   - [macOS (`nix-darwin`)](#macos-nix-darwin)
   - [Tests](#tests)
-- [Claude Code Integration](#claude-code-integration)
-  - [Plugin System](#plugin-system)
-  - [Quality Protocols](#quality-protocols)
-  - [Provider Management](#provider-management)
-  - [Hooks](#hooks)
 - [AI Tooling (Claude + Codex)](#ai-tooling-claude--codex)
   - [Shared Skill Distribution](#shared-skill-distribution)
-  - [Account + Provider Control](#account--provider-control)
-  - [Token Helpers](#token-helpers)
   - [MCP Integration](#mcp-integration)
     - [Task -\> MCP Routing](#task---mcp-routing)
 - [Tool Chains](#tool-chains)
@@ -294,71 +287,11 @@ pre-commit run --all-files
 
 ---
 
-## Claude Code Integration
-
-### Plugin System
-
-Skills are synced via `.chezmoiexternal.toml.tmpl` from:
-
-- [wshobson/agents](https://github.com/wshobson/agents)
-- community multilingual Humanizer pack (`humanizer-en`, `stop-slop-en`, `humanizer-zh`, `humanizer-ja`)
-
-They are normalized into `~/.agents/skills` and shared by Claude/Codex.
-
-### Quality Protocols
-
-The managed instruction stack includes explicit quality discipline patterns (for example: pre-implementation confidence checks and evidence-first verification after implementation), primarily delivered via shared skills and project-level guardrails.
-
-### Provider Management
-
-`claude-manage`, `claude-with`, and `claude-token` provide account switching and provider/account-scoped model routing from `.chezmoidata/claude.yaml` + gopass-backed keys.
-
-See: `docs/claude-provider.md`.
-
-### Hooks
-
-Claude hooks in `dot_claude/hooks/` provide workflow guardrails and formatting automation, including:
-
-- `block-git-rewrites.sh`
-- `block-main-edits.sh`
-- `format-code.sh`
-- `format-python.sh`
-
----
-
 ## AI Tooling (Claude + Codex)
 
 ### Shared Skill Distribution
 
-`chezmoi external` syncs selected skills from:
-
-- `wshobson/agents`
-- multilingual Humanizer community sources (`humanizer-en`, `stop-slop-en`, `humanizer-zh`, `humanizer-ja`)
-
-They are normalized into `~/.agents/skills` and shared by Claude/Codex.
-
-### Account + Provider Control
-
-```bash
-# Claude
-claude-manage
-claude-manage list
-claude-manage switch anthropic
-claude-with kimi@private -- --resume
-
-# Codex
-codex-manage
-codex-manage list
-codex-manage switch openai
-codex-with deepseek@private "explain this file"
-```
-
-### Token Helpers
-
-```bash
-claude-token --check kimi@private
-codex-token --check deepseek@private
-```
+Managed by [skimi](https://github.com/timonwong/skimi).
 
 ### MCP Integration
 

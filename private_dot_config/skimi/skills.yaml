@@ -4,13 +4,43 @@ agents:
     - standard
 
 packages:
-  - repo: https://github.com/obra/superpowers
+  - repo: anthropics/skills
+    target_dir: anthropics
+    agents:
+      excludes:
+        - claude
+    skills:
+      - skill-creator
+      - brand-guidelines
+      - algorithmic-art
+  - repo: openai/skills
+    target_dir: ecosystem/openai
+    agents:
+      excludes:
+        - claude
+    skills:
+      - gh-fix-ci
+      - playwright
+      - security-best-practices
+      - security-threat-model
+      - security-ownership-map
+  - repo: obra/superpowers
     target_dir: superpowers
     agents:
       excludes:
         - claude
-  - repo: https://github.com/nowledge-co/community
-  - repo: https://github.com/OthmanAdi/planning-with-files
+  - repo: nowledge-co/community/nowledge-mem-npx-skills
+    target_dir: nowledge-mem
+    agents:
+      excludes:
+        - claude
+    skills:
+      - "distill-memory"
+      - "read-working-memory"
+      - "save-handoff"
+      - "save-thread"
+      - "search-memory"
+  - repo: OthmanAdi/planning-with-files
     skills:
       - planning-with-files
     agents:

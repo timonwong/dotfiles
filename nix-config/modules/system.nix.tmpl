@@ -160,6 +160,9 @@
         };
         # Prevent Photos from opening automatically when devices are plugged in
         "com.apple.ImageCapture".disableHotPlug = true;
+        "com.apple.HIToolbox" = {
+          AppleFnUsageType = 0; # Press Globe (Fn) key to: Do Nothing
+        };
         "com.apple.speech.recognition.AppleSpeechRecognition.prefs" = {
           # Dictation hotkey: 0 = disabled, 2 = press Fn twice (default), 3 = press Ctrl twice
           DictationHotkey = 0;

@@ -47,6 +47,10 @@ quick-terminal-autohide = true
 
 keybind = shift+enter=text:\n
 
+# keep consistent behavior with Zellij
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+
 # Unbind special keys so they will be forwarded to Zellij
 keybind = cmd+opt+left=unbind
 keybind = cmd+opt+right=unbind

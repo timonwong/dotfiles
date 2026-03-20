@@ -2,8 +2,7 @@ homebrew:
   taps:
     shared: []
     work: []
-    private:
-      - nguyenphutrong/tap
+    private: []
   brews:
     shared:
       - macos-trash
@@ -38,7 +37,6 @@ homebrew:
       - itsycal
       - jordanbaird-ice
       - alt-tab
-      - nguyenphutrong/tap/quotio
       - macpacker # 解压软件
       - alma
       - snipaste

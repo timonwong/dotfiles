@@ -11,6 +11,7 @@ homebrew:
       - cloudflared
       - goreleaser
       - syft
+      - cliproxyapi
     work: []
     private:
       - mas # Required for masApps installation

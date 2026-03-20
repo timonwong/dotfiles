@@ -1,5 +1,5 @@
 {
-  "extras": [],
+  "extras": ["lazyvim.plugins.extras.lang.helm"],
   "install_version": 8,
   "news": {
     "NEWS.md": "11866"

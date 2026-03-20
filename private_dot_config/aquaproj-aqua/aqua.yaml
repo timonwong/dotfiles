@@ -20,11 +20,11 @@ packages:
     # keep a known-good release pinned.
     update:
       enabled: false
-  - name: anthropics/claude-code@v2.1.79
-  - name: openai/codex@rust-v0.115.0
+  - name: anthropics/claude-code@v2.1.80
+  - name: openai/codex@rust-v0.116.0
   - name: direnv/direnv@v2.37.1
   - name: muesli/duf@v0.9.1
-  - name: dandavison/delta@0.18.2
+  - name: dandavison/delta@0.19.0
   - name: Wilfred/difftastic@0.68.0
   - name: fastfetch-cli/fastfetch@2.60.0
   - name: sharkdp/fd@v10.4.2
@@ -64,7 +64,7 @@ packages:
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: derailed/k9s@v0.50.18
   - name: google/go-containerregistry@v0.21.3
-  - name: kubernetes/kubectl@v1.35.2
+  - name: kubernetes/kubectl@v1.35.3
   - name: kubernetes-sigs/krew@v0.5.0
   - name: chainguard-dev/melange@v0.45.4
   - name: chainguard-dev/apko@v1.1.15

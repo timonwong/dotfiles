@@ -20,7 +20,7 @@ packages:
     # keep a known-good release pinned.
     update:
       enabled: false
-  - name: anthropics/claude-code@v2.1.80
+  - name: anthropics/claude-code@v2.1.81
   - name: openai/codex@rust-v0.116.0
   - name: direnv/direnv@v2.37.1
   - name: muesli/duf@v0.9.1

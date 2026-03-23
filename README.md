@@ -31,7 +31,7 @@ A reproducible personal workstation setup built around:
 
 - `chezmoi` for dotfiles, templating, and bootstrap orchestration
 - `Nix` for declarative packages (`nix-darwin` on macOS + `flakey-profile` on macOS/Linux)
-- `aqua` + `mise` for CLI/runtime pinning outside Nix where practical
+- `aqua` + `mise` for CLI/runtime pinning outside Nix where practical (`codex` and `claude-code` are pinned in global `mise`)
 - Shared AI tooling for `Claude Code` and `Codex CLI`
 
 This is a real daily-driver setup, not a demo template. The README focuses on what is actually implemented in this repository today.
@@ -50,7 +50,7 @@ This is a real daily-driver setup, not a demo template. The README focuses on wh
   - `claude-manage` / `claude-with`
   - `codex-manage` / `codex-with`
 - Auto MCP sync for Claude on every `chezmoi apply`
-- Automated dependency upkeep via GitHub Actions (versions, flake locks, aqua packages)
+- Automated dependency upkeep via GitHub Actions (versions, flake locks, aqua packages, mise tools)
 - `C1/C2/C3/C4` routing: advisory in `C1`, direct deterministic flow in `C2`, OpenSpec governance for `C3`/`C4`
 
 ---
@@ -137,7 +137,7 @@ This repository combines `chezmoi` templating with Nix-based package management 
 - `chezmoi`: source-of-truth orchestration for scripts/templates
 - `nix-darwin` (macOS): system-level configuration
 - `flakey-profile` (macOS/Linux): user package profile
-- `aqua` + `mise`: CLI/runtime tooling layer outside Nix where needed
+- `aqua` + `mise`: CLI/runtime tooling layer outside Nix (`codex` and `claude-code` are managed by global `mise`)
 - `dot_claude` + `dot_codex`: tool-specific global guidance and configuration
 
 | Component     | macOS          | Linux          |
@@ -185,8 +185,8 @@ The `chezmoi` script chain is staged and numbered:
 4. `03` switch flakey-profile package profile
 5. `04` bootstrap gopass store (interactive clone)
 6. `05` install pinned aqua installer/version
-7. `06` install tools from `private_dot_config/aquaproj-aqua/aqua.yaml`
-8. `07` install runtimes/tools via `mise`
+7. `06` install tools from `private_dot_config/aquaproj-aqua/aqua.yaml` (excluding `codex`/`claude-code`)
+8. `07` install runtimes/tools via `mise` (including global `codex`/`claude-code`)
 9. `08` install pinned nix-index database
 10. `10` periodic Homebrew update/upgrade (7-day interval)
 11. `11` sync Claude MCP servers (add/update only when needed)
@@ -381,6 +381,14 @@ create_py_project   # Quick Python project setup with uv
 
 Package lists live in `.chezmoidata/` and support `shared` / `work` / `private` segmentation.
 
+After migrating `codex` and `claude-code` from `aqua` to `mise`, reclaim old `aqua` package data with:
+
+```bash
+aqua rm -m pl openai/codex anthropics/claude-code
+aqua vacuum -d 0
+du -sh "${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua/pkgs"
+```
+
 ---
 
 ## Multi-Profile Configuration
@@ -429,10 +437,11 @@ See:
 
 ### Automated Upkeep
 
-- `.github/workflows/scheduler.yml` (twice weekly trigger)
+- `.github/workflows/scheduler.yml` (daily trigger)
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
 - `.github/workflows/update-aqua-packages.yml`
+- `.github/workflows/update-mise-tools.yml` (auto-updates tools in the `# mise-update:begin/end` block)
 
 ---
 

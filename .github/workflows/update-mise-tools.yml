@@ -1,0 +1,136 @@
+name: Update mise tools
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  update:
+    name: Update managed tools in mise config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - uses: jdx/mise-action@v3
+
+      - name: Discover managed tools
+        id: discover
+        run: |
+          set -euo pipefail
+          config_file="private_dot_config/mise/config.toml.tmpl"
+          tools_file="$(mktemp)"
+
+          awk '
+            /^# mise-update:begin$/ { in_block=1; next }
+            /^# mise-update:end$/   { in_block=0; next }
+            in_block {
+              if ($0 ~ /^[[:space:]]*#/) next
+              if ($0 !~ /=[[:space:]]*"[^"]+"/) next
+
+              key = $0
+              sub(/[[:space:]]*=[[:space:]]*"[^"]+".*$/, "", key)
+              gsub(/^[[:space:]]+|[[:space:]]+$/, "", key)
+              sub(/^"/, "", key)
+              sub(/"$/, "", key)
+
+              if (key != "") print key
+            }
+          ' "$config_file" >"$tools_file"
+
+          if [[ ! -s "$tools_file" ]]; then
+            echo "No managed tools found between # mise-update:begin and # mise-update:end in $config_file" >&2
+            exit 1
+          fi
+
+          {
+            echo "tools<<EOF"
+            cat "$tools_file"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Update managed tool versions
+        run: |
+          set -euo pipefail
+          config_file="private_dot_config/mise/config.toml.tmpl"
+          updates_file="$(mktemp)"
+
+          while IFS= read -r tool; do
+            [[ -n "$tool" ]] || continue
+            latest="$(mise latest "$tool")"
+            printf '%s=%s\n' "$tool" "$latest" >> "$updates_file"
+            echo "updated ${tool} -> ${latest}"
+          done <<<"${{ steps.discover.outputs.tools }}"
+
+          python3 - "$config_file" "$updates_file" <<'PY'
+          import re
+          import sys
+
+          config_path = sys.argv[1]
+          updates_path = sys.argv[2]
+
+          with open(config_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+          updates = {}
+          with open(updates_path, "r", encoding="utf-8") as f:
+            for line in f:
+              line = line.strip()
+              if not line:
+                continue
+              tool, version = line.split("=", 1)
+              updates[tool] = version
+
+          for tool, version in updates.items():
+            escaped = re.escape(tool)
+            patterns = [
+              rf'^(\s*"{escaped}"\s*=\s*")[^"]*(".*)$',
+              rf'^(\s*{escaped}\s*=\s*")[^"]*(".*)$',
+            ]
+            replaced = False
+            for pattern in patterns:
+              next_content, n = re.subn(pattern, rf"\g<1>{version}\g<2>", content, flags=re.MULTILINE)
+              if n > 0:
+                content = next_content
+                replaced = True
+                break
+            if not replaced:
+              raise SystemExit(f"Failed to update tool key in {config_path}: {tool}")
+
+          with open(config_path, "w", encoding="utf-8") as f:
+            f.write(content)
+          PY
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet private_dot_config/mise/config.toml.tmpl; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Get current date
+        if: steps.changes.outputs.changed == 'true'
+        id: date
+        run: echo "date=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Create PR
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          add-paths: |
+            private_dot_config/mise/config.toml.tmpl
+          commit-message: "chore(mise): update managed tool versions"
+          title: "chore(mise): update managed tool versions (${{ steps.date.outputs.date }})"
+          branch: update-mise-tools
+          labels: dependencies,automation,mise
+          body: |
+            Automated update for tools managed between:
+            `# mise-update:begin`
+            `# mise-update:end`
+
+            Config file:
+            `private_dot_config/mise/config.toml.tmpl`

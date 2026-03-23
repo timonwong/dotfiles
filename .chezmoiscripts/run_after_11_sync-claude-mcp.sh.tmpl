@@ -8,7 +8,8 @@ set -euo pipefail
 echo ":: [11] Syncing Claude Code MCP servers"
 
 # Ensure common install locations are discoverable in non-interactive shells.
-PATH="$HOME/.nix-profile/bin:/opt/homebrew/bin:$HOME/.local/share/aquaproj-aqua/bin:$PATH"
+MISE_SHIMS_DIR="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/shims"
+PATH="$HOME/.nix-profile/bin:/opt/homebrew/bin:$MISE_SHIMS_DIR:$HOME/.local/share/aquaproj-aqua/bin:$PATH"
 claude_cmd="$(command -v claude 2>/dev/null || true)"
 
 if [[ -z "$claude_cmd" ]]; then

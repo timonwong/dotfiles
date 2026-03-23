@@ -31,7 +31,7 @@
 
 - `chezmoi`：管理 dotfiles、模板和 bootstrap 编排
 - `Nix`：声明式包管理（macOS 用 `nix-darwin`，macOS/Linux 都用 `flakey-profile`）
-- `aqua` + `mise`：补充 Nix 之外的 CLI 与 runtime 版本固定
+- `aqua` + `mise`：补充 Nix 之外的 CLI 与 runtime 版本固定（`codex` 与 `claude-code` 已切到全局 `mise`）
 - `Claude Code` + `Codex CLI`：共享 AI 工具链
 
 这不是展示型模板，而是日常真实使用的配置。本文档只描述仓库当前已经实现的能力。
@@ -50,7 +50,7 @@
   - `claude-manage` / `claude-with`
   - `codex-manage` / `codex-with`
 - 每次 `chezmoi apply` 自动对齐 Claude MCP 配置
-- GitHub Actions 自动维护依赖版本（versions、flake lock、aqua packages）
+- GitHub Actions 自动维护依赖版本（versions、flake lock、aqua packages、mise tools）
 - `C1/C2/C3/C4` 路由模型：`C1` 只读分析，`C2` 确定性变更直改，`C3`/`C4` 走 OpenSpec 治理
 
 ---
@@ -135,7 +135,7 @@
 - `chezmoi`：模板与脚本编排中枢
 - `nix-darwin`（macOS）：系统层声明式配置
 - `flakey-profile`（macOS/Linux）：用户包 Profile
-- `aqua` + `mise`：Nix 外 CLI/runtime 管理层
+- `aqua` + `mise`：Nix 外 CLI/runtime 管理层（`codex` 与 `claude-code` 由全局 `mise` 管理）
 - `dot_claude` + `dot_codex`：AI 工具全局策略与配置
 
 | 组件     | macOS          | Linux          |
@@ -183,8 +183,8 @@
 4. `03` 切换 flakey-profile 包配置
 5. `04` 初始化 gopass store（交互式 clone）
 6. `05` 安装固定版本的 aqua installer/aqua
-7. `06` 根据 `private_dot_config/aquaproj-aqua/aqua.yaml` 安装工具
-8. `07` 通过 `mise` 安装 runtime 与工具
+7. `06` 根据 `private_dot_config/aquaproj-aqua/aqua.yaml` 安装工具（不含 `codex`/`claude-code`）
+8. `07` 通过 `mise` 安装 runtime 与工具（含全局 `codex`/`claude-code`）
 9. `08` 下载固定版本 nix-index 数据库
 10. `09` 周期性 Homebrew 更新（7 天间隔）
 11. `10` 同步 Claude MCP servers（仅缺失/不一致时更新）
@@ -379,6 +379,14 @@ create_py_project   # 使用 uv 快速初始化 Python 项目
 
 包清单统一定义在 `.chezmoidata/`，并按 `shared` / `work` / `private` 分层。
 
+将 `codex` 和 `claude-code` 从 `aqua` 迁移到 `mise` 后，可用以下命令回收旧 `aqua` 包数据：
+
+```bash
+aqua rm -m pl openai/codex anthropics/claude-code
+aqua vacuum -d 0
+du -sh "${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua/pkgs"
+```
+
 ---
 
 ## 多 Profile 配置
@@ -427,10 +435,11 @@ chezmoi init --apply --promptBool headless=true timonwong
 
 ### 自动维护
 
-- `.github/workflows/scheduler.yml`（每周两次触发）
+- `.github/workflows/scheduler.yml`（每日触发）
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
 - `.github/workflows/update-aqua-packages.yml`
+- `.github/workflows/update-mise-tools.yml`（自动更新 `# mise-update:begin/end` 区块内工具）
 
 ---
 

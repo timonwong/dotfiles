@@ -36,7 +36,6 @@ homebrew:
       - loop
       - itsycal
       - jordanbaird-ice
-      - alt-tab
       - macpacker # 解压软件
       - alma
       - snipaste

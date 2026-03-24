@@ -66,4 +66,3 @@ packages:
   - name: kubernetes-sigs/krew@v0.5.0
   - name: chainguard-dev/melange@v0.45.4
   - name: chainguard-dev/apko@v1.1.15
-  - name: ankitpokhrel/jira-cli@v1.7.0

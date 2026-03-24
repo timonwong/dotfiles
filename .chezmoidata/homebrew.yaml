@@ -35,11 +35,11 @@ homebrew:
       - telegram
       - loop
       - itsycal
-      - jordanbaird-ice
       - macpacker # 解压软件
       - alma
       - snipaste
       - raycast
+      - thaw
   masApps:
     shared: []
     work: []

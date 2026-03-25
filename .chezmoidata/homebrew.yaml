@@ -39,7 +39,6 @@ homebrew:
       - alma
       - snipaste
       - raycast
-      - thaw
   masApps:
     shared: []
     work: []

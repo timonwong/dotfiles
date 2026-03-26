@@ -28,7 +28,7 @@ background-blur = true
 unfocused-split-opacity = 0.7
 
 # Performance & Scrollback
-scrollback-limit = 1000000
+scrollback-limit = 10000000
 link-url = true
 
 # Clipboard

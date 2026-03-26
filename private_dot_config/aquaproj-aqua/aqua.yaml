@@ -57,7 +57,7 @@ packages:
       enabled: false
   - name: dduan/tre@v0.4.0
   - name: sxyazi/yazi@v26.1.22
-  - name: mikefarah/yq@v4.52.4
+  - name: mikefarah/yq@v4.52.5
   - name: zellij-org/zellij@v0.44.0
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: derailed/k9s@v0.50.18

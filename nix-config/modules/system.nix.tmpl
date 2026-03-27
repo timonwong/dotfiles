@@ -78,6 +78,19 @@
         TrackpadFourFingerHorizSwipeGesture = 2;
       };
 
+      # customize window management
+      WindowManager = {
+        EnableStandardClickToShowDesktop = true; # Click wallpaper to reveal desktop: Always
+        EnableTilingByEdgeDrag = true; # Tile by dragging windows to screen edges
+        EnableTopTilingByEdgeDrag = true; # Drag windows to menu bar to fill screen
+        EnableTilingOptionAccelerator = true; # Hold Option key while dragging windows to tile
+        EnableTiledWindowMargins = false; # Tiled windows have margins
+        StandardHideDesktopIcons = false; # Show items on desktop
+        HideDesktop = false; # Do not hide items on desktop & stage manager
+        StageManagerHideWidgets = false;
+        StandardHideWidgets = false;
+      };
+
       # customize settings that not supported by nix-darwin directly
       # Incomplete list of macOS `defaults` commands :
       #   https://github.com/yannbertrand/macos-defaults
@@ -138,13 +151,6 @@
         };
         "com.apple.spaces" = {
           "spans-displays" = 0; # Display have seperate spaces
-        };
-        "com.apple.WindowManager" = {
-          EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
-          StandardHideDesktopIcons = 0; # Show items on desktop
-          HideDesktop = 0; # Do not hide items on desktop & stage manager
-          StageManagerHideWidgets = 0;
-          StandardHideWidgets = 0;
         };
         "com.apple.screensaver" = {
           # Require password immediately after sleep or screen saver begins

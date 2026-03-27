@@ -22,6 +22,7 @@ nix:
       - wget
       - zstd
       - eza
+      - jujutsu
     work:
       - mariadb
       - postgresql

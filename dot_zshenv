@@ -40,9 +40,8 @@ path_add_back "$HOME/.krew/bin"
 AQUA_BIN_DIR="${AQUA_ROOT_DIR:-${XDG_DATA_HOME}/aquaproj-aqua}/bin"
 [[ -d "$AQUA_BIN_DIR" ]] && path_add_back "$AQUA_BIN_DIR"
 
-# Never expose mise shims at .zshenv phase.
 export MISE_SHIMS_DIR="${MISE_DATA_DIR:-${XDG_DATA_HOME}/mise}/shims"
-path_remove "$MISE_SHIMS_DIR"
+path_add_back "$MISE_SHIMS_DIR"
 
 export PATH
 

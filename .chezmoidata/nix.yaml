@@ -11,7 +11,6 @@ nix:
       - mise # runtime/tool version manager
       - navi
       - ouch
-      - pre-commit # Git hook framework
       - sheldon # shell plugin manager (prefer nix build over aqua binary on macOS)
       - openssh
       - openssl

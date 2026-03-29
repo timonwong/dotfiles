@@ -69,16 +69,6 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        # TODO: remove overlay once nixpkgs-unstable picks up NixOS/nixpkgs#502769
-        overlays = [
-          (_final: prev: {
-            direnv = prev.direnv.overrideAttrs (old: {
-              postPatch = (old.postPatch or "") + ''
-                substituteInPlace GNUmakefile --replace-fail " -linkmode=external" ""
-              '';
-            });
-          })
-        ];
       };
 
       # flakey-profile for user packages (cross-platform)

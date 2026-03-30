@@ -34,7 +34,7 @@ packages:
   - name: jqlang/jq@jq-1.8.1
   - name: casey/just@1.48.1
   - name: jesseduffield/lazygit@v0.60.0
-  - name: neovim/neovim@v0.11.7
+  - name: neovim/neovim@v0.12.0
   - name: LuaLS/lua-language-server@3.17.1
   - name: tree-sitter/tree-sitter@v0.26.7
   - name: rclone/rclone@v1.73.3
@@ -64,5 +64,5 @@ packages:
   - name: google/go-containerregistry@v0.21.3
   - name: kubernetes/kubectl@v1.35.3
   - name: kubernetes-sigs/krew@v0.5.0
-  - name: chainguard-dev/melange@v0.46.1
-  - name: chainguard-dev/apko@v1.1.16
+  - name: chainguard-dev/melange@v0.47.0
+  - name: chainguard-dev/apko@v1.2.0

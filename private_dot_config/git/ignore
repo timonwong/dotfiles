@@ -52,4 +52,7 @@ Session.vim
 # Git
 *.orig
 
+# Python
+__pycache__
+
 **/.claude/settings.local.json

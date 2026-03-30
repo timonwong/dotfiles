@@ -24,11 +24,6 @@ packages:
       - security-best-practices
       - security-threat-model
       - security-ownership-map
-  - repo: obra/superpowers
-    target_dir: superpowers
-    agents:
-      excludes:
-        - claude
   - repo: nowledge-co/community/nowledge-mem-npx-skills
     target_dir: nowledge-mem
     agents:
@@ -42,9 +37,14 @@ packages:
       - search-memory
   - repo: OthmanAdi/planning-with-files
     skills:
-      - planning-with-files
+      - planning-with-files-zh
     agents:
       excludes:
         - openclaw
   - repo: https://github.com/blader/humanizer
   - repo: https://github.com/op7418/Humanizer-zh
+  - repo: onevcat/skills
+    skills:
+      - onevcat-jj
+  - local_path: ~/.config/skimi/skills/op-plugin-run
+  - local_path: ~/.config/skimi/skills/gitlab-cli

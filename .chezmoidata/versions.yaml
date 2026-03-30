@@ -7,4 +7,4 @@ versions:
   aquaInstaller: v4.0.4
   aquaInstallerSha256: acd21cbb06609dd9a701b0032ba4c21fa37b0e3b5cc4c9d721cc02f25ea33a28
   aquaVersion: v2.57.1
-  nixIndexDb: 2026-03-22-044453
+  nixIndexDb: 2026-03-29-050203

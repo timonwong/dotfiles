@@ -39,6 +39,12 @@ Return:
 - `parse_status`: `ok` or `failed`.
 - `failure_reason`: set only when failed.
 
+## Status handoff to execution gate
+
+- `parse_status=failed` must map directly to `execution_status=blocked`.
+- Only `parse_status=ok` may continue to tmux decision logic (`ready` or `degraded`).
+- Parsing result must be emitted before tmux status fields.
+
 ## Failure guidance template
 
 - Missing file: create `~/.config/op/plugins.sh` and define canonical aliases.

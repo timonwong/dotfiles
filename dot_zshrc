@@ -23,8 +23,6 @@ source "$HOME/.custom/utils.sh"
 # do not save duplicates in history
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups
-# japanese filename support
-setopt print_eight_bit
 
 # Local overrides (not managed by chezmoi)
 if [[ -r $HOME/.custom/local.sh ]]; then

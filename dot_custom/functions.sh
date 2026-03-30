@@ -40,68 +40,6 @@ bindkey '^[^[[B' _cd_back
 # FZF-powered shell functions
 
 # ─────────────────────────────────────────────────────────────
-# ghq + fzf Integration
-# ─────────────────────────────────────────────────────────────
-
-# dev - Interactive repository selector with ghq
-# Usage: dev [query]
-# Features:
-#   - Fuzzy search through all ghq-managed repos
-#   - Preview with eza tree + README + git branch
-#   - Auto-rename tmux session
-#   - Ctrl+O: open in VS Code
-#   - Ctrl+E: open in editor
-#   - Ctrl+Y: copy path to clipboard
-dev() {
-    local repo
-    repo=$(
-        ghq list | fzf \
-            --query="${1:-}" \
-            --preview '
-            repo_path="$(ghq root)/{}"
-            echo -e "\033[1;34m📁 {}\033[0m"
-            echo ""
-            # Show git branch if available
-            if [ -d "$repo_path/.git" ]; then
-                branch=$(git -C "$repo_path" branch --show-current 2>/dev/null)
-                echo -e "\033[1;33m⎇ $branch\033[0m"
-                echo ""
-            fi
-            # Show directory tree
-            eza --tree --level=2 --color=always --icons --git-ignore "$repo_path" 2>/dev/null
-            echo ""
-            # Show README if exists
-            for readme in "$repo_path"/README{,.md,.rst,.txt} "$repo_path"/readme{,.md}; do
-                if [ -f "$readme" ]; then
-                    echo -e "\033[1;32m📖 README\033[0m"
-                    bat --color=always --style=plain --line-range=:20 "$readme" 2>/dev/null
-                    break
-                fi
-            done
-        ' \
-            --preview-window='right:55%:border-left:wrap' \
-            --header='Enter: cd | Ctrl+O: VS Code | Ctrl+E: Editor | Ctrl+Y: copy path' \
-            --bind='ctrl-o:execute-silent(code "$(ghq root)/{}"),ctrl-e:execute(${EDITOR:-nvim} "$(ghq root)/{}"),ctrl-y:execute-silent(echo "$(ghq root)/{}" | pbcopy)+abort'
-    )
-    if [[ -n "$repo" ]]; then
-        cd "$(ghq root)/$repo" || return 1
-        # Rename tmux session if inside tmux
-        if [[ -n "$TMUX" ]]; then
-            tmux rename-session "${repo##*/}"
-        fi
-    fi
-}
-
-# ghq wrapper: no args = fzf select, with args = normal ghq
-ghq() {
-    if [[ $# -eq 0 ]]; then
-        dev
-    else
-        command ghq "$@"
-    fi
-}
-
-# ─────────────────────────────────────────────────────────────
 # fgc - Fuzzy git checkout (branches)
 # Usage: fgc
 # ─────────────────────────────────────────────────────────────

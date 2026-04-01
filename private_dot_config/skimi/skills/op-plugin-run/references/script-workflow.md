@@ -1,43 +1,21 @@
-# script workflow
+# Script workflow
 
-This skill is script-first. Never handcraft status decisions.
-`op-plugin-gate.sh` is a bash wrapper with embedded `python3` logic for maintainability.
-
-## Mandatory entrypoint
+Wrapper entrypoint:
 
 ```bash
 scripts/op-plugin-gate.sh -- <command> [args...]
 ```
 
-The script output is authoritative for:
+Behavior summary:
 
-- `parse_status`
-- `managed`
-- `execution_status`
-- `routed_command`
-- tmux fallback reason fields
-- command execution result fields
+1. If `~/.config/op/plugins.sh` exists, source it.
+2. Build command as `op plugin run -- <command> [args...]`.
+3. If tmux unavailable, run direct fallback in current shell.
+4. If tmux available:
+   - ensure session `op-auth`
+   - run command in a new window in `op-auth`
+   - attach/switch to `op-auth`
+5. If tmux session/window creation fails, fallback direct.
+6. If command already started in tmux and attach/switch fails, exit non-zero and do not fallback again.
 
-## Minimal run flow
-
-1. Run gate script with target command.
-2. Read JSON output.
-3. Apply status strictly:
-   - `ready`: command already executed in `op-auth`.
-   - `degraded`: command already executed in direct fallback path.
-   - `blocked`: stop and return `reason` + `fix`.
-4. Do not execute the same managed command again outside script.
-
-## Testing switches
-
-- `--simulate-tmux-missing`: force degraded path (`tmux_missing`).
-- `--simulate-bootstrap-fail`: force degraded path (`tmux_bootstrap_failed`).
-
-## Example outputs
-
-```bash
-scripts/op-plugin-gate.sh -- gh auth status
-scripts/op-plugin-gate.sh --simulate-tmux-missing -- gh pr checks 123
-scripts/op-plugin-gate.sh --simulate-bootstrap-fail -- glab mr list
-scripts/op-plugin-gate.sh --timeout-sec 30 -- gh pr checks 123
-```
+The wrapper prints normal command output directly.

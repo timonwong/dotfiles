@@ -1,52 +1,15 @@
-# plugins.sh parsing policy
+# plugins.sh sourcing policy
 
-This skill treats `~/.config/op/plugins.sh` as required startup input.
+This wrapper no longer parses aliases.
 
-## Required file checks
+Policy:
 
-1. File exists.
-2. File is readable.
-3. File contains at least one valid managed alias line.
+- If `~/.config/op/plugins.sh` exists, source it.
+- If the file does not exist, continue.
+- If source fails, print warning and continue.
 
-If any check fails, stop and return concrete repair guidance.
-
-## Supported alias shape
-
-Only this canonical shape is accepted as managed:
+Command routing is always explicit:
 
 ```bash
-alias gh="op plugin run -- gh"
-alias glab="op plugin run -- glab"
+op plugin run -- <command> [args...]
 ```
-
-Accepted variants:
-
-- Leading/trailing spaces.
-- Single or double quotes.
-
-Rejected variants (must fail):
-
-- Missing `--`.
-- Different wrapped command from alias name.
-- Multi-command alias bodies (`;`, `&&`, pipes).
-- Aliases not using `op plugin run`.
-
-## Extraction result
-
-Return:
-
-- `managed_commands`: unique command names extracted from valid aliases.
-- `parse_status`: `ok` or `failed`.
-- `failure_reason`: set only when failed.
-
-## Status handoff to execution gate
-
-- `parse_status=failed` must map directly to `execution_status=blocked`.
-- Only `parse_status=ok` may continue to tmux decision logic (`ready` or `degraded`).
-- Parsing result must be emitted before tmux status fields.
-
-## Failure guidance template
-
-- Missing file: create `~/.config/op/plugins.sh` and define canonical aliases.
-- Unreadable file: fix permissions, then retry.
-- Malformed alias: rewrite to canonical `alias xxx="op plugin run -- xxx"` form.

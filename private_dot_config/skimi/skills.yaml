@@ -24,17 +24,17 @@ packages:
       - security-best-practices
       - security-threat-model
       - security-ownership-map
-  - repo: nowledge-co/community/nowledge-mem-npx-skills
-    target_dir: nowledge-mem
-    agents:
-      excludes:
-        - claude
-    skills:
-      - distill-memory
-      - read-working-memory
-      - save-handoff
-      - save-thread
-      - search-memory
+  #  - repo: nowledge-co/community/nowledge-mem-npx-skills
+  #    target_dir: nowledge-mem
+  #    agents:
+  #      excludes:
+  #        - claude
+  #    skills:
+  #      - distill-memory
+  #      - read-working-memory
+  #      - save-handoff
+  #      - save-thread
+  #      - search-memory
   - repo: OthmanAdi/planning-with-files
     skills:
       - planning-with-files-zh

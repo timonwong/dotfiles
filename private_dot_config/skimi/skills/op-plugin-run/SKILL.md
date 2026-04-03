@@ -9,7 +9,9 @@ metadata:
 
 Use a single wrapper script to run managed commands:
 
-- Script: `scripts/op-plugin-gate.sh`
+- Script candidates:
+  - `scripts/op-plugin-gate.sh`
+  - `~/.agents/skills/op-plugin-run/scripts/op-plugin-gate.sh`
 - Session: `op-auth`
 - Route: `op plugin run -- <command> [args...]`
 
@@ -21,20 +23,26 @@ Use a single wrapper script to run managed commands:
 
 ## Hard constraints
 
-- Always enter through `scripts/op-plugin-gate.sh -- <command> [args...]`.
+- Always enter through a resolved wrapper path and run `<wrapper> -- <command> [args...]`.
 - Do not run managed command as bare `gh`/`glab`.
 - If command already started in tmux and `attach/switch` fails, do not run fallback again.
+- If no executable wrapper is found, stop and report blocked. Do not fallback to bare `gh`/`glab`.
 
 ## Workflow
 
-1. Run wrapper:
-   - `scripts/op-plugin-gate.sh -- <command> [args...]`
-2. Wrapper behavior:
+1. Resolve wrapper path in this order:
+   - `scripts/op-plugin-gate.sh`
+   - `~/.agents/skills/op-plugin-run/scripts/op-plugin-gate.sh`
+2. For each candidate that exists, try `chmod +x <path>` before checking executable bit.
+3. If no executable wrapper is found, stop and return a blocked error.
+4. Run wrapper:
+   - `<resolved-wrapper> -- <command> [args...]`
+5. Wrapper behavior:
    - If `~/.config/op/plugins.sh` exists: `source` it.
    - If tmux missing: run direct `op plugin run -- ...`.
    - If tmux available: ensure `op-auth`, run command in `op-auth` window, then attach/switch to `op-auth`.
    - If tmux session/window creation fails: direct fallback.
-3. Use command output directly. Wrapper is transparent and does not emit structured JSON.
+6. Use command output directly. Wrapper is transparent and does not emit structured JSON.
 
 ## Breaking changes
 
@@ -45,12 +53,12 @@ Use a single wrapper script to run managed commands:
 
 ## Quick checks
 
-- Script executable:
-  - `test -x scripts/op-plugin-gate.sh`
+- Resolve wrapper and check executable:
+  - `for p in scripts/op-plugin-gate.sh ~/.agents/skills/op-plugin-run/scripts/op-plugin-gate.sh; do [ -f \"$p\" ] && chmod +x \"$p\" 2>/dev/null || true; [ -x \"$p\" ] && echo \"OP_GATE_OK $p\" && break; done`
 - Usage guard:
-  - `scripts/op-plugin-gate.sh` should fail with usage.
+  - `<resolved-wrapper>` should fail with usage when called without `-- <command>`.
 - Normal path:
-  - `scripts/op-plugin-gate.sh -- gh auth status`
+  - `<resolved-wrapper> -- gh auth status`
 
 ## References
 

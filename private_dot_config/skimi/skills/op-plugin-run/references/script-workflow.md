@@ -3,8 +3,16 @@
 Wrapper entrypoint:
 
 ```bash
-scripts/op-plugin-gate.sh -- <command> [args...]
+<resolved-wrapper> -- <command> [args...]
 ```
+
+Wrapper resolution order:
+
+1. `scripts/op-plugin-gate.sh`
+2. `~/.agents/skills/op-plugin-run/scripts/op-plugin-gate.sh`
+
+If candidate exists, run `chmod +x` and require executable bit.
+If no executable wrapper is found, stop (blocked). Do not run bare `gh`/`glab`.
 
 Behavior summary:
 

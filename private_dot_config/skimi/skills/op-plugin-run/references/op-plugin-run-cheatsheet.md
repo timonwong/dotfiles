@@ -3,8 +3,9 @@
 ## Wrapper usage
 
 ```bash
-scripts/op-plugin-gate.sh -- gh auth status
-scripts/op-plugin-gate.sh -- glab mr list --output json
+# resolve wrapper first, then run
+<resolved-wrapper> -- gh auth status
+<resolved-wrapper> -- glab mr list --output json
 ```
 
 ## Behavior
@@ -17,3 +18,4 @@ scripts/op-plugin-gate.sh -- glab mr list --output json
 
 - Wrapper output is command output; no JSON status payload.
 - Unsupported old flags were removed.
+- If wrapper cannot be resolved as executable, stop; do not run bare `gh`/`glab`.

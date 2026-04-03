@@ -63,5 +63,5 @@ packages:
   - name: google/go-containerregistry@v0.21.3
   - name: kubernetes/kubectl@v1.35.3
   - name: kubernetes-sigs/krew@v0.5.0
-  - name: chainguard-dev/melange@v0.48.0
-  - name: chainguard-dev/apko@v1.2.0
+  - name: chainguard-dev/melange@v0.48.1
+  - name: chainguard-dev/apko@v1.2.1

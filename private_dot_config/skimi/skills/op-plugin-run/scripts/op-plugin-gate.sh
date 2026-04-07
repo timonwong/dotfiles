@@ -11,9 +11,10 @@ Usage:
 
 Behavior:
   - If ~/.config/op/plugins.sh exists, source it.
+  - If no TTY, do not use tmux; run command directly.
   - If tmux is unavailable, run command directly:
       op plugin run -- <command> [args...]
-  - If tmux is available, run command in tmux session "op-auth".
+  - If tmux is available (with TTY), run command in tmux session "op-auth" in foreground.
   - If tmux session/window setup fails, fallback to direct execution.
 USAGE
 }
@@ -41,6 +42,12 @@ cmd=(op plugin run -- "$@")
 run_direct() {
     "${cmd[@]}"
 }
+
+# No TTY: skip tmux entirely.
+if [[ ! -t 0 || ! -t 1 ]]; then
+    run_direct
+    exit $?
+fi
 
 if ! command -v tmux >/dev/null 2>&1; then
     run_direct

@@ -10,8 +10,9 @@
 
 ## Behavior
 
+- no TTY: runs direct `op plugin run -- ...` (skips tmux)
 - tmux missing: runs direct `op plugin run -- ...`
-- tmux present: runs in `op-auth` session and attaches/switches there
+- tmux present with TTY: runs in `op-auth` session and attaches/switches there
 - tmux setup failure: falls back to direct run
 
 ## Notes

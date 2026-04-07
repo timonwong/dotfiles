@@ -18,14 +18,14 @@ Use a single wrapper script to run managed commands:
 ## When to use
 
 - User asks to run `gh` or `glab` through 1Password plugin auth.
-- You want tmux-backed execution in `op-auth` when tmux works.
+- You want tmux-backed foreground execution in `op-auth` when tmux works.
 - You want direct fallback if tmux is missing or tmux setup fails.
+- You want non-interactive environments (no TTY) to skip tmux.
 
 ## Hard constraints
 
 - Always enter through a resolved wrapper path and run `<wrapper> -- <command> [args...]`.
 - Do not run managed command as bare `gh`/`glab`.
-- If command already started in tmux and `attach/switch` fails, do not run fallback again.
 - If no executable wrapper is found, stop and report blocked. Do not fallback to bare `gh`/`glab`.
 
 ## Workflow
@@ -39,8 +39,9 @@ Use a single wrapper script to run managed commands:
    - `<resolved-wrapper> -- <command> [args...]`
 5. Wrapper behavior:
    - If `~/.config/op/plugins.sh` exists: `source` it.
+   - If no TTY: run direct `op plugin run -- ...` (do not use tmux).
    - If tmux missing: run direct `op plugin run -- ...`.
-   - If tmux available: ensure `op-auth`, run command in `op-auth` window, then attach/switch to `op-auth`.
+   - If tmux available with TTY: ensure `op-auth`, run command in `op-auth` window, then attach/switch into `op-auth`.
    - If tmux session/window creation fails: direct fallback.
 6. Use command output directly. Wrapper is transparent and does not emit structured JSON.
 

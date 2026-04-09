@@ -40,7 +40,7 @@ This is a real daily-driver setup, not a demo template. The README focuses on wh
 
 ## Highlights
 
-- Unified bootstrap pipeline (`.chezmoiscripts/00..11`) with idempotent post-apply maintenance
+- Unified bootstrap pipeline (`.chezmoiscripts/00..10`) with idempotent post-apply maintenance
 - Cross-platform package strategy:
   - Nix user packages on macOS/Linux
   - nix-darwin system config on macOS
@@ -49,7 +49,6 @@ This is a real daily-driver setup, not a demo template. The README focuses on wh
 - Multi-provider account switching for managed wrappers:
   - `claude-manage` / `claude-with`
   - `codex-manage` / `codex-with`
-- Auto MCP sync for Claude on every `chezmoi apply`
 - Automated dependency upkeep via GitHub Actions (versions, flake locks, aqua packages, mise tools)
 - `C1/C2/C3/C4` routing: advisory in `C1`, direct deterministic flow in `C2`, OpenSpec governance for `C3`/`C4`
 
@@ -106,8 +105,6 @@ Core principles:
   - [Tests](#tests)
 - [AI Tooling (Claude + Codex)](#ai-tooling-claude--codex)
   - [Shared Skill Distribution](#shared-skill-distribution)
-  - [MCP Integration](#mcp-integration)
-    - [Task -\> MCP Routing](#task---mcp-routing)
 - [Tool Chains](#tool-chains)
   - [Modern CLI Replacements](#modern-cli-replacements)
   - [Shell Environment](#shell-environment)
@@ -157,7 +154,7 @@ This repository combines `chezmoi` templating with Nix-based package management 
 │   ├── nix.yaml                # Nix package sets (shared/work/private)
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
 │   └── versions.yaml           # Pinned tool/plugin revisions
-├── .chezmoiscripts/            # Bootstrap + maintenance pipeline (00..11)
+├── .chezmoiscripts/            # Bootstrap + maintenance pipeline (00..10)
 ├── nix-config/
 │   ├── flake.nix.tmpl
 │   └── modules/
@@ -165,7 +162,7 @@ This repository combines `chezmoi` templating with Nix-based package management 
 │       ├── apps.nix.tmpl       # Homebrew + MAS wiring
 │       ├── profile.nix.tmpl    # flakey-profile package profile
 │       └── host-users.nix
-├── dot_local/bin/              # CLI wrappers (Claude/Codex/keys/MCP)
+├── dot_local/bin/              # CLI wrappers (Claude/Codex/keys)
 ├── dot_claude/                 # Claude global instructions/hooks/templates
 ├── dot_codex/                  # Codex global instructions/config/prompts
 ├── private_dot_config/         # Tool configs (tmux, mise, aqua, gopass, ...)
@@ -189,7 +186,6 @@ The `chezmoi` script chain is staged and numbered:
 8. `07` install runtimes/tools via `mise` (including global `codex`/`claude-code`)
 9. `08` install pinned nix-index database
 10. `10` periodic Homebrew update/upgrade (7-day interval)
-11. `11` sync Claude MCP servers (add/update only when needed)
 
 ---
 
@@ -292,18 +288,6 @@ pre-commit run --all-files
 ### Shared Skill Distribution
 
 Managed by [skimi](https://github.com/timonwong/skimi).
-
-### MCP Integration
-
-- Claude MCP entries are reconciled by `.chezmoiscripts/run_after_11_sync-claude-mcp.sh.tmpl`.
-- Wrapper commands provided in this repo:
-  - `~/.local/bin/mcp-context7`
-
-#### Task -> MCP Routing
-
-| Task type                  | Primary MCP | Fallback            |
-| -------------------------- | ----------- | ------------------- |
-| Library/framework/API docs | Context7    | built-in web search |
 
 ---
 

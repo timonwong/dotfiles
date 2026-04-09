@@ -40,7 +40,7 @@
 
 ## 亮点
 
-- 统一 bootstrap 流程（`.chezmoiscripts/00..11`），并带有幂等维护步骤
+- 统一 bootstrap 流程（`.chezmoiscripts/00..10`），并带有幂等维护步骤
 - 跨平台包管理策略：
   - macOS/Linux 共用 Nix user packages
   - macOS 使用 `nix-darwin` 管理系统配置
@@ -49,7 +49,6 @@
 - Claude/Codex wrapper 的 provider 切换：
   - `claude-manage` / `claude-with`
   - `codex-manage` / `codex-with`
-- 每次 `chezmoi apply` 自动对齐 Claude MCP 配置
 - GitHub Actions 自动维护依赖版本（versions、flake lock、aqua packages、mise tools）
 - `C1/C2/C3/C4` 路由模型：`C1` 只读分析，`C2` 确定性变更直改，`C3`/`C4` 走 OpenSpec 治理
 
@@ -104,8 +103,6 @@
   - [测试](#测试)
 - [AI 工具链（Claude + Codex）](#ai-工具链claude--codex)
   - [共享 Skills 分发](#共享-skills-分发)
-  - [MCP 集成](#mcp-集成)
-    - [任务 -\> MCP 路由](#任务---mcp-路由)
 - [工具链](#工具链)
   - [现代 CLI 替代](#现代-cli-替代)
   - [Shell 环境](#shell-环境)
@@ -155,7 +152,7 @@
 │   ├── nix.yaml                # Nix 包集合（shared/work/private）
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
 │   └── versions.yaml           # 工具与插件版本固定
-├── .chezmoiscripts/            # Bootstrap 与维护脚本链（00..11）
+├── .chezmoiscripts/            # Bootstrap 与维护脚本链（00..10）
 ├── nix-config/
 │   ├── flake.nix.tmpl
 │   └── modules/
@@ -163,7 +160,7 @@
 │       ├── apps.nix.tmpl       # Homebrew + MAS 连接层
 │       ├── profile.nix.tmpl    # flakey-profile 包配置
 │       └── host-users.nix
-├── dot_local/bin/              # CLI 封装脚本（Claude/Codex/keys/MCP）
+├── dot_local/bin/              # CLI 封装脚本（Claude/Codex/keys）
 ├── dot_claude/                 # Claude 全局指令、hooks、模板
 ├── dot_codex/                  # Codex 全局指令、配置、prompts
 ├── private_dot_config/         # 工具配置（tmux、mise、aqua、gopass 等）
@@ -186,8 +183,7 @@
 7. `06` 根据 `private_dot_config/aquaproj-aqua/aqua.yaml` 安装工具（不含 `codex`/`claude-code`）
 8. `07` 通过 `mise` 安装 runtime 与工具（含全局 `codex`/`claude-code`）
 9. `08` 下载固定版本 nix-index 数据库
-10. `09` 周期性 Homebrew 更新（7 天间隔）
-11. `10` 同步 Claude MCP servers（仅缺失/不一致时更新）
+10. `10` 周期性 Homebrew 更新（7 天间隔）
 
 ---
 
@@ -290,18 +286,6 @@ pre-commit run --all-files
 ### 共享 Skills 分发
 
 由 [skimi](https://github.com/timonwong/skimi) 管理。
-
-### MCP 集成
-
-- Claude MCP 由 `.chezmoiscripts/run_after_11_sync-claude-mcp.sh.tmpl` 自动对齐。
-- 仓库提供 MCP wrapper：
-  - `~/.local/bin/mcp-context7`
-
-#### 任务 -> MCP 路由
-
-| 任务类型             | 首选 MCP | 回退路径        |
-| -------------------- | -------- | --------------- |
-| 库 / 框架 / API 文档 | Context7 | 内置 web search |
 
 ---
 

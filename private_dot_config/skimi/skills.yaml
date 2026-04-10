@@ -46,5 +46,8 @@ packages:
   - repo: onevcat/skills
     skills:
       - onevcat-jj
+  - repo: epiral/bb-browser
+    skills:
+      - bb-browser
   - local_path: ~/.config/skimi/skills/op-plugin-run
   - local_path: ~/.config/skimi/skills/gitlab-cli

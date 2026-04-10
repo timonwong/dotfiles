@@ -18,4 +18,4 @@ includes = ["*.lua"]
 command = "oxfmt"
 options = ["--write"]
 includes = ["*.md", "*.json", "*.yaml", "*.yml"]
-excludes = ["CLAUDE.md"]
+excludes = ["CLAUDE.md", "**/private_karabiner.json"]

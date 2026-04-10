@@ -13,6 +13,10 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
 
+[private_karabiner.json]
+indent_style = space
+indent_size = 4
+
 [*.{sh,bash,zsh},*.{sh,bash,zsh}.tmpl]
 indent_style = space
 indent_size = 4

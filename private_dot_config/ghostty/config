@@ -10,6 +10,12 @@ font-family = "CaskaydiaCove NFM"
 font-size = 14
 font-feature = -liga, -calt
 
+font-thicken = true
+font-thicken-strength = 40
+
+#adjust-cell-height = 1
+#adjust-cell-width = -1
+
 window-decoration = true
 window-padding-x = 12,8
 window-padding-y = 0,2

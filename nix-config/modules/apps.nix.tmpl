@@ -1,4 +1,20 @@
 { pkgs, ... }:
+let
+  # Provide Homebrew's zsh completion as a Nix package under
+  # share/zsh/site-functions so compinit can discover `_brew` via fpath.
+  # Pin to a specific commit to avoid master/main branch drift breaking sha256.
+  # Context: zhaofengli/nix-homebrew#77
+  brew-zsh-completion = pkgs.writeTextFile {
+    name = "brew-zsh-completion";
+    destination = "/share/zsh/site-functions/_brew";
+    text = builtins.readFile (
+      pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/Homebrew/brew/894a3d23ac0c8aaf561b9874b528b9cb2e839201/completions/zsh/_brew";
+        sha256 = "sha256-TGf5NFrWWUPj5ed9cwQ4xyx8pR6nooJ4x5tCjCyKk5s=";
+      }
+    );
+  };
+in
 {
   ##########################################################################
   #
@@ -15,6 +31,8 @@
   #
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
   environment.systemPackages = with pkgs; [
+    # Ensure `_brew` completion is available in system zsh fpath.
+    brew-zsh-completion
     {{- range .nix.sysPkgs }}
     {{ . }}
     {{- end }}

@@ -30,10 +30,12 @@ zstyle ':fzf-tab:complete:-command-:*' fzf-preview 'tldr --color always $word 2>
 # Directory previews
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --tree --level=2 --color=always --icons $realpath 2>/dev/null || ls -la $realpath'
 zstyle ':fzf-tab:complete:ls:*' fzf-preview 'eza -la --color=always --icons $realpath 2>/dev/null || ls -la $realpath'
+zstyle ':fzf-tab:complete:eza:*' fzf-preview 'eza -1 --color=always --icons -a $realpath 2>/dev/null || ls -la $realpath'
 zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza --tree --level=2 --color=always --icons $realpath 2>/dev/null || ls -la $realpath'
 
 # File previews (cat, less, vim, nvim, code)
-zstyle ':fzf-tab:complete:(cat|less|bat|vim|nvim|code):*' fzf-preview 'bat --color=always --style=numbers --line-range=:100 $realpath 2>/dev/null || head -100 $realpath'
+zstyle ':fzf-tab:complete:(cat|less|bat|vim|nvim|code):*' fzf-preview \
+'([[ -d $realpath ]] && eza -1 --color=always --icons -a $realpath) || (bat --color=always --style=numbers --line-range=:100 $realpath 2>/dev/null || head -100 $realpath)'
 
 # Process previews (kill, ps)
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps -p $word -o pid,user,%cpu,%mem,command'

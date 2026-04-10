@@ -18,6 +18,7 @@ nix:
       - nixfmt
       - btop
       - tmux
+      - tlrc
       - wget
       - zstd
       - eza

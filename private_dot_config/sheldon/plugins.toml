@@ -41,10 +41,6 @@ github = 'zpm-zsh/clipboard'
 apply = ["defer"]
 github = 'MichaelAquilina/zsh-you-should-use'
 
-[plugins.enhancd]
-apply = ["defer"]
-github = "b4b4r07/enhancd"
-
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 apply = ["fpath", "defer"]

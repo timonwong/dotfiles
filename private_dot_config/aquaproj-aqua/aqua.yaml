@@ -60,8 +60,8 @@ packages:
   - name: zellij-org/zellij@v0.44.1
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: derailed/k9s@v0.50.18
-  - name: google/go-containerregistry@v0.21.4
+  - name: google/go-containerregistry@v0.21.5
   - name: kubernetes/kubectl@v1.35.3
   - name: kubernetes-sigs/krew@v0.5.0
-  - name: chainguard-dev/melange@v0.48.2
-  - name: chainguard-dev/apko@v1.2.2
+  - name: chainguard-dev/melange@v0.49.0
+  - name: chainguard-dev/apko@v1.2.3

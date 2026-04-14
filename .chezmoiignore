@@ -72,6 +72,11 @@ Library/Rime/*.log
 .config/ibus/rime/*.log
 
 # ─────────────────────────────────────────────────────────────────────────────
+# skimi skills are synced by .chezmoiscripts/run_onchange_after_10_sync-skimi
+# ─────────────────────────────────────────────────────────────────────────────
+.config/skimi/skills/
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Encryption-related exclusions (skip when useEncryption is false)
 # ─────────────────────────────────────────────────────────────────────────────
 {{- if not .useEncryption }}

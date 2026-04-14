@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{ $skillsYamlRel := "private_dot_config/skimi/skills.yaml" -}}
+{{ $skillsYaml := joinPath .chezmoi.sourceDir $skillsYamlRel -}}
+{{ $skillsDigest := output "sh" "-c" (printf "cd %q && find private_dot_config/skimi/skills -type f -exec shasum -a 256 {} + | LC_ALL=C sort | shasum -a 256 | awk '{print $1}'" .chezmoi.sourceDir) | trim -}}
+# {{ $skillsYamlRel }}: {{ if stat $skillsYaml }}{{ include $skillsYamlRel | sha256sum }}{{ else }}n/a{{ end }}
+# private_dot_config/skimi/skills digest: {{ $skillsDigest }}
+
+echo ":: [10] Syncing skimi skills"
+
+source_dir="{{ joinPath .chezmoi.sourceDir "private_dot_config/skimi/skills" }}"
+target_dir="{{ joinPath .chezmoi.homeDir ".config/skimi/skills" }}"
+
+mkdir -p "$target_dir"
+
+if ! command -v rsync >/dev/null 2>&1; then
+    echo "    Error: rsync is required" >&2
+    exit 1
+fi
+
+rsync -a --delete "$source_dir"/ "$target_dir"/
+echo "    Synced: ${target_dir/#$HOME/~}"
+
+while IFS= read -r sh_file; do
+    chmod 755 "$sh_file"
+done < <(find "$target_dir" -type f -name '*.sh' | LC_ALL=C sort)
+echo "    Updated executable mode for *.sh"
+
+{{ include ".chezmoitemplates/shell/source_nix_env.sh" }}
+if [[ -d "$HOME/.nix-profile/bin" ]]; then
+    export PATH="$HOME/.nix-profile/bin:$PATH"
+fi
+
+mise_cmd="$HOME/.nix-profile/bin/mise"
+if [[ ! -x "$mise_cmd" ]]; then
+    echo "    Skipped (mise not found in nix profile)"
+    exit 0
+fi
+
+eval "$("$mise_cmd" activate bash)"
+
+if ! command -v skimi >/dev/null 2>&1; then
+    echo "    Error: skimi not found after mise activation" >&2
+    exit 1
+fi
+
+echo "    Running: skimi install"
+skimi install

@@ -13,7 +13,7 @@ registries:
 
 packages:
   - name: FiloSottile/age@v1.3.1
-  - name: atuinsh/atuin@v18.13.6
+  - name: atuinsh/atuin@v18.14.1
   - name: sharkdp/bat@v0.26.1
   - name: eth-p/bat-extras@v2024.08.24
     # aqua update can downgrade to v20200408 due semver ordering;
@@ -33,15 +33,15 @@ packages:
   - name: git-lfs/git-lfs@v3.7.1
   - name: jqlang/jq@jq-1.8.1
   - name: casey/just@1.49.0
-  - name: jesseduffield/lazygit@v0.61.0
+  - name: jesseduffield/lazygit@v0.61.1
   - name: neovim/neovim@v0.12.1
-  - name: LuaLS/lua-language-server@3.18.1
+  - name: LuaLS/lua-language-server@3.18.2
   - name: tree-sitter/tree-sitter@v0.26.8
   - name: rclone/rclone@v1.73.4
   - name: BurntSushi/ripgrep@15.1.0
   - name: phiresky/ripgrep-all@v0.10.10
   - name: chmln/sd@v1.1.0
-  - name: joshmedeski/sesh@v2.24.2
+  - name: joshmedeski/sesh@v2.25.0
   - name: starship/starship@v1.24.2
   - name: JohnnyMorganz/StyLua@v2.4.1
   - name: Kampfkarren/selene@0.30.1

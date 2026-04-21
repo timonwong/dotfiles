@@ -32,12 +32,12 @@ packages:
   - name: gitlab.com/gitlab-org/cli@v1.89.0
   - name: git-lfs/git-lfs@v3.7.1
   - name: jqlang/jq@jq-1.8.1
-  - name: casey/just@1.49.0
+  - name: casey/just@1.50.0
   - name: jesseduffield/lazygit@v0.61.1
   - name: neovim/neovim@v0.12.1
   - name: LuaLS/lua-language-server@3.18.2
   - name: tree-sitter/tree-sitter@v0.26.8
-  - name: rclone/rclone@v1.73.4
+  - name: rclone/rclone@v1.73.5
   - name: BurntSushi/ripgrep@15.1.0
   - name: phiresky/ripgrep-all@v0.10.10
   - name: chmln/sd@v1.1.0
@@ -64,4 +64,4 @@ packages:
   - name: kubernetes/kubectl@v1.35.4
   - name: kubernetes-sigs/krew@v0.5.0
   - name: chainguard-dev/melange@v0.50.1
-  - name: chainguard-dev/apko@v1.2.3
+  - name: chainguard-dev/apko@v1.2.4

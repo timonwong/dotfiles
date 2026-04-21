@@ -56,3 +56,5 @@ Session.vim
 __pycache__
 
 **/.claude/settings.local.json
+
+/.worktree

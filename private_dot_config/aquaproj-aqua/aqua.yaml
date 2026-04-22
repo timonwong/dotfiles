@@ -24,7 +24,7 @@ packages:
   - name: muesli/duf@v0.9.1
   - name: dandavison/delta@0.19.2
   - name: Wilfred/difftastic@0.68.0
-  - name: fastfetch-cli/fastfetch@2.61.0
+  - name: fastfetch-cli/fastfetch@2.62.0
   - name: sharkdp/fd@v10.4.2
   - name: junegunn/fzf@v0.71.0
   - name: gopasspw/gopass@v1.16.1

@@ -5,6 +5,7 @@
 # Sync Settings
 # ─────────────────────────────────────────────────────────────
 # Disable sync by default (enable if you want cross-machine history)
+sync_address = ""
 auto_sync = false
 sync_frequency = "0"
 

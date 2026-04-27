@@ -69,6 +69,9 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [
+          (import ./overlays/direnv.nix { lib = nixpkgs.lib; })
+        ];
       };
 
       # flakey-profile for user packages (cross-platform)

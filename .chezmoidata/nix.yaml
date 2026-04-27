@@ -1,6 +1,6 @@
 nix:
   sysPkgs:
-    - gitFull
+    - git
   homepkgs:
     shared:
       - aria2

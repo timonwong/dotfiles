@@ -13,7 +13,7 @@ registries:
 
 packages:
   - name: FiloSottile/age@v1.3.1
-  - name: atuinsh/atuin@v18.15.2
+  - name: atuinsh/atuin@v18.16.0
   - name: sharkdp/bat@v0.26.1
   - name: eth-p/bat-extras@v2024.08.24
     # aqua update can downgrade to v20200408 due semver ordering;
@@ -28,7 +28,7 @@ packages:
   - name: sharkdp/fd@v10.4.2
   - name: junegunn/fzf@v0.72.0
   - name: gopasspw/gopass@v1.16.1
-  - name: cli/cli@v2.91.0
+  - name: cli/cli@v2.92.0
   - name: gitlab.com/gitlab-org/cli@v1.89.0
   - name: git-lfs/git-lfs@v3.7.1
   - name: jqlang/jq@jq-1.8.1
@@ -41,7 +41,7 @@ packages:
   - name: BurntSushi/ripgrep@15.1.0
   - name: phiresky/ripgrep-all@v0.10.10
   - name: chmln/sd@v1.1.0
-  - name: joshmedeski/sesh@v2.26.0
+  - name: joshmedeski/sesh@v2.26.1
   - name: starship/starship@v1.25.0
   - name: JohnnyMorganz/StyLua@v2.4.1
   - name: Kampfkarren/selene@0.30.1
@@ -63,5 +63,5 @@ packages:
   - name: google/go-containerregistry@v0.21.5
   - name: kubernetes/kubectl@v1.36.0
   - name: kubernetes-sigs/krew@v0.5.0
-  - name: chainguard-dev/melange@v0.50.3
-  - name: chainguard-dev/apko@v1.2.8
+  - name: chainguard-dev/melange@v0.50.4
+  - name: chainguard-dev/apko@v1.2.9

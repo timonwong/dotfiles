@@ -1,10 +1,9 @@
 nix:
   sysPkgs:
-    - git
+    - gitFull
   homepkgs:
     shared:
       - aria2
-      - certbot
       - dust
       - ffmpeg
       - hyperfine

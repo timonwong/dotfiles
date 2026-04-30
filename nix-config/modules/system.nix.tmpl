@@ -33,6 +33,17 @@
       '';
     };
 
+    keyboard = {
+      enableKeyMapping = true;
+      # Application key (0x700000065) -> Fn/Globe key (0xFF00000003)
+      userKeyMapping = [
+        {
+          HIDKeyboardModifierMappingSrc = 30064771173;
+          HIDKeyboardModifierMappingDst = 1095216660483;
+        }
+      ];
+    };
+
     defaults = {
       # Menu bar clock format
       menuExtraClock = {

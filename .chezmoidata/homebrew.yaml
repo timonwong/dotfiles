@@ -21,7 +21,6 @@ homebrew:
       - ghostty@tip
       - codex-app
       - visual-studio-code
-      - karabiner-elements
       - obs
       - orbstack
       - pdf-expert

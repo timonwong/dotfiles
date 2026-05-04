@@ -424,8 +424,7 @@ See:
 - `.github/workflows/scheduler.yml` (daily trigger)
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/workflows/update-aqua-packages.yml`
-- `.github/workflows/update-mise-tools.yml` (auto-updates tools in the `# mise-update:begin/end` block)
+- `.github/workflows/update-toolchains.yml` (auto-updates `aqua.yaml` and tools in the `# mise-update:begin/end` block)
 
 ---
 

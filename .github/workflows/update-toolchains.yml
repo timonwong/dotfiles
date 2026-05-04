@@ -1,4 +1,4 @@
-name: Update mise tools
+name: Update toolchains
 on:
   workflow_dispatch:
 permissions:
@@ -6,16 +6,47 @@ permissions:
   pull-requests: write
 jobs:
   update:
-    name: Update managed tools in mise config
+    name: Update aqua + mise managed versions
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
         with:
           ref: main
 
+      - name: Install aqua (official installer)
+        run: |
+          set -euo pipefail
+
+          aqua_installer="$(awk '/^[[:space:]]*aquaInstaller:/ {print $2; exit}' .chezmoidata/versions.yaml)"
+          aqua_installer_sha256="$(awk '/^[[:space:]]*aquaInstallerSha256:/ {print $2; exit}' .chezmoidata/versions.yaml)"
+          aqua_version="$(awk '/^[[:space:]]*aquaVersion:/ {print $2; exit}' .chezmoidata/versions.yaml)"
+
+          if [[ -z "$aqua_installer" ]] || [[ -z "$aqua_installer_sha256" ]] || [[ -z "$aqua_version" ]]; then
+            echo "Failed to parse aqua versions from .chezmoidata/versions.yaml" >&2
+            exit 1
+          fi
+
+          installer_dir="$(mktemp -d)"
+          trap 'rm -rf "$installer_dir"' EXIT
+          installer_path="${installer_dir}/aqua-installer"
+
+          curl -fsSL "https://raw.githubusercontent.com/aquaproj/aqua-installer/${aqua_installer}/aqua-installer" -o "${installer_path}"
+          echo "${aqua_installer_sha256}  ${installer_path}" | sha256sum -c -
+          chmod +x "${installer_path}"
+          "${installer_path}" -v "${aqua_version}"
+          echo "${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin" >> "$GITHUB_PATH"
+
+      - name: Update private_dot_config/aquaproj-aqua/aqua.yaml
+        env:
+          AQUA_GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          aqua --version
+          AQUA_CONFIG=private_dot_config/aquaproj-aqua/aqua.yaml aqua update -p
+
       - uses: jdx/mise-action@v3
 
-      - name: Discover managed tools
+      - name: Discover managed mise tools
         id: discover
         run: |
           set -euo pipefail
@@ -50,7 +81,7 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Update managed tool versions
+      - name: Update managed mise tool versions
         run: |
           set -euo pipefail
           config_file="private_dot_config/mise/config.toml.tmpl"
@@ -105,7 +136,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet private_dot_config/mise/config.toml.tmpl; then
+          if git diff --quiet -- private_dot_config/aquaproj-aqua/aqua.yaml private_dot_config/mise/config.toml.tmpl; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -122,15 +153,15 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           add-paths: |
+            private_dot_config/aquaproj-aqua/aqua.yaml
             private_dot_config/mise/config.toml.tmpl
-          commit-message: "chore(mise): update managed tool versions"
-          title: "chore(mise): update managed tool versions (${{ steps.date.outputs.date }})"
-          branch: update-mise-tools
-          labels: dependencies,automation,mise
+          commit-message: "chore(toolchains): update aqua and mise managed versions"
+          title: "chore(toolchains): update aqua and mise managed versions (${{ steps.date.outputs.date }})"
+          branch: update-toolchains
+          labels: dependencies,automation,aqua,mise
           body: |
-            Automated update for tools managed between:
-            `# mise-update:begin`
-            `# mise-update:end`
-
-            Config file:
-            `private_dot_config/mise/config.toml.tmpl`
+            Automated update for:
+            - `private_dot_config/aquaproj-aqua/aqua.yaml` via `aqua update -p`
+            - `private_dot_config/mise/config.toml.tmpl` managed tools between:
+              - `# mise-update:begin`
+              - `# mise-update:end`

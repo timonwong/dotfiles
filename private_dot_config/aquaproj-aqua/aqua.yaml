@@ -55,9 +55,9 @@ packages:
       # 注意新版本没有二进制包
       enabled: false
   - name: dduan/tre@v0.4.0
-  - name: sxyazi/yazi@v26.1.22
+  - name: sxyazi/yazi@v26.5.6
   - name: mikefarah/yq@v4.53.2
-  - name: zellij-org/zellij@v0.44.1
+  - name: zellij-org/zellij@v0.44.2
   - name: ajeetdsouza/zoxide@v0.9.9
   - name: derailed/k9s@v0.50.18
   - name: google/go-containerregistry@v0.21.5

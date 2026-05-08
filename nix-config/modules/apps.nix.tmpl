@@ -49,6 +49,10 @@ in
   homebrew = {
     enable = true;
     onActivation = {
+      # Force tap-based resolution for bundle install to avoid API loader crashes.
+      extraEnv = {
+        HOMEBREW_NO_INSTALL_FROM_API = "1";
+      };
       autoUpdate = true; # Fetch the newest stable branch of Homebrew's git repo
       upgrade = true; # Upgrade outdated casks, formulae, and App Store apps
       # 'none': Keep manually installed Homebrew packages instead of pruning undeclared entries.

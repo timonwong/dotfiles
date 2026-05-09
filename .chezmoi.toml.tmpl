@@ -59,14 +59,6 @@ encryption = "age"
 {{-   $installMasApps = promptBoolOnce . "installMasApps" "Install Mac App Store apps (requires Apple ID login)" -}}
 {{- end -}}
 
-{{/* mise install toggle, can be passed from init: --promptBool installMise=false */}}
-{{- $installMise := true -}}
-{{- if stdinIsATTY -}}
-{{-   $installMise = promptBoolOnce . "installMise" "Install mise via Nix profile" true -}}
-{{- else if hasKey . "installMise" -}}
-{{-   $installMise = .installMise -}}
-{{- end -}}
-
 {{/* macOS specific: home WiFi SSIDs for auto-volume (comma-separated) */}}
 {{- $homeWifiSSIDs := "" -}}
 {{- if hasKey . "homeWifiSSIDs" -}}
@@ -132,7 +124,6 @@ private = {{ $private }}
 headless = {{ $headless }}
 useEncryption = {{ $useEncryption }}
 installMasApps = {{ $installMasApps }}
-installMise = {{ $installMise }}
 homeWifiSSIDs = {{ $homeWifiSSIDs | quote }}
 osid = {{ $osID | quote }}
 timezone = {{ $timezone | quote }}

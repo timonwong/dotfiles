@@ -57,6 +57,9 @@ helm = "v3.5.4"   # 暂时 pin 到 3.5.x
 [settings]
 lockfile = true
 
+# Prefer precompiled binaries on NixOS when nix-ld is enabled.
+all_compile = false
+
 # Keep auto_install enabled for normal mise workflow.
 # Process storms were caused by shell PATH/init ordering, not this flag.
 auto_install = true

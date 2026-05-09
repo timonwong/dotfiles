@@ -6,9 +6,7 @@
 flakey-profile.lib.mkProfile {
   inherit pkgs;
   paths = with pkgs; [
-    {{- if (or (not (hasKey . "installMise")) .installMise) }}
     mise # runtime/tool version manager
-    {{- end }}
     {{- range .nix.homepkgs.shared }}
     {{ . }}
     {{- end }}

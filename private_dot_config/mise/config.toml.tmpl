@@ -5,15 +5,13 @@
 # Node.js (used for global JS CLIs via npm/npx)
 node = "lts"
 yarn = "latest"
+aube = "latest"
 
 # Python (for tools that need it)
 python = "3.12"
 
 # uv (Python package manager)
 uv = "latest"
-
-# pre-commit (Git hook framework, moved from nix to avoid dotnet-sdk compilation)
-"pipx:pre-commit" = "latest"
 
 # Go
 go = "latest"
@@ -23,6 +21,9 @@ go = "latest"
 
 # Lua 5.4 runtime (replaces nix lua5_4)
 lua = "5.4"
+
+# pre-commit (Git hook framework, moved from nix to avoid dotnet-sdk compilation)
+"pipx:pre-commit" = "latest"
 
 # Managed by .github/workflows/update-toolchains.yml
 # Add new auto-updated tools between the markers below.

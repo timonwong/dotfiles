@@ -3,7 +3,6 @@ nix:
     - gitFull
   homepkgs:
     shared:
-      - dust
       - mise # runtime/tool version manager
       - sheldon # shell plugin manager (prefer nix build over aqua binary on macOS)
       - openssh
@@ -13,5 +12,8 @@ nix:
       - zstd
       - eza
       - shfmt
+      - navi
+      - ouch
     work: []
-    private: []
+    private:
+      - btop

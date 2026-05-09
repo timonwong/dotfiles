@@ -199,7 +199,6 @@
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh
-curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh -s -- --skip-nix
 ```
 
 ### 方式 2：固定 tag/branch 并先审阅

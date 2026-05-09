@@ -9,12 +9,6 @@ set -euo pipefail
 # directory disappears mid-apply, mise will warn. Run mise from a stable dir.
 cd "$HOME"
 
-{{- if .skipNix }}
-echo ":: [07] Installing mise tools"
-echo "    Skipped (skipNix=true)"
-exit 0
-{{- end }}
-
 # Ensure nix profile tools are discoverable for this non-interactive shell.
 {{ include ".chezmoitemplates/shell/source_nix_env.sh" }}
 if [[ -d "$HOME/.nix-profile/bin" ]]; then

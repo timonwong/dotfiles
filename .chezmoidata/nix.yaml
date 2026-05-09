@@ -3,22 +3,13 @@ nix:
     - gitFull
   homepkgs:
     shared:
-      - aria2
       - dust
-      - ffmpeg
-      - hyperfine
       - mise # runtime/tool version manager
-      - navi
-      - ouch
       - sheldon # shell plugin manager (prefer nix build over aqua binary on macOS)
       - openssh
       - openssl
       - statix # Nix linter
       - nixfmt
-      - btop
-      - tmux
-      - tlrc
-      - wget
       - zstd
       - eza
       - shfmt

@@ -23,8 +23,5 @@ nix:
       - eza
       - jujutsu
       - shfmt
-    work:
-      - mariadb
-      - postgresql
-      - redis
+    work: []
     private: []

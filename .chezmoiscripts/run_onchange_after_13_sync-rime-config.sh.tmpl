@@ -13,6 +13,10 @@ set -euo pipefail
 
 echo ":: [13] Syncing rime custom templates"
 echo "    Templates are managed directly by chezmoi."
+{{- if .headless }}
+echo "    Skipped (headless profile)"
+exit 0
+{{- end }}
 
 platform="{{ .chezmoi.os }}"
 case "$platform" in

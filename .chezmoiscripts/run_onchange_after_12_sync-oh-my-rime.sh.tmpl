@@ -18,6 +18,10 @@ SQUIRREL_BIN="/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel"
 echo ":: [12] Syncing oh-my-rime"
 echo "    Source: ${OH_MY_RIME_REPO_URL}"
 echo "    Commit: ${OH_MY_RIME_COMMIT}"
+{{- if .headless }}
+echo "    Skipped (headless profile)"
+exit 0
+{{- end }}
 
 platform="{{ .chezmoi.os }}"
 case "$platform" in

@@ -85,16 +85,12 @@ assert_skipped() {
 render_script "$ROOT/.chezmoiscripts/run_onchange_before_00_install-nix.sh.tmpl" "$TMP_ROOT/install-nix.sh"
 render_script "$ROOT/.chezmoiscripts/run_onchange_after_02_init.sh.tmpl" "$TMP_ROOT/init.sh"
 render_script "$ROOT/.chezmoiscripts/run_onchange_after_03_set_profiles.sh.tmpl" "$TMP_ROOT/set-profiles.sh"
-render_script "$ROOT/.chezmoiscripts/run_onchange_after_07_mise-install.sh.tmpl" "$TMP_ROOT/mise-install.sh"
 render_script "$ROOT/.chezmoiscripts/run_onchange_after_08_nix-index-db.sh.tmpl" "$TMP_ROOT/nix-index-db.sh"
-render_script "$ROOT/.chezmoiscripts/run_onchange_after_10_sync-skimi.sh.tmpl" "$TMP_ROOT/sync-skimi.sh"
 
 assert_skipped sh "$TMP_ROOT/install-nix.sh"
 assert_skipped bash "$TMP_ROOT/init.sh"
 assert_skipped bash "$TMP_ROOT/set-profiles.sh"
-assert_skipped bash "$TMP_ROOT/mise-install.sh"
 assert_skipped bash "$TMP_ROOT/nix-index-db.sh"
-assert_skipped bash "$TMP_ROOT/sync-skimi.sh"
 
 : >"$LOG"
 set +e

@@ -17,10 +17,13 @@ fi
 
 echo ":: [07] Installing mise tools"
 
-# Only use nix-installed mise — no aqua/other fallbacks.
+# Prefer the nix profile pin, then fall back to any mise already on PATH.
 mise_cmd="$HOME/.nix-profile/bin/mise"
 if [[ ! -x "$mise_cmd" ]]; then
-    echo "    Skipped (mise not found in nix profile)"
+    mise_cmd="$(command -v mise 2>/dev/null || true)"
+fi
+if [[ -z "$mise_cmd" ]] || [[ ! -x "$mise_cmd" ]]; then
+    echo "    Skipped (mise not found)"
     exit 0
 fi
 

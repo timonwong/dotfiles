@@ -21,7 +21,6 @@ nix:
       - wget
       - zstd
       - eza
-      - jujutsu
       - shfmt
     work: []
     private: []

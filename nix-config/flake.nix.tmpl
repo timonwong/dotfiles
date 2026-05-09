@@ -9,6 +9,15 @@
     # Cross-platform package management
     flakey-profile.url = "github:lf-/flakey-profile";
 
+{{- if eq .platform "linux" }}
+
+    # Linux only
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+{{- end }}
+
 {{- if eq .platform "darwin" }}
 
     # macOS only
@@ -39,6 +48,9 @@
       nixpkgs,
       flake-utils,
       flakey-profile,
+{{- if eq .platform "linux" }}
+      nix-ld,
+{{- end }}
 {{- if eq .platform "darwin" }}
       nix-darwin,
       mac-app-util,
@@ -86,6 +98,19 @@
 {{- end }}
     in
     {
+{{- if eq .platform "linux" }}
+      # ─────────────────────────────────────────────────────────────────────────
+      # NixOS module helper (Linux only)
+      # Import this module in your NixOS modules list to enable nix-ld:
+      #   modules = [ <...> inputs.self.nixosModules.nix-ld ];
+      # ─────────────────────────────────────────────────────────────────────────
+      nixosModules.nix-ld = {
+        imports = [ nix-ld.nixosModules.nix-ld ];
+        # Use nix-ld module from nix-ld repo (programs.nix-ld.dev.* namespace).
+        programs.nix-ld.dev.enable = true;
+      };
+
+{{- end }}
 {{- if eq .platform "darwin" }}
       # ─────────────────────────────────────────────────────────────────────────
       # Darwin Configuration (macOS only)

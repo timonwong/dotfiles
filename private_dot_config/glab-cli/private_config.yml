@@ -32,9 +32,9 @@ hosts:
     # Token managed by 1password cli plugin
     token:
   gitlab-ce.alauda.cn:
-    # Token managed by 1password cli plugin
-    token:
     api_host: gitlab-ce.alauda.cn
-    git_protocol: ssh
+    git_protocol: https
     api_protocol: https
-    #user: alaudabot
+    use_keyring: "true"
+    container_registry_domains: gitlab-ce.alauda.cn,gitlab-ce.alauda.cn:443
+    user: tpwang

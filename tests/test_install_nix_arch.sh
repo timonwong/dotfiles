@@ -19,7 +19,7 @@ cleanup() {
 trap cleanup EXIT
 
 SCRIPT="$TMP_ROOT/install-nix.sh"
-chezmoi execute-template --source "$ROOT" <"$ROOT/.chezmoiscripts/run_onchange_before_00_install-nix.sh.tmpl" >"$SCRIPT"
+chezmoi execute-template --source "$ROOT" --override-data '{"skipNix":false}' <"$ROOT/.chezmoiscripts/run_onchange_before_00_install-nix.sh.tmpl" >"$SCRIPT"
 
 STUB="$TMP_ROOT/stub"
 mkdir -p "$STUB"

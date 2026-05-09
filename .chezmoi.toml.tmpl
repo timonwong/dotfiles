@@ -13,6 +13,16 @@ encryption = "age"
 {{- end -}}
 {{- "" -}}
 
+{{/* skip Nix bootstrap and all nix-dependent stages */}}
+{{- $skipNix := false -}}
+{{- if hasKey . "skipNix" -}}
+{{-   $skipNix = .skipNix -}}
+{{- end -}}
+{{- if stdinIsATTY -}}
+{{-   $skipNix = promptBoolOnce . "skipNix" "Skip Nix bootstrap (skip nix install, nix-darwin, profiles, mise via nix, nix-index, skimi sync)" -}}
+{{- end -}}
+{{- "" -}}
+
 {{- $hostname := .chezmoi.hostname -}}
 {{- if not $work -}}
 {{- $hostname = promptStringOnce . "hostname" "Hostname" -}}{{/* set the hostname */}}
@@ -123,6 +133,7 @@ work = {{ $work }}
 private = {{ $private }}
 headless = {{ $headless }}
 useEncryption = {{ $useEncryption }}
+skipNix = {{ $skipNix }}
 installMasApps = {{ $installMasApps }}
 homeWifiSSIDs = {{ $homeWifiSSIDs | quote }}
 osid = {{ $osID | quote }}

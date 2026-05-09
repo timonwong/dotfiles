@@ -18,13 +18,15 @@ Options:
   --ref <ref>       Branch or tag to checkout (maps to: chezmoi init --branch)
   --depth <n>       Shallow clone depth (maps to: chezmoi init --depth)
   --ssh             Use SSH when guessing repo URL (maps to: chezmoi init --ssh)
+  --skip-nix        Set skipNix=true during chezmoi init
   -h, --help        Show this help
 
 Environment:
-  DOTFILES_REPO / DOTFILES_REF / DOTFILES_DEPTH / DOTFILES_SSH
+  DOTFILES_REPO / DOTFILES_REF / DOTFILES_DEPTH / DOTFILES_SSH / DOTFILES_SKIP_NIX
 
 Examples:
   ./init.sh
+  ./init.sh --skip-nix
   ./init.sh --ref <tag-or-branch>
   curl -fsLS https://raw.githubusercontent.com/timonwong/dotfiles/<tag-or-branch>/init.sh | sh -s -- --ref <tag-or-branch>
 EOF
@@ -34,6 +36,29 @@ repo="${DOTFILES_REPO:-timonwong}"
 ref="${DOTFILES_REF:-}"
 depth="${DOTFILES_DEPTH:-}"
 ssh="${DOTFILES_SSH:-}"
+skip_nix="${DOTFILES_SKIP_NIX:-}"
+
+is_true() {
+    case "${1:-}" in
+    1 | true | TRUE | yes | YES | on | ON)
+        return 0
+        ;;
+    *)
+        return 1
+        ;;
+    esac
+}
+
+is_false() {
+    case "${1:-}" in
+    "" | 0 | false | FALSE | no | NO | off | OFF)
+        return 0
+        ;;
+    *)
+        return 1
+        ;;
+    esac
+}
 
 while [ $# -gt 0 ]; do
     case "$1" in
@@ -68,6 +93,9 @@ while [ $# -gt 0 ]; do
     --ssh)
         ssh=1
         ;;
+    --skip-nix)
+        skip_nix=1
+        ;;
     --)
         shift
         break
@@ -85,6 +113,13 @@ while [ $# -gt 0 ]; do
     esac
     shift
 done
+
+if is_true "$skip_nix"; then
+    set -- --promptBool skipNix=true "$@"
+elif ! is_false "$skip_nix"; then
+    echo "error: DOTFILES_SKIP_NIX must be one of: 1, true, yes, on, 0, false, no, off" >&2
+    exit 2
+fi
 
 if ! command -v chezmoi >/dev/null 2>&1; then
     bin_dir="$HOME/bin"

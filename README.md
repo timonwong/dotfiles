@@ -187,6 +187,8 @@ The `chezmoi` script chain is staged and numbered:
 9. `08` install pinned nix-index database
 10. `10` periodic Homebrew update/upgrade (7-day interval)
 
+Set `skipNix=true` to skip the Nix bootstrap chain entirely. That skips `00`, `02`, `03`, `07`, `08`, `10`, and any Nix fallback installs inside wrappers/scripts.
+
 ---
 
 ## Quick Start
@@ -199,6 +201,7 @@ The `chezmoi` script chain is staged and numbered:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh
+curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh -s -- --skip-nix
 ```
 
 ### Option 2: Pin to a tag/branch and review first
@@ -226,6 +229,7 @@ git checkout <tag-or-commit>
 ./init.sh --ref v1.2.3
 ./init.sh --depth 1
 ./init.sh --ssh
+./init.sh --skip-nix
 ```
 
 ---
@@ -237,6 +241,7 @@ git checkout <tag-or-commit>
 - `work` (work machine switch)
 - `headless` (container/server without full desktop assumptions)
 - `useEncryption` (enable encrypted key restore flow)
+- `skipNix` (skip the full Nix bootstrap chain)
 - `installMasApps` (macOS App Store apps)
 
 For most first-time users of this repo: keep `useEncryption = false` unless you have your own keys-manage backup repo and key material.
@@ -386,6 +391,9 @@ chezmoi init --apply signalridge
 
 # For headless servers (no GUI configs)
 chezmoi init --apply --promptBool headless=true signalridge
+
+# Skip all nix-dependent bootstrap stages
+chezmoi init --apply --promptBool skipNix=true signalridge
 ```
 
 ---

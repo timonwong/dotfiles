@@ -146,10 +146,15 @@ require_cmd() {
 maybe_install_with_nix() {
     local tool="$1"
     require_cmd "$tool" && return 0
+{{- if .skipNix }}
+    info "skipNix=true; ${tool} must already be installed"
+    return 1
+{{- else }}
     require_cmd nix || return 1
     info "Installing $tool with nix profile..."
     nix --extra-experimental-features 'nix-command flakes' profile add "nixpkgs#$tool" >/dev/null
     require_cmd "$tool"
+{{- end }}
 }
 
 calc_checksum() {

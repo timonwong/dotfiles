@@ -185,6 +185,8 @@
 9. `08` 下载固定版本 nix-index 数据库
 10. `10` 周期性 Homebrew 更新（7 天间隔）
 
+设置 `skipNix=true` 后，整条 Nix bootstrap 链会被跳过。覆盖 `00`、`02`、`03`、`07`、`08`、`10`，以及脚本和 wrapper 里的 Nix 回退安装路径。
+
 ---
 
 ## 快速开始
@@ -197,6 +199,7 @@
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh
+curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh -s -- --skip-nix
 ```
 
 ### 方式 2：固定 tag/branch 并先审阅
@@ -224,6 +227,7 @@ git checkout <tag-or-commit>
 ./init.sh --ref v1.2.3
 ./init.sh --depth 1
 ./init.sh --ssh
+./init.sh --skip-nix
 ```
 
 ---
@@ -235,6 +239,7 @@ git checkout <tag-or-commit>
 - `work`（是否工作机）
 - `headless`（是否无 GUI 场景）
 - `useEncryption`（是否启用加密密钥恢复流）
+- `skipNix`（是否跳过整条 Nix bootstrap 链）
 - `installMasApps`（是否安装 MAS 应用）
 
 对大多数首次使用者：除非你已经有自己的 keys-manage 备份仓库与密钥材料，否则建议保持 `useEncryption = false`。
@@ -384,6 +389,9 @@ chezmoi init --apply timonwong
 
 # 无头服务器（不需要 GUI 配置）
 chezmoi init --apply --promptBool headless=true timonwong
+
+# 跳过所有依赖 Nix 的 bootstrap 阶段
+chezmoi init --apply --promptBool skipNix=true timonwong
 ```
 
 ---

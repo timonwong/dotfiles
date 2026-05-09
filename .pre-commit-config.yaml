@@ -95,6 +95,7 @@ repos:
           gitUsername = "test"
           gitEmail = "test@test.com"
           useEncryption = false
+          skipNix = false
           headless = false
           gopassRepository = "git@github.com:test/pass.git"
           keysRepository = "git@github.com:test/keys.git"

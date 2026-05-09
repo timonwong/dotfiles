@@ -4,6 +4,14 @@
 
 set -eu
 
+{{- if .skipNix }}
+if [ "${NIX_INSTALLER_RUN_MAIN:-1}" = "1" ]; then
+    echo ":: [00] Installing Nix"
+fi
+echo "    Skipped (skipNix=true)"
+exit 0
+{{- end }}
+
 if [ "${NIX_INSTALLER_RUN_MAIN:-1}" = "1" ]; then
     echo ":: [00] Installing Nix"
 fi

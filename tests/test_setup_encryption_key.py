@@ -233,7 +233,7 @@ def main():
         rendered = tmp_root / "run_once_before_01_setup-encryption-key.sh"
         rendered.write_bytes(
             subprocess.check_output(
-                ["chezmoi", "execute-template", "--source", str(REPO_ROOT)], input=SCRIPT_TMPL.read_bytes()
+                ["chezmoi", "execute-template", "--source", str(REPO_ROOT), "--override-data", '{"skipNix":false}'], input=SCRIPT_TMPL.read_bytes()
             )
         )
         os.chmod(rendered, 0o755)

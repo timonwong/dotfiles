@@ -16,6 +16,11 @@ set -euo pipefail
 
 echo ":: [02] Configuring nix-darwin"
 
+{{- if .skipNix }}
+echo "    Skipped (skipNix=true)"
+exit 0
+{{- end }}
+
 # Source nix environment if not already available
 {{ include ".chezmoitemplates/shell/source_nix_env.sh" }}
 if ! command -v darwin-version >/dev/null 2>&1; then

@@ -1,6 +1,8 @@
 # Use the color palette
 palette = "catppuccin_mocha"
-right_format = "$custom.worktree"
+# Disabled: right_format triggers stale first-line artifacts after tmux pane
+# split/resize even with TRAPWINCH redrawing the prompt.
+# right_format = "$custom.worktree"
 
 # Define the Catppuccin Mocha color palette
 [palettes.catppuccin_mocha]

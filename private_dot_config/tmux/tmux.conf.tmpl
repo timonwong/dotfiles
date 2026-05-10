@@ -328,6 +328,11 @@ run '~/.config/tmux/plugins/tpm/tpm'
 # Catppuccin Mocha base + accents
 # ==============================================================================
 
+# -- Behavior overrides --------------------------------------------------------
+# tmux-sensible enables aggressive-resize, which fires SIGWINCH on every
+# window switch and breaks starship's multi-line prompt redraw. Disable it.
+set-window-option -g aggressive-resize off
+
 # -- Catppuccin Mocha color palette --------------------------------------------
 # Base:      #1e1e2e
 # Surface 0: #313244

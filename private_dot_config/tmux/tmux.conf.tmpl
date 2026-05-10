@@ -188,11 +188,16 @@ set -g @jump-key 'f'
 set -g @plugin 'junegunn/tmux-fzf-url'
 set -g @fzf-url-bind 'u'
 
+{{- if not .headless }}
+
 # Quick open highlighted file/URL in copy-mode
 # o - open with default program
 # C-o - open with $EDITOR
 # S - search with Google
+# Only on non-headless machines: needs xdg-open (Linux) / open (macOS),
+# otherwise the plugin spams "tmux-open error" on every config reload.
 set -g @plugin 'tmux-plugins/tmux-open'
+{{- end }}
 
 # ------------------------------------------------------------------------------
 # Status bar / UI

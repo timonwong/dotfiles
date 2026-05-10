@@ -1,7 +1,13 @@
 # Use the color palette
 palette = "catppuccin_mocha"
-# Disabled: right_format triggers stale first-line artifacts after tmux pane
-# split/resize even with TRAPWINCH redrawing the prompt.
+# Disable the leading blank line. Combined with starship's 2-line prompt
+# (info line + character line), `add_newline = true` made the visible
+# prompt 3 rows tall, and tmux's pane redraw on copy-mode exit (e.g.
+# after mouse-wheel scroll) failed to restore all three rows, leaving
+# stale artifacts.
+add_newline = false
+# Disabled: right_format depends on precise COLUMNS for cursor placement
+# and survives tmux pane resize poorly.
 # right_format = "$custom.worktree"
 
 # Define the Catppuccin Mocha color palette

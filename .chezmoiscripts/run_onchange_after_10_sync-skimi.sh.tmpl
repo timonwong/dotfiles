@@ -33,9 +33,12 @@ if [[ -d "$HOME/.nix-profile/bin" ]]; then
     export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 
-mise_cmd="$HOME/.nix-profile/bin/mise"
+mise_cmd="$(command -v mise 2>/dev/null || true)"
+if [[ -z "$mise_cmd" ]] || [[ ! -x "$mise_cmd" ]]; then
+    mise_cmd="$HOME/.local/bin/mise"
+fi
 if [[ ! -x "$mise_cmd" ]]; then
-    echo "    Skipped (mise not found in nix profile)"
+    echo "    Skipped (mise not found)"
     exit 0
 fi
 

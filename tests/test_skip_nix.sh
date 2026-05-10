@@ -40,6 +40,8 @@ assert_ignored_with_skip_nix() {
         ".chezmoiscripts/00_install-nix.sh"
         ".chezmoiscripts/02_init.sh"
         ".chezmoiscripts/03_set_profiles.sh"
+        ".chezmoiscripts/07a_install-mise.sh"
+        ".chezmoiscripts/07b_mise-install-tools.sh"
         ".chezmoiscripts/08_nix-index-db.sh"
     )
 
@@ -66,6 +68,14 @@ assert_not_ignored_without_skip_nix() {
     fi
     if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/03_set_profiles\.sh$'; then
         echo "did not expect 03_set_profiles.sh in .chezmoiignore when skipNix=false" >&2
+        exit 1
+    fi
+    if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/07a_install-mise\.sh$'; then
+        echo "did not expect 07a_install-mise.sh in .chezmoiignore when skipNix=false" >&2
+        exit 1
+    fi
+    if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/07b_mise-install-tools\.sh$'; then
+        echo "did not expect 07b_mise-install-tools.sh in .chezmoiignore when skipNix=false" >&2
         exit 1
     fi
     if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/08_nix-index-db\.sh$'; then

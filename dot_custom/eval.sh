@@ -21,11 +21,6 @@ eval_if_mise_activate() {
     mise_cmd="$(command -v mise 2>/dev/null || true)"
     [[ -n "$mise_cmd" ]] || return 0
 
-    # Skip aqua proxy wrapper for missing commands (can spawn repeated failures).
-    case "$mise_cmd" in
-    */aquaproj-aqua/bin/mise) return 0 ;;
-    esac
-
     out="$("$mise_cmd" activate zsh 2>/dev/null || true)"
     [[ -n "$out" ]] && eval "$out"
 }

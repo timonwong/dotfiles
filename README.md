@@ -183,9 +183,10 @@ The `chezmoi` script chain is staged and numbered:
 5. `04` bootstrap gopass store (interactive clone)
 6. `05` install pinned aqua installer/version
 7. `06` install tools from `private_dot_config/aquaproj-aqua/aqua.yaml` (excluding `codex`/`claude-code`)
-8. `07` install runtimes/tools via `mise` (including global `codex`/`claude-code`)
-9. `08` install pinned nix-index database
-10. `10` periodic Homebrew update/upgrade (7-day interval)
+8. `07a` install pinned `mise` from GitHub Release installer
+9. `07b` install runtimes/tools via `mise` (including global `codex`/`claude-code`)
+10. `08` install pinned nix-index database
+11. `10` periodic Homebrew update/upgrade (7-day interval)
 
 Set `skipNix=true` to skip the Nix bootstrap chain entirely. That skips `00`, `02`, `03`, `07`, `08`, `10`, and any Nix fallback installs inside wrappers/scripts.
 

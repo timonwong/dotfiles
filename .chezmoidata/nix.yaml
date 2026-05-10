@@ -16,3 +16,4 @@ nix:
     work: []
     private:
       - btop
+      - ffmpeg

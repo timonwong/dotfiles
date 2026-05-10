@@ -60,6 +60,7 @@ Library/Rime/
 # ─────────────────────────────────────────────────────────────────────────────
 # Rime runtime artifacts (never sync generated state back into chezmoi)
 # ─────────────────────────────────────────────────────────────────────────────
+{{- if .headless }}
 Library/Rime/build/
 Library/Rime/installation.yaml
 Library/Rime/user.yaml
@@ -70,6 +71,7 @@ Library/Rime/*.log
 .config/ibus/rime/user.yaml
 .config/ibus/rime/*.userdb*
 .config/ibus/rime/*.log
+{{- end }}
 
 # ─────────────────────────────────────────────────────────────────────────────
 # skimi skills are synced by .chezmoiscripts/run_onchange_after_10_sync-skimi
@@ -88,9 +90,14 @@ Library/Rime/*.log
 # Nix bootstrap exclusions (skip when skipNix is true)
 # ─────────────────────────────────────────────────────────────────────────────
 {{- if .skipNix }}
+nix-config/
+.config/nix
+
 .chezmoiscripts/00_install-nix.sh
 .chezmoiscripts/02_init.sh
 .chezmoiscripts/03_set_profiles.sh
+.chezmoiscripts/07a_install-mise.sh
+.chezmoiscripts/07b_mise-install-tools.sh
 .chezmoiscripts/08_nix-index-db.sh
 {{- end }}
 

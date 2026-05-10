@@ -74,6 +74,7 @@ read_only = " 󰌾"
 style = "bold cyan"
 
 [docker_context]
+disabled = true
 symbol = " "
 
 [elixir]

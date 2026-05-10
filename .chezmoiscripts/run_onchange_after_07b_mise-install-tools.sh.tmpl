@@ -23,8 +23,7 @@ fi
 # Ensure mise shims are available in this non-interactive shell.
 eval "$("$mise_cmd" activate bash)"
 
-# npm-backed tools need npm available during version resolution.
-# Install node first if npm is still unavailable in this shell.
+# Use aube as backend for node packages
 if ! command -v npm &>/dev/null; then
     "$mise_cmd" install --yes node
     eval "$("$mise_cmd" activate bash)"

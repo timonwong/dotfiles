@@ -35,5 +35,5 @@ hosts:
     api_host: gitlab-ce.alauda.cn
     git_protocol: https
     api_protocol: https
-    use_keyring: "true"
+    use_keyring: {{ or (eq .chezmoi.os "darwin") (not .headless) | quote }}
     container_registry_domains: gitlab-ce.alauda.cn,gitlab-ce.alauda.cn:443

@@ -75,9 +75,6 @@ symbol = " "
 read_only = " 󰌾"
 style = "bold cyan"
 
-[container]
-disabled = true
-
 [docker_context]
 symbol = " "
 

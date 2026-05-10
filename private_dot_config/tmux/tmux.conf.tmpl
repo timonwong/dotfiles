@@ -16,6 +16,8 @@ set -g allow-passthrough on
 set -s terminal-features ",*256col*:RGB"
 # Undercurl support + colors (combined to prevent reload accumulation)
 set -g terminal-overrides ',*:Smulx=\E[4::%p1%dm,*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
+# Ghostty: declare supported features so tmux maps them to the right terminfo caps
+set -as terminal-features 'xterm-ghostty:RGB,sync,usstyle,clipboard,hyperlinks,extkeys,focus,title,cstyle,ccolour,overline,strikethrough'
 
 # -- general -------------------------------------------------------------------
 

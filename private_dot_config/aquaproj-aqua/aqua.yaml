@@ -36,11 +36,11 @@ packages:
   - name: neovim/neovim@v0.12.2
   - name: LuaLS/lua-language-server@3.18.2
   - name: tree-sitter/tree-sitter@v0.26.8
-  - name: rclone/rclone@v1.74.0
+  - name: rclone/rclone@v1.74.1
   - name: BurntSushi/ripgrep@15.1.0
   - name: phiresky/ripgrep-all@v0.10.10
   - name: chmln/sd@v1.1.0
-  - name: joshmedeski/sesh@v2.26.1
+  - name: joshmedeski/sesh@v2.26.2
   - name: starship/starship@v1.25.1
   - name: JohnnyMorganz/StyLua@v2.4.1
   - name: Kampfkarren/selene@0.30.1

@@ -270,8 +270,11 @@ set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 # ------------------------------------------------------------------------------
 
 # Better mouse mode (smoother scrolling, better selection)
-set -g @plugin 'NHDaly/tmux-better-mouse-mode'
-set -g @scroll-speed-num-lines-per-scroll '3'
+# Disabled: last updated 2018, suspected of breaking pane redraw on
+# mouse-wheel-driven copy-mode exit with multi-line starship prompts.
+# tmux 3.x built-in mouse handling is sufficient.
+# set -g @plugin 'NHDaly/tmux-better-mouse-mode'
+# set -g @scroll-speed-num-lines-per-scroll '3'
 
 # ------------------------------------------------------------------------------
 # Session persistence

@@ -37,4 +37,3 @@ hosts:
     api_protocol: https
     use_keyring: "true"
     container_registry_domains: gitlab-ce.alauda.cn,gitlab-ce.alauda.cn:443
-    user: tpwang

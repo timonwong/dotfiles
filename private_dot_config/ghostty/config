@@ -1,3 +1,4 @@
+# vim: ft=conf
 theme = Catppuccin Mocha
 
 custom-shader = shaders/bloom025.glsl
@@ -6,9 +7,18 @@ custom-shader = shaders/cursor_smear.glsl
 
 cursor-style = block
 
-font-family = "CaskaydiaCove NFM"
-font-size = 14
+font-family = "CommitMono Nerd Font"
+font-size = 13
 font-feature = -liga, -calt
+
+# font-awesome
+font-codepoint-map = U+f000-U+f2e0,U+e200-U+e2a9=JetBrainsMono Nerd Font
+
+# seti-ui
+font-codepoint-map = U+e5fa-U+e6b1=JetBrainsMono Nerd Font
+
+# codicons
+font-codepoint-map = U+ea60-U+ebeb=JetBrainsMono Nerd Font
 
 font-thicken = true
 font-thicken-strength = 40

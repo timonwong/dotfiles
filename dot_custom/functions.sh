@@ -2,6 +2,15 @@
 # shellcheck disable=SC1087
 
 # ─────────────────────────────────────────────────────────────
+# Redraw prompt on terminal resize
+# Avoids stale first-line artifacts from starship's 2-line prompt +
+# right_format after tmux split / pane resize.
+# ─────────────────────────────────────────────────────────────
+TRAPWINCH() {
+    zle && { zle reset-prompt; zle -R; }
+}
+
+# ─────────────────────────────────────────────────────────────
 # Alt+Up/Down Directory Navigation
 # ─────────────────────────────────────────────────────────────
 _cd_up() {

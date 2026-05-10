@@ -43,9 +43,9 @@ packages:
         - openclaw
   - repo: https://github.com/blader/humanizer
   - repo: https://github.com/op7418/Humanizer-zh
-  - repo: onevcat/skills
-    skills:
-      - onevcat-jj
+  #- repo: onevcat/skills
+  #  skills:
+  #    - onevcat-jj
   - repo: epiral/bb-browser
     skills:
       - bb-browser

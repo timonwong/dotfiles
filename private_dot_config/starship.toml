@@ -73,8 +73,10 @@ symbol = " "
 read_only = " 󰌾"
 style = "bold cyan"
 
-[docker_context]
+[container]
 disabled = true
+
+[docker_context]
 symbol = " "
 
 [elixir]

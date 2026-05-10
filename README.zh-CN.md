@@ -181,9 +181,10 @@
 5. `04` 初始化 gopass store（交互式 clone）
 6. `05` 安装固定版本的 aqua installer/aqua
 7. `06` 根据 `private_dot_config/aquaproj-aqua/aqua.yaml` 安装工具（不含 `codex`/`claude-code`）
-8. `07` 通过 `mise` 安装 runtime 与工具（含全局 `codex`/`claude-code`）
-9. `08` 下载固定版本 nix-index 数据库
-10. `10` 周期性 Homebrew 更新（7 天间隔）
+8. `07a` 通过 GitHub Release installer 安装固定版本 `mise`
+9. `07b` 通过 `mise` 安装 runtime 与工具（含全局 `codex`/`claude-code`）
+10. `08` 下载固定版本 nix-index 数据库
+11. `10` 周期性 Homebrew 更新（7 天间隔）
 
 设置 `skipNix=true` 后，整条 Nix bootstrap 链会被跳过。覆盖 `00`、`02`、`03`、`07`、`08`、`10`，以及脚本和 wrapper 里的 Nix 回退安装路径。
 

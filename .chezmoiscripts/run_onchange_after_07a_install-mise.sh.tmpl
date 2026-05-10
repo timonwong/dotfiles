@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo ":: [07a] Installing mise"
+
+MISE_PINNED_VERSION="{{ .versions.miseVersion }}"
+MISE_TARGET_VERSION="${MISE_VERSION:-$MISE_PINNED_VERSION}"
+MISE_INSTALLER_SHA256="{{ .versions.miseInstallerSha256 }}"
+MISE_INSTALL_PATH="${MISE_INSTALL_PATH:-$HOME/.local/bin/mise}"
+MISE_INSTALLER_URL="https://github.com/jdx/mise/releases/download/${MISE_TARGET_VERSION}/install.sh"
+
+case "$(uname -s)" in
+Darwin | Linux) ;;
+*)
+    echo "    Skipped (unsupported OS: $(uname -s))"
+    exit 0
+    ;;
+esac
+
+normalize_version() {
+    local version="${1:-}"
+    echo "${version#v}"
+}
+
+calc_sha256() {
+    local file="$1"
+    if command -v sha256sum &>/dev/null; then
+        sha256sum "$file" | awk '{print $1}'
+        return 0
+    fi
+    if command -v shasum &>/dev/null; then
+        shasum -a 256 "$file" | awk '{print $1}'
+        return 0
+    fi
+    if command -v openssl &>/dev/null; then
+        openssl dgst -sha256 "$file" | awk '{print $2}'
+        return 0
+    fi
+    return 1
+}
+
+detect_mise_cmd() {
+    if command -v mise &>/dev/null; then
+        command -v mise
+        return 0
+    fi
+    if [[ -x "$MISE_INSTALL_PATH" ]]; then
+        echo "$MISE_INSTALL_PATH"
+        return 0
+    fi
+    return 1
+}
+
+current_mise_version() {
+    local cmd="$1"
+    local output=""
+    output="$("$cmd" --version 2>/dev/null || "$cmd" version 2>/dev/null || true)"
+    echo "$output" | grep -Eo 'v?[0-9]{4}\.[0-9]+\.[0-9]+' | head -1
+}
+
+mise_cmd=""
+if mise_cmd="$(detect_mise_cmd)"; then
+    current_version="$(current_mise_version "$mise_cmd")"
+    current_normalized="$(normalize_version "$current_version")"
+    target_normalized="$(normalize_version "$MISE_TARGET_VERSION")"
+    echo "    current: ${current_version:-unknown}, pinned: ${MISE_TARGET_VERSION}"
+
+    if [[ -n "$MISE_TARGET_VERSION" ]] && [[ "$current_normalized" == "$target_normalized" ]]; then
+        echo "    Skipped (already on pinned version)"
+        exit 0
+    fi
+fi
+
+if [[ -z "${MISE_TARGET_VERSION:-}" ]]; then
+    echo "    Error: MISE_TARGET_VERSION is empty"
+    exit 1
+fi
+
+if [[ -z "${MISE_INSTALLER_SHA256:-}" ]]; then
+    echo "    Error: MISE_INSTALLER_SHA256 is empty"
+    exit 1
+fi
+
+installer_file="$(mktemp "${TMPDIR:-/tmp}/mise-installer.XXXXXX")"
+cleanup() {
+    rm -f "$installer_file"
+}
+trap cleanup EXIT
+
+if command -v curl &>/dev/null; then
+    curl -fsSL "$MISE_INSTALLER_URL" -o "$installer_file"
+elif command -v wget &>/dev/null; then
+    wget -qO "$installer_file" "$MISE_INSTALLER_URL"
+else
+    echo "    Error: curl or wget is required to install mise"
+    exit 1
+fi
+
+if ! installer_sha256="$(calc_sha256 "$installer_file")"; then
+    echo "    Error: no SHA-256 tool is available (need sha256sum/shasum/openssl)"
+    exit 1
+fi
+
+expected_sha256="$(echo "$MISE_INSTALLER_SHA256" | tr '[:upper:]' '[:lower:]')"
+actual_sha256="$(echo "$installer_sha256" | tr '[:upper:]' '[:lower:]')"
+if [[ "$actual_sha256" != "$expected_sha256" ]]; then
+    echo "    Error: mise installer checksum mismatch"
+    echo "    expected: $expected_sha256"
+    echo "    actual:   $actual_sha256"
+    exit 1
+fi
+
+chmod +x "$installer_file"
+MISE_VERSION="$MISE_TARGET_VERSION" \
+    MISE_INSTALL_PATH="$MISE_INSTALL_PATH" \
+    MISE_INSTALL_HELP=0 \
+    "$installer_file"
+
+mise_cmd=""
+if mise_cmd="$(detect_mise_cmd)"; then
+    installed_version="$(current_mise_version "$mise_cmd")"
+    echo "    Installed: ${installed_version:-unknown}"
+else
+    echo "    Error: mise installation failed (command not found after install)"
+    exit 1
+fi
+
+if [[ ! -x "$MISE_INSTALL_PATH" ]]; then
+    echo "    Error: mise installation failed (binary not found at ${MISE_INSTALL_PATH})"
+    exit 1
+fi

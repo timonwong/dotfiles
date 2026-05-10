@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
-TMPL="$ROOT/.chezmoiscripts/run_onchange_after_07_mise-install.sh.tmpl"
+TMPL="$ROOT/.chezmoiscripts/run_onchange_after_07b_mise-install.sh.tmpl"
 
 require_cmd() {
     command -v "$1" >/dev/null 2>&1

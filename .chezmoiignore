@@ -91,6 +91,8 @@ Library/Rime/*.log
 .chezmoiscripts/00_install-nix.sh
 .chezmoiscripts/02_init.sh
 .chezmoiscripts/03_set_profiles.sh
+.chezmoiscripts/07a_install-mise.sh
+.chezmoiscripts/07b_mise-install.sh
 .chezmoiscripts/08_nix-index-db.sh
 {{- end }}
 

@@ -7,11 +7,6 @@ set -euo pipefail
 
 echo ":: [08] Downloading nix-index database"
 
-{{- if .skipNix }}
-echo "    Skipped (skipNix=true)"
-exit 0
-{{- end }}
-
 # Runtime check: skip if nix-locate not installed
 if ! command -v nix-locate &>/dev/null; then
     echo "    Skipped (nix-locate not installed)"

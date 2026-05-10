@@ -25,76 +25,61 @@ hostname = "skip-nix-host"
 skipNix = true
 EOF
 
-STUB="$TMP_ROOT/stub"
-mkdir -p "$STUB"
-LOG="$TMP_ROOT/command.log"
-export SKIP_NIX_TEST_LOG="$LOG"
+render_ignore() {
+    local skip_nix_value="${1:-true}"
+    local override_data
+    override_data=$(printf '{"skipNix":%s,"headless":false,"useEncryption":true}' "$skip_nix_value")
+    chezmoi execute-template --source "$ROOT" --override-data "$override_data" <"$ROOT/.chezmoiignore"
+}
+
+assert_ignored_with_skip_nix() {
+    local rendered
+    rendered="$(render_ignore)"
+
+    local expected_paths=(
+        ".chezmoiscripts/00_install-nix.sh"
+        ".chezmoiscripts/02_init.sh"
+        ".chezmoiscripts/03_set_profiles.sh"
+        ".chezmoiscripts/08_nix-index-db.sh"
+    )
+
+    for path in "${expected_paths[@]}"; do
+        if [[ "$rendered" != *"$path"* ]]; then
+            echo "expected $path in .chezmoiignore when skipNix=true" >&2
+            printf '%s\n' "$rendered" >&2
+            exit 1
+        fi
+    done
+}
+
+assert_not_ignored_without_skip_nix() {
+    local rendered
+    rendered="$(render_ignore false)"
+
+    if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/00_install-nix\.sh$'; then
+        echo "did not expect 00_install-nix.sh in .chezmoiignore when skipNix=false" >&2
+        exit 1
+    fi
+    if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/02_init\.sh$'; then
+        echo "did not expect 02_init.sh in .chezmoiignore when skipNix=false" >&2
+        exit 1
+    fi
+    if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/03_set_profiles\.sh$'; then
+        echo "did not expect 03_set_profiles.sh in .chezmoiignore when skipNix=false" >&2
+        exit 1
+    fi
+    if printf '%s\n' "$rendered" | grep -q '^\.chezmoiscripts/08_nix-index-db\.sh$'; then
+        echo "did not expect 08_nix-index-db.sh in .chezmoiignore when skipNix=false" >&2
+        exit 1
+    fi
+}
+
+assert_ignored_with_skip_nix
+assert_not_ignored_without_skip_nix
+
 SAFE_PATH="/bin:/usr/sbin:/sbin"
-
-make_stub() {
-    local name="$1"
-    cat >"$STUB/$name" <<'EOF'
-#!/usr/bin/env bash
-set -euo pipefail
-echo "${0##*/} $*" >>"${SKIP_NIX_TEST_LOG:?}"
-exit 99
-EOF
-    chmod +x "$STUB/$name"
-}
-
-for cmd in sudo nix darwin-rebuild mise skimi nix-locate curl wget uname sysctl head od grep awk mktemp chmod rm; do
-    make_stub "$cmd"
-done
-
-render_script() {
-    local template_path="$1"
-    local output_path="$2"
-    chezmoi execute-template --config "$CONFIG" --source "$ROOT" <"$template_path" >"$output_path"
-    chmod +x "$output_path"
-}
-
-assert_skipped() {
-    local runner="$1"
-    local script="$2"
-
-    : >"$LOG"
-    set +e
-    output="$(PATH="$STUB:$SAFE_PATH" "$runner" "$script" 2>&1)"
-    rc=$?
-    set -e
-
-    if [[ $rc -ne 0 ]]; then
-        echo "expected $script to exit 0, got $rc" >&2
-        printf '%s\n' "$output" >&2
-        exit 1
-    fi
-
-    if [[ "$output" != *"skipNix=true"* ]]; then
-        echo "expected skipNix output from $script" >&2
-        printf '%s\n' "$output" >&2
-        exit 1
-    fi
-
-    if [[ -s "$LOG" ]]; then
-        echo "expected no stubbed commands for $script" >&2
-        cat "$LOG" >&2
-        exit 1
-    fi
-}
-
-render_script "$ROOT/.chezmoiscripts/run_onchange_before_00_install-nix.sh.tmpl" "$TMP_ROOT/install-nix.sh"
-render_script "$ROOT/.chezmoiscripts/run_onchange_after_02_init.sh.tmpl" "$TMP_ROOT/init.sh"
-render_script "$ROOT/.chezmoiscripts/run_onchange_after_03_set_profiles.sh.tmpl" "$TMP_ROOT/set-profiles.sh"
-render_script "$ROOT/.chezmoiscripts/run_onchange_after_08_nix-index-db.sh.tmpl" "$TMP_ROOT/nix-index-db.sh"
-
-assert_skipped sh "$TMP_ROOT/install-nix.sh"
-assert_skipped bash "$TMP_ROOT/init.sh"
-assert_skipped bash "$TMP_ROOT/set-profiles.sh"
-assert_skipped bash "$TMP_ROOT/nix-index-db.sh"
-
-: >"$LOG"
 set +e
-wrapper_output="$(PATH="$STUB:$SAFE_PATH" "$ROOT/.chezmoitemplates/shell/age_command_wrapper.sh" --version 2>&1)"
+wrapper_output="$(PATH="$SAFE_PATH" "$ROOT/.chezmoitemplates/shell/age_command_wrapper.sh" --version 2>&1)"
 wrapper_rc=$?
 set -e
 
@@ -106,12 +91,6 @@ fi
 if [[ "$wrapper_output" != *"skipNix=true"* ]]; then
     echo "expected age wrapper skipNix error" >&2
     printf '%s\n' "$wrapper_output" >&2
-    exit 1
-fi
-
-if [[ -s "$LOG" ]]; then
-    echo "expected age wrapper to avoid stubbed commands" >&2
-    cat "$LOG" >&2
     exit 1
 fi
 

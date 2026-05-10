@@ -85,6 +85,16 @@ Library/Rime/*.log
 {{- end }}
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Nix bootstrap exclusions (skip when skipNix is true)
+# ─────────────────────────────────────────────────────────────────────────────
+{{- if .skipNix }}
+.chezmoiscripts/00_install-nix.sh
+.chezmoiscripts/02_init.sh
+.chezmoiscripts/03_set_profiles.sh
+.chezmoiscripts/08_nix-index-db.sh
+{{- end }}
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Claude command convergence (OpenSpec-first + minimal commands)
 # ─────────────────────────────────────────────────────────────────────────────
 backup/

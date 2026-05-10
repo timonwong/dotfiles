@@ -1,0 +1,7 @@
+# Intentionally minimal.
+# Global Git settings are managed in ~/.config/git/config (XDG).
+
+{{- if hasPrefix "devpod-" .chezmoi.hostname }}
+[credential]
+	helper = !'/usr/local/bin/devpod' agent git-credentials --port 12049
+{{- end }}

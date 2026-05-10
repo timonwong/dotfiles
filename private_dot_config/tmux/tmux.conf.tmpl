@@ -18,6 +18,8 @@ set -s terminal-features ",*256col*:RGB"
 set -g terminal-overrides ',*:Smulx=\E[4::%p1%dm,*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 # Ghostty: declare supported features so tmux maps them to the right terminfo caps
 set -as terminal-features 'xterm-ghostty:RGB,sync,usstyle,clipboard,hyperlinks,extkeys,focus,title,cstyle,ccolour,overline,strikethrough'
+# Forward CSI u / extended key encodings to applications (e.g. distinguishing <C-i>/<Tab>)
+set -s extended-keys always
 
 # -- general -------------------------------------------------------------------
 

@@ -38,7 +38,7 @@ nix-config/modules/host-users.nix
 # macOS-only GUI apps (target paths)
 .config/karabiner/
 .config/ghostty/
-Library/Rime/
+Library/
 {{- end }}
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -61,11 +61,6 @@ Library/Rime/
 # Rime runtime artifacts (never sync generated state back into chezmoi)
 # ─────────────────────────────────────────────────────────────────────────────
 {{- if .headless }}
-Library/Rime/build/
-Library/Rime/installation.yaml
-Library/Rime/user.yaml
-Library/Rime/*.userdb*
-Library/Rime/*.log
 .config/ibus/rime/build/
 .config/ibus/rime/installation.yaml
 .config/ibus/rime/user.yaml

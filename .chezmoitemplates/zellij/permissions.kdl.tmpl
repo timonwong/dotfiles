@@ -1,0 +1,10 @@
+{{- $zellijPluginsDir := joinPath .chezmoi.homeDir ".config/zellij/plugins" -}}
+"{{ joinPath $zellijPluginsDir "zjstatus-hints.wasm" }}" {
+    ReadApplicationState
+    MessageAndLaunchOtherPlugins
+}
+"{{ joinPath $zellijPluginsDir "zjstatus.wasm" }}" {
+    RunCommands
+    ChangeApplicationState
+    ReadApplicationState
+}

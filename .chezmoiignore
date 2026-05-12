@@ -91,8 +91,6 @@ nix-config/
 .chezmoiscripts/00_install-nix.sh
 .chezmoiscripts/02_init.sh
 .chezmoiscripts/03_set_profiles.sh
-.chezmoiscripts/07a_install-mise.sh
-.chezmoiscripts/07b_mise-install-tools.sh
 .chezmoiscripts/08_nix-index-db.sh
 {{- end }}
 

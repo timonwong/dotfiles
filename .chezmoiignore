@@ -3,6 +3,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 *.tmp
 README.md
+AGENTS.md
 
 # OS-specific lock files (used by flake.lock.tmpl)
 nix-config/.flake-darwin.lock

@@ -186,7 +186,7 @@
 10. `08` 下载固定版本 nix-index 数据库
 11. `10` 周期性 Homebrew 更新（7 天间隔）
 
-设置 `skipNix=true` 后，整条 Nix bootstrap 链会被跳过。覆盖 `00`、`02`、`03`、`07`、`08`、`10`，以及脚本和 wrapper 里的 Nix 回退安装路径。
+设置 `skipNix=true` 后，会跳过 Nix bootstrap 链。覆盖 `00`、`02`、`03`、`08`，以及脚本和 wrapper 里的 Nix 回退安装路径。
 
 ---
 
@@ -227,7 +227,12 @@ git checkout <tag-or-commit>
 ./init.sh --ref v1.2.3
 ./init.sh --depth 1
 ./init.sh --ssh
-./init.sh --skip-nix
+```
+
+像 `skipNix` 这类 bootstrap 布尔开关，请直接通过 `chezmoi` 传入：
+
+```bash
+chezmoi init --apply --promptBool skipNix=true timonwong
 ```
 
 ---

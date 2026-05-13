@@ -19,7 +19,7 @@ encryption = "age"
 {{-   $skipNix = .skipNix -}}
 {{- end -}}
 {{- if stdinIsATTY -}}
-{{-   $skipNix = promptBoolOnce . "skipNix" "Skip Nix bootstrap (skip nix install, nix-darwin, profiles, mise via nix, nix-index, skimi sync)" -}}
+{{-   $skipNix = promptBoolOnce . "skipNix" "Skip Nix bootstrap (skip nix install, nix-darwin, profiles, nix-index)" -}}
 {{- end -}}
 {{- "" -}}
 

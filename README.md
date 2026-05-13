@@ -188,7 +188,7 @@ The `chezmoi` script chain is staged and numbered:
 10. `08` install pinned nix-index database
 11. `10` periodic Homebrew update/upgrade (7-day interval)
 
-Set `skipNix=true` to skip the Nix bootstrap chain entirely. That skips `00`, `02`, `03`, `07`, `08`, `10`, and any Nix fallback installs inside wrappers/scripts.
+Set `skipNix=true` to skip the Nix bootstrap chain. That skips `00`, `02`, `03`, `08`, and any Nix fallback installs inside wrappers/scripts.
 
 ---
 
@@ -202,7 +202,6 @@ Set `skipNix=true` to skip the Nix bootstrap chain entirely. That skips `00`, `0
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh
-curl -fsSL https://raw.githubusercontent.com/timonwong/dotfiles/main/init.sh | sh -s -- --skip-nix
 ```
 
 ### Option 2: Pin to a tag/branch and review first
@@ -230,7 +229,12 @@ git checkout <tag-or-commit>
 ./init.sh --ref v1.2.3
 ./init.sh --depth 1
 ./init.sh --ssh
-./init.sh --skip-nix
+```
+
+Use `chezmoi` directly for bootstrap booleans such as `skipNix`:
+
+```bash
+chezmoi init --apply --promptBool skipNix=true timonwong
 ```
 
 ---

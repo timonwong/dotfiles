@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# Vendored from github.com/stanislc/zellij-claude-teams
+# Upstream commit: 020f2a5ce7c38d888fc94cf18472aa816815e120
+# zellij-pane-wrapper: Runs inside each spawned zellij pane.
+# Receives a synthetic pane ID as $1, registers state, waits for a
+# command on a FIFO, then execs that command.
+
+set -euo pipefail
+
+STATE_DIR="$1"
+SHIM_DIR="$2"
+PANE_ID="$3"
+
+# Restore the parent shell's environment.
+ENV_FILE="${STATE_DIR}/parent.env"
+if [ -f "$ENV_FILE" ]; then
+    eval "$(cat "$ENV_FILE")" 2>/dev/null || true
+fi
+
+export ZELLIJ_TMUX_SHIM_STATE="$STATE_DIR"
+export ZELLIJ_TMUX_SHIM_DIR="$SHIM_DIR"
+export TMUX_PANE="$PANE_ID"
+
+PANE_KEY="${PANE_ID#%}"
+
+case "$PANE_KEY" in
+    ''|*[!0-9]*)
+        echo "zellij-pane-wrapper: invalid pane ID: $PANE_ID" >&2
+        exit 1
+        ;;
+esac
+
+echo "${ZELLIJ_PANE_ID:-unknown}" > "${STATE_DIR}/${PANE_KEY}.zellij_id"
+echo "$$" > "${STATE_DIR}/${PANE_KEY}.pid"
+
+FIFO_PATH="${STATE_DIR}/${PANE_KEY}.fifo"
+if [ -L "$FIFO_PATH" ]; then
+    echo "zellij-pane-wrapper: FIFO path is a symlink, aborting" >&2
+    exit 1
+fi
+rm -f "$FIFO_PATH"
+mkfifo -m 600 "$FIFO_PATH"
+
+cleanup() {
+    rm -f "${STATE_DIR}/${PANE_KEY}.pid"
+    rm -f "${STATE_DIR}/${PANE_KEY}.zellij_id"
+    rm -f "${STATE_DIR}/${PANE_KEY}.fifo"
+    rm -f "${STATE_DIR}/${PANE_KEY}.ready"
+    rm -f "${STATE_DIR}/${PANE_KEY}.group"
+    rm -f "${STATE_DIR}/${PANE_KEY}.named"
+}
+trap cleanup EXIT
+
+touch "${STATE_DIR}/${PANE_KEY}.ready"
+
+COMMAND=""
+cat "$FIFO_PATH" > "${STATE_DIR}/${PANE_KEY}.cmd" &
+CAT_PID=$!
+WAIT_SECS=0
+while kill -0 "$CAT_PID" 2>/dev/null; do
+    sleep 1
+    WAIT_SECS=$((WAIT_SECS + 1))
+    if [ "$WAIT_SECS" -ge 300 ]; then
+        kill "$CAT_PID" 2>/dev/null || true
+        echo "zellij-pane-wrapper: timed out waiting for command" >&2
+        exit 1
+    fi
+done
+COMMAND=$(cat "${STATE_DIR}/${PANE_KEY}.cmd" 2>/dev/null)
+rm -f "${STATE_DIR}/${PANE_KEY}.cmd"
+rm -f "$FIFO_PATH"
+
+if [ -z "$COMMAND" ]; then
+    echo "zellij-pane-wrapper: empty command received" >&2
+    exit 1
+fi
+
+AGENT_NAME=""
+if [[ "$COMMAND" =~ --agent-name[[:space:]]+([^[:space:]]+) ]]; then
+    AGENT_NAME="${BASH_REMATCH[1]}"
+    echo "[wrapper] renaming pane to '${AGENT_NAME}' (zellij_pane=${ZELLIJ_PANE_ID:-?})" >> "${STATE_DIR}/shim.log" 2>/dev/null || true
+    zellij action rename-pane "$AGENT_NAME" 2>>"${STATE_DIR}/shim.log" || true
+    echo "[wrapper] rename-pane exit code: $?" >> "${STATE_DIR}/shim.log" 2>/dev/null || true
+fi
+
+touch "${STATE_DIR}/${PANE_KEY}.named"
+
+eval "$COMMAND"

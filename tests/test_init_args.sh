@@ -77,18 +77,19 @@ if [[ $rc -ne 2 ]] || [[ "$out" != *"unknown option"* ]]; then
     exit 1
 fi
 
-"$SCRIPT_DIR/init.sh" --repo alice/dotfiles --skip-nix
-expected="init --apply --promptBool skipNix=true alice/dotfiles"
-got="$(cat "$ARGS_FILE")"
-if [[ "$got" != "$expected" ]]; then
-    echo "unexpected chezmoi args for --skip-nix:" >&2
-    echo "  expected: $expected" >&2
-    echo "  got:      $got" >&2
+set +e
+out="$("$SCRIPT_DIR/init.sh" --repo alice/dotfiles --skip-nix 2>&1)"
+rc=$?
+set -e
+if [[ $rc -ne 2 ]] || [[ "$out" != *"unknown option: --skip-nix"* ]]; then
+    echo "expected --skip-nix to be rejected (rc=2)" >&2
+    echo "rc=$rc" >&2
+    echo "$out" >&2
     exit 1
 fi
 
 DOTFILES_SKIP_NIX=1 "$SCRIPT_DIR/init.sh" --repo alice/dotfiles
-expected="init --apply --promptBool skipNix=true alice/dotfiles"
+expected="init --apply alice/dotfiles"
 got="$(cat "$ARGS_FILE")"
 if [[ "$got" != "$expected" ]]; then
     echo "unexpected chezmoi args for DOTFILES_SKIP_NIX=1:" >&2

@@ -17,6 +17,7 @@ bash "$ROOT/tests/test_mise_install_fallback.sh"
 bash "$ROOT/tests/test_skip_nix_config.sh"
 bash "$ROOT/tests/test_skip_nix.sh"
 bash "$ROOT/tests/test_chezmoiignore.sh"
+bash "$ROOT/tests/test_zellij_tmux_shim.sh"
 bash "$ROOT/tests/test_setup_gopass.sh"
 bash "$ROOT/tests/test_keys_manage_nonmenu.sh"
 

@@ -78,7 +78,7 @@ jobs:
           # Render to temp directory (avoids Git tracking issues with flakes)
           workdir=$(mktemp -d)
           echo "WORKDIR=$workdir" >> $GITHUB_ENV
-          mkdir -p "$workdir/modules"
+          mkdir -p "$workdir/modules" "$workdir/overlays"
           chezmoi execute-template --source . < nix-config/flake.nix.tmpl > "$workdir/flake.nix"
           cp nix-config/.flake-${{ matrix.platform }}.lock "$workdir/flake.lock"
           for f in nix-config/modules/*.tmpl; do
@@ -86,6 +86,9 @@ jobs:
           done
           for f in nix-config/modules/*.nix; do
             [ -f "$f" ] && cp "$f" "$workdir/modules/"
+          done
+          for f in nix-config/overlays/*.nix; do
+            [ -f "$f" ] && cp "$f" "$workdir/overlays/"
           done
       - name: Check flake
         run: nix flake check --no-build "$WORKDIR"

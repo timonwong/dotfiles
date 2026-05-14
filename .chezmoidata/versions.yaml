@@ -7,6 +7,6 @@ versions:
   aquaInstaller: v4.0.4
   aquaInstallerSha256: acd21cbb06609dd9a701b0032ba4c21fa37b0e3b5cc4c9d721cc02f25ea33a28
   aquaVersion: v2.58.1
-  miseVersion: v2026.5.6
-  miseInstallerSha256: 2ac97541052b681a139d12b4cf841e05474db8c9df05c45ecbb83fd1a105cc8b
+  miseVersion: v2026.5.7
+  miseInstallerSha256: 8f5f4927171ac2fe4286469a5229fc9761547ae5a1b91982d58b27ae023492f0
   nixIndexDb: 2026-05-10-055239

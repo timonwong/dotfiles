@@ -84,4 +84,16 @@ source "$HOME/.local/share/zellij-tmux-shim/activate.sh"
 [[ "${ZELLIJ_TMUX_SHIM_REAL_TMUX:-}" == "'"$TMP_ROOT"'/bin/tmux" ]]
 '
 
+stdout_file="$TMP_ROOT/stdout"
+zsh -ic '
+alias mkdir="mkdir -pv"
+source "$HOME/.local/share/zellij-tmux-shim/activate.sh"
+' >"$stdout_file"
+
+if [[ -s "$stdout_file" ]]; then
+    echo "activate.sh produced unexpected stdout:" >&2
+    cat "$stdout_file" >&2
+    exit 1
+fi
+
 echo "test_zellij_tmux_shim: OK"

@@ -50,7 +50,7 @@ if [ -L "$_shim_root" ]; then
     unset _shim_root
     return 1 2>/dev/null || exit 1
 fi
-mkdir -p "$_shim_root"
+command mkdir -p "$_shim_root"
 chmod 700 "$_shim_root"
 _owner=$(stat -c '%u' "$_shim_root" 2>/dev/null || stat -f '%u' "$_shim_root" 2>/dev/null)
 if [ "$_owner" != "$(id -u)" ]; then
@@ -59,7 +59,7 @@ if [ "$_owner" != "$(id -u)" ]; then
     return 1 2>/dev/null || exit 1
 fi
 unset _owner
-mkdir -p "$ZELLIJ_TMUX_SHIM_STATE"
+command mkdir -p "$ZELLIJ_TMUX_SHIM_STATE"
 unset _shim_root
 
 # Initialize next_id counter (start at 1, %0 is reserved for the host pane)

@@ -1,7 +1,40 @@
 keybinds {
+	shared {
+		bind "Ctrl Shift p" {
+			LaunchOrFocusPlugin "zellij-palette" {
+				floating true
+				move_to_focused_tab true
+				skip_plugin_cache true
+			}
+		}
+	}
 	normal {
+		bind "Alt t" {
+			LaunchOrFocusPlugin "zellij-palette-themes" {
+				floating true
+				move_to_focused_tab true
+				skip_plugin_cache true
+			}
+		}
+		bind "Alt o" {
+			LaunchOrFocusPlugin "zellij-palette-tools" {
+				floating true
+				move_to_focused_tab true
+				skip_plugin_cache true
+			}
+		}
 		bind "Super Alt Left" { GoToPreviousTab; }
 		bind "Super Alt Right" { GoToNextTab; }
+	}
+}
+
+plugins {
+	zellij-palette location="file:~/.config/zellij/plugins/zellij-palette.wasm"
+	zellij-palette-themes location="file:~/.config/zellij/plugins/zellij-palette.wasm" {
+		palette "themes"
+	}
+	zellij-palette-tools location="file:~/.config/zellij/plugins/zellij-palette.wasm" {
+		category "Tools"
 	}
 }
 

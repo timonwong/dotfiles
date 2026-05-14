@@ -34,3 +34,8 @@ This repo vendors the runtime files from [`stanislc/zellij-claude-teams`](https:
 
 - Run `claude` once in each working directory and accept workspace trust before creating agent teams.
 - The shim activates only inside Zellij because `dot_zshrc` gates it on `$ZELLIJ`.
+- Vendored Zellij wasm plugins live under `private_dot_config/zellij/plugins/` and are applied to
+  `~/.config/zellij/plugins/`.
+- `zellij-palette` should always be loaded from `~/.config/zellij/plugins/zellij-palette.wasm`.
+  Update it by rebuilding in the `zellij-palette` repo and copying the new wasm into
+  `private_dot_config/zellij/plugins/zellij-palette.wasm`.

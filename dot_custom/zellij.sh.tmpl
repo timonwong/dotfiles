@@ -1,0 +1,102 @@
+# shellcheck shell=bash
+# shellcheck disable=SC1090
+
+if [[ -n "$ZELLIJ" ]]; then
+    _shim="${XDG_DATA_HOME:-$HOME/.local/share}/zellij-tmux-shim/activate.sh"
+    [[ -f "$_shim" ]] && source "$_shim"
+    unset _shim
+fi
+{{ if eq .chezmoi.os "linux" }}
+# Zellij login shell integration.
+_zellij_env_file() {
+    local session_name="$1"
+    local runtime_dir="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+
+    printf '%s/zellij/session.%s.env' "$runtime_dir" "$session_name"
+}
+
+_zellij_print_var_state() {
+    local var="$1"
+
+    typeset -p "$var" 2>/dev/null || printf 'unset %s\n' "$var"
+}
+
+_zellij_update_env_outside() {
+    if [[ -z "$1" ]]; then
+        printf 'need session name\n' >&2
+        return 1
+    fi
+
+    local session_name="$1"
+    local session_file
+    local session_dir
+    local temp_file
+    local vars=(
+        SSH_AGENT_PID
+        SSH_AUTH_SOCK
+        SWAYSOCK
+        WAYLAND_DISPLAY
+        DISPLAY
+        XDG_SESSION_ID
+        DBUS_SESSION_BUS_ADDRESS
+        WINDOWID
+        XDG_CURRENT_DESKTOP
+    )
+    local exclusive_vars=(
+        SSH_CONNECTION
+        SSH_CLIENT
+        SSH_TTY
+    )
+
+    session_file="$(_zellij_env_file "$session_name")"
+    session_dir="$(dirname -- "$session_file")"
+
+    mkdir -p "$session_dir" || return 1
+    temp_file="$(mktemp "${session_file}.XXXXXX")" || return 1
+
+    local var
+    for var in "${vars[@]}"; do
+        _zellij_print_var_state "$var" >>"$temp_file"
+    done
+
+    for var in "${exclusive_vars[@]}"; do
+        _zellij_print_var_state "$var" >>"$temp_file"
+    done
+
+    mv "$temp_file" "$session_file"
+}
+
+zj() {
+    local session_name="${1:-main}"
+
+    if ! command -v zellij >/dev/null 2>&1; then
+        printf 'zellij command not found\n' >&2
+        return 127
+    fi
+
+    _zellij_update_env_outside "$session_name" && command zellij attach -c "$session_name"
+}
+
+if [[ -n "$ZELLIJ_SESSION_NAME" ]]; then
+    ZELLIJ_ENV_FILE="$(_zellij_env_file "$ZELLIJ_SESSION_NAME")"
+
+    if [[ -w "$ZELLIJ_ENV_FILE" ]]; then
+        ZELLIJ_ENV_FILE_MODTIME="$(stat -c %Y "$ZELLIJ_ENV_FILE" 2>/dev/null)" || return 0
+        export ZELLIJ_ENV_FILE
+        export ZELLIJ_ENV_FILE_MODTIME
+
+        _zellij_update_env_inside() {
+            local modtime
+            modtime="$(stat -c %Y "$ZELLIJ_ENV_FILE" 2>/dev/null)" || return 0
+
+            if ((modtime > ZELLIJ_ENV_FILE_MODTIME)); then
+                source "$ZELLIJ_ENV_FILE"
+                export ZELLIJ_ENV_FILE_MODTIME="$modtime"
+            fi
+        }
+
+        autoload -Uz add-zsh-hook
+        add-zsh-hook precmd _zellij_update_env_inside
+    fi
+fi
+{{ end -}}

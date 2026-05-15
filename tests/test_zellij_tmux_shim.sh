@@ -35,9 +35,26 @@ expect_source_path "$HOME/.local/share/zellij-tmux-shim/bin/tmux" \
     "$ROOT/dot_local/share/zellij-tmux-shim/bin/executable_tmux"
 expect_source_path "$HOME/.local/share/zellij-tmux-shim/bin/zellij-pane-wrapper" \
     "$ROOT/dot_local/share/zellij-tmux-shim/bin/executable_zellij-pane-wrapper"
+expect_source_path "$HOME/.custom/zellij.sh" \
+    "$ROOT/dot_custom/zellij.sh.tmpl"
 
-if ! rg -q 'zellij-tmux-shim/activate\.sh' "$ROOT/dot_zshrc"; then
+if ! rg -q 'source "\$HOME/\.custom/zellij\.sh"' "$ROOT/dot_zshrc"; then
+    echo "dot_zshrc is missing zellij custom source" >&2
+    exit 1
+fi
+
+if ! rg -q 'zellij-tmux-shim/activate\.sh' "$ROOT/dot_custom/zellij.sh.tmpl"; then
     echo "dot_zshrc is missing zellij-tmux-shim activation snippet" >&2
+    exit 1
+fi
+
+if ! rg -q '^zj\(\)' "$ROOT/dot_custom/zellij.sh.tmpl"; then
+    echo "dot_zshrc is missing zj helper" >&2
+    exit 1
+fi
+
+if rg -q 'exec zellij attach' "$ROOT/dot_custom/zellij.sh.tmpl"; then
+    echo "dot_zshrc still auto-attaches zellij" >&2
     exit 1
 fi
 

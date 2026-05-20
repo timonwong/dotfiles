@@ -35,7 +35,7 @@ packages:
   - name: jesseduffield/lazygit@v0.61.1
   - name: neovim/neovim@v0.12.2
   - name: LuaLS/lua-language-server@3.18.2
-  - name: tree-sitter/tree-sitter@v0.26.8
+  - name: tree-sitter/tree-sitter@v0.26.9
   - name: rclone/rclone@v1.74.1
   - name: BurntSushi/ripgrep@15.1.0
   - name: phiresky/ripgrep-all@v0.10.10

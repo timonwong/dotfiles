@@ -2,11 +2,11 @@
 # Pinned versions (auto-updated by GitHub Actions)
 # ─────────────────────────────────────────────────────────────────────────────
 versions:
-  nixInstaller: v3.20.0
+  nixInstaller: v3.21.0
   nixVersion: v2.34.7
   aquaInstaller: v4.0.4
   aquaInstallerSha256: acd21cbb06609dd9a701b0032ba4c21fa37b0e3b5cc4c9d721cc02f25ea33a28
   aquaVersion: v2.59.0
-  miseVersion: v2026.5.11
-  miseInstallerSha256: f4a83973d39208496770ceb43deca9c79985aaaca87dfc56e9745abc439b339c
-  nixIndexDb: 2026-05-17-060925
+  miseVersion: v2026.5.15
+  miseInstallerSha256: c870a8cbe4fc32bd7c91920cd81b7f10faa8ace503ab1b0628ea93adbde12802
+  nixIndexDb: 2026-05-24-062331

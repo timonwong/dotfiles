@@ -26,7 +26,7 @@ homebrew:
       - pdf-expert
     work: []
     private:
-      - betterdisplay
+      # - betterdisplay
       # - bettermouse
       - discord
       - iina # video player

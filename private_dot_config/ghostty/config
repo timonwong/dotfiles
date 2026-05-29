@@ -45,7 +45,9 @@ bell-audio-path = sounds/csnd.aif
 # Background
 background-opacity = 0.97
 background-blur = true
-unfocused-split-opacity = 0.7
+unfocused-split-opacity = 0.9
+unfocused-split-fill = #a33503
+split-divider-color = #ff4f00
 
 # Performance & Scrollback
 scrollback-limit = 10000000

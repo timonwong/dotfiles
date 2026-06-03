@@ -435,7 +435,7 @@ chezmoi init --apply --promptBool skipNix=true timonwong
 - `.github/workflows/scheduler.yml`（每日触发）
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/workflows/update-toolchains.yml`（自动更新 `aqua.yaml` 与 `# mise-update:begin/end` 区块内工具）
+- `.github/workflows/update-toolchains.yml`（自动更新 `aqua.yaml` 与 `mise/conf.d` 中托管的工具）
 
 ---
 

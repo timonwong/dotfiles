@@ -50,14 +50,13 @@ jobs:
         id: discover
         run: |
           set -euo pipefail
-          config_file="private_dot_config/mise/config.toml.tmpl"
+          config_file="private_dot_config/mise/conf.d/managed-tools.toml"
           tools_file="$(mktemp)"
 
           awk '
-            /^# mise-update:begin$/ { in_block=1; next }
-            /^# mise-update:end$/   { in_block=0; next }
-            in_block {
-              if ($0 ~ /^[[:space:]]*#/) next
+            /^[[:space:]]*#/ { next }
+            /^[[:space:]]*\[/ { next }
+            /=[[:space:]]*"[^"]+"/ {
               if ($0 !~ /=[[:space:]]*"[^"]+"/) next
 
               key = $0
@@ -71,7 +70,7 @@ jobs:
           ' "$config_file" >"$tools_file"
 
           if [[ ! -s "$tools_file" ]]; then
-            echo "No managed tools found between # mise-update:begin and # mise-update:end in $config_file" >&2
+            echo "No managed tools found in $config_file" >&2
             exit 1
           fi
 
@@ -84,7 +83,7 @@ jobs:
       - name: Update managed mise tool versions
         run: |
           set -euo pipefail
-          config_file="private_dot_config/mise/config.toml.tmpl"
+          config_file="private_dot_config/mise/conf.d/managed-tools.toml"
           updates_file="$(mktemp)"
 
           while IFS= read -r tool; do
@@ -136,7 +135,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet -- private_dot_config/aquaproj-aqua/aqua.yaml private_dot_config/mise/config.toml.tmpl; then
+          if git diff --quiet -- private_dot_config/aquaproj-aqua/aqua.yaml private_dot_config/mise/conf.d/managed-tools.toml; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -154,7 +153,7 @@ jobs:
           token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           add-paths: |
             private_dot_config/aquaproj-aqua/aqua.yaml
-            private_dot_config/mise/config.toml.tmpl
+            private_dot_config/mise/conf.d/managed-tools.toml
           commit-message: "chore(toolchains): update aqua and mise managed versions"
           title: "chore(toolchains): update aqua and mise managed versions (${{ steps.date.outputs.date }})"
           branch: update-toolchains
@@ -162,6 +161,4 @@ jobs:
           body: |
             Automated update for:
             - `private_dot_config/aquaproj-aqua/aqua.yaml` via `aqua update -p`
-            - `private_dot_config/mise/config.toml.tmpl` managed tools between:
-              - `# mise-update:begin`
-              - `# mise-update:end`
+            - `private_dot_config/mise/conf.d/managed-tools.toml`

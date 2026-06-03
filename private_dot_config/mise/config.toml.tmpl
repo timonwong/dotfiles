@@ -25,26 +25,6 @@ lua = "5.4"
 # pre-commit (Git hook framework, moved from nix to avoid dotnet-sdk compilation)
 "pipx:pre-commit" = "latest"
 
-# Managed by .github/workflows/update-toolchains.yml
-# Add new auto-updated tools between the markers below.
-# mise-update:begin
-"github:aria2/aria2" = "release-1.37.0"
-"bun" = "1.3.14"
-codex = "0.135.0"
-"claude-code" = "2.1.160"
-dust = "1.2.4"
-glab = "1.101.0"
-gitleaks = "8.30.1"
-hyperfine = "1.20.0"
-# Oxfmt is a high-performance formatter for the JavaScript ecosystem.
-"npm:oxfmt" = "0.53.0"
-# nowledge mem
-"pipx:nmem-cli" = "0.8.8"
-tlrc = "1.13.1"
-tmux = "3.6b"
-zellij = "0.44.3"
-# mise-update:end
-
 helm = "v3.5.4"   # 暂时 pin 到 3.5.x
 
 {{ if eq .platform "darwin" -}}

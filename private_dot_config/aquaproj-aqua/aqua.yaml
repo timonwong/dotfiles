@@ -38,7 +38,6 @@ packages:
   - name: tree-sitter/tree-sitter@v0.26.9
   - name: rclone/rclone@v1.74.2
   - name: BurntSushi/ripgrep@15.1.0
-  - name: phiresky/ripgrep-all@v0.10.10
   - name: joshmedeski/sesh@v2.26.2
   - name: starship/starship@v1.25.1
   - name: JohnnyMorganz/StyLua@v2.5.2
@@ -56,7 +55,6 @@ packages:
   - name: sxyazi/yazi@v26.5.6
   - name: mikefarah/yq@v4.53.2
   - name: ajeetdsouza/zoxide@v0.9.9
-  - name: derailed/k9s@v0.50.18
   - name: google/go-containerregistry@v0.21.6
   - name: kubernetes/kubectl@v1.36.1
   - name: kubernetes-sigs/krew@v0.5.0

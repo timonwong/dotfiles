@@ -17,7 +17,7 @@
   <a href="https://brew.sh/"><img alt="Homebrew" src="https://img.shields.io/badge/Homebrew-FBB040?style=for-the-badge&logo=homebrew&logoColor=black"></a>
 </p>
 
-[English](README.md) | [中文](README.zh-CN.md) | [日本語](README.ja.md)
+[English](README.md) | [中文](README.zh-CN.md)
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=BD93F9&center=true&vCenter=true&width=600&lines=chezmoi+%2B+Nix+%E5%A3%B0%E6%98%8E%E5%BC%8F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83;%E8%B7%A8%E5%B9%B3%E5%8F%B0+macOS+%2B+Linux+%E6%94%AF%E6%8C%81;Claude+Code+%E8%87%AA%E5%8A%A8%E6%8F%92%E4%BB%B6%E5%90%8C%E6%AD%A5;%E7%8E%B0%E4%BB%A3+Rust+CLI+%E5%B7%A5%E5%85%B7%E9%93%BE)](https://git.io/typing-svg)
 

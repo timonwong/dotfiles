@@ -42,7 +42,7 @@ gui:
   # makes it much easier to work with diffs that have long lines, e.g.
   # paragraphs of markdown text.
   wrapLinesInStagingView: true
-  # One of 'auto' (default) | 'en' | 'zh-CN' | 'zh-TW' | 'pl' | 'nl' | 'ja' | 'ko' | 'ru'
+  # See lazygit docs for supported UI languages.
   language: auto
   # Format used when displaying time e.g. commit time.
   # Uses Go's time format syntax: https://pkg.go.dev/time#Time.Format

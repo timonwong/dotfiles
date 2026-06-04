@@ -479,7 +479,7 @@ chezmoi init --apply --promptBool skipNix=true timonwong
 
 ## 统计
 
-![Alt](https://repobeats.axiom.co/api/embed/81ef9a8c511918fc0eece9bd09bb46ba78eefd0c.svg "Repobeats analytics image")
+![Alt](https://repobeats.axiom.co/api/embed/aa43a46a41472db447cfc48c48bbb1da4ea1a92d.svg "Repobeats analytics image")
 
 ---
 

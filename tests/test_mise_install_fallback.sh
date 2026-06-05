@@ -25,8 +25,26 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 cat >"$HOME/.config/chezmoi/chezmoi.toml" <<'EOF'
 [data]
+platform = "darwin"
 skipNix = false
 EOF
+
+FINGERPRINT_SOURCE="$TMP_ROOT/source"
+mkdir -p "$FINGERPRINT_SOURCE/.chezmoiscripts" "$FINGERPRINT_SOURCE/private_dot_config/mise/conf.d"
+cp "$TMPL" "$FINGERPRINT_SOURCE/.chezmoiscripts/run_onchange_after_07b_mise-install-tools.sh.tmpl"
+cp "$ROOT/private_dot_config/mise/config.toml.tmpl" "$FINGERPRINT_SOURCE/private_dot_config/mise/config.toml.tmpl"
+printf '%s\n' '# managed tools v1' '[tools]' 'codex = "0.1.0"' >"$FINGERPRINT_SOURCE/private_dot_config/mise/conf.d/managed-tools.toml"
+
+RENDERED_V1="$TMP_ROOT/mise-install-v1.sh"
+RENDERED_V2="$TMP_ROOT/mise-install-v2.sh"
+chezmoi execute-template --config "$HOME/.config/chezmoi/chezmoi.toml" --source "$FINGERPRINT_SOURCE" <"$FINGERPRINT_SOURCE/.chezmoiscripts/run_onchange_after_07b_mise-install-tools.sh.tmpl" >"$RENDERED_V1"
+printf '%s\n' '# managed tools v2' '[tools]' 'codex = "0.2.0"' >"$FINGERPRINT_SOURCE/private_dot_config/mise/conf.d/managed-tools.toml"
+chezmoi execute-template --config "$HOME/.config/chezmoi/chezmoi.toml" --source "$FINGERPRINT_SOURCE" <"$FINGERPRINT_SOURCE/.chezmoiscripts/run_onchange_after_07b_mise-install-tools.sh.tmpl" >"$RENDERED_V2"
+
+if cmp -s "$RENDERED_V1" "$RENDERED_V2"; then
+    echo "expected managed-tools.toml changes to update mise install script fingerprint" >&2
+    exit 1
+fi
 
 RENDERED="$TMP_ROOT/mise-install.sh"
 chezmoi execute-template --config "$HOME/.config/chezmoi/chezmoi.toml" --source "$ROOT" <"$TMPL" >"$RENDERED"

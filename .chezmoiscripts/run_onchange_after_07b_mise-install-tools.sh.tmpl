@@ -2,8 +2,10 @@
 
 set -euo pipefail
 
-{{ $miseConfig := joinPath .chezmoi.homeDir ".config/mise/config.toml" -}}
-# mise config: {{ if stat $miseConfig }}{{ include $miseConfig | sha256sum }}{{ else }}n/a{{ end }}
+{{ $miseSourceConfig := joinPath .chezmoi.sourceDir "private_dot_config/mise/config.toml.tmpl" -}}
+{{ $miseSourceManagedTools := joinPath .chezmoi.sourceDir "private_dot_config/mise/conf.d/managed-tools.toml" -}}
+# mise source config render: {{ includeTemplate $miseSourceConfig . | sha256sum }}
+# mise source managed tools: {{ include $miseSourceManagedTools | sha256sum }}
 
 # chezmoi may be updating dot-directories (e.g. ~/.claude). If the current working
 # directory disappears mid-apply, mise will warn. Run mise from a stable dir.

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+{{ $managedToolsRel := "private_dot_config/mise/conf.d/managed-tools.toml" -}}
+# {{ $managedToolsRel }}: {{ include $managedToolsRel | sha256sum }}
+
+echo ":: [07c] Generating zellij zsh completion"
+
+completion_dir="$HOME/.config/sheldon/completions"
+completion_file="$completion_dir/_zellij"
+
+mkdir -p "$completion_dir"
+
+zellij_cmd="$(command -v zellij 2>/dev/null || true)"
+if [[ -z "$zellij_cmd" ]] || [[ ! -x "$zellij_cmd" ]]; then
+    echo "    Skipped (zellij not found)"
+    exit 0
+fi
+
+"$zellij_cmd" setup --generate-completion zsh >"$completion_file"
+echo "    Generated: ${completion_file/#$HOME/~}"

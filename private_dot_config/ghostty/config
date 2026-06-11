@@ -50,7 +50,7 @@ unfocused-split-fill = #a33503
 split-divider-color = #ff4f00
 
 # Performance & Scrollback
-scrollback-limit = 10000000
+scrollback-limit = 100_000_000
 link-url = true
 
 # Clipboard

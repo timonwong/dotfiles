@@ -15,7 +15,7 @@ If there are authentication related errors, run: `glab auth status`
 
 ### Issues
 
-- `glab issue list [--assignee=@me] [--label=X] [--milestone=X] [--state=opened|closed|all]`
+- `glab issue list [--assignee=@me] [--label=X] [--milestone=X] [--closed|--all]`
 - `glab issue view <id> --comments`
 - `glab issue create --title "X" --description "X" [--label=X] [--assignee=X]`
 - `glab issue close <id>`
@@ -24,7 +24,7 @@ If there are authentication related errors, run: `glab auth status`
 
 ### Merge Requests
 
-- `glab mr list [--assignee=@me] [--reviewer=@me] [--state=opened|merged|closed|all] [--label=X]`
+- `glab mr list [--assignee=@me] [--reviewer=@me] [--merged|--closed|--all] [--label=X]`
 - `glab mr view <id> --comments`
 - `glab mr diff <id>` (view changes)
 - `glab mr create --title "X" --description "X" [--source-branch=X] [--target-branch=X] [--related-issue=X]`
@@ -104,22 +104,22 @@ If there are authentication related errors, run: `glab auth status`
 
 1. `glab release list` (find previous tag)
 2. `glab api projects/:id/repository/compare?from=<old>&to=<new>` (commits between)
-3. `glab mr list --state=merged --updated-after=<date> -F json`
-4. `glab issue list --state=closed --updated-after=<date> -F json`
+3. `glab mr list --merged --updated-after=<date> -F json`
+4. `glab issue list --closed --updated-after=<date> -F json`
 
 ### Triage My Work
 
-1. `glab issue list --assignee=@me --state=opened -F json`
-2. `glab mr list --assignee=@me --state=opened -F json`
-3. `glab mr list --reviewer=@me --state=opened -F json`
+1. `glab issue list --assignee=@me -F json`
+2. `glab mr list --assignee=@me -F json`
+3. `glab mr list --reviewer=@me -F json`
 
 ### Review Tickets Workflow
 
 When reviewing ticket status against codebase:
 
-1. List open issues: `glab issue list --assignee=@me --state=opened -F json`
+1. List open issues: `glab issue list --assignee=@me -F json`
 2. For each issue, search git history: `git log --oneline --grep="<issue-id>"`
-3. Check if related MRs are merged: `glab mr list --state=merged | grep "<issue-id>"`
+3. Check if related MRs are merged: `glab mr list --merged | grep "<issue-id>"`
 4. Update issue status or add comments as needed
 
 ## Important Notes

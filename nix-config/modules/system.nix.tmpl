@@ -187,8 +187,8 @@
           # Dictation hotkey: 0 = disabled, 2 = press Fn twice (default), 3 = press Ctrl twice
           DictationHotkey = 0;
         };
-        # Keyboard shortcuts: remap input source switching to Cmd+Space / Cmd+Option+Space,
-        # and disable conflicting Spotlight shortcuts (originally on the same keys).
+        # Keyboard shortcuts: use Cmd+Space for input source switching,
+        # and Cmd+Option+Space for Spotlight.
         "com.apple.symbolichotkeys" = {
           AppleSymbolicHotKeys = {
             # 60 = Select the previous input source (Cmd+Space)
@@ -203,8 +203,12 @@
                 type = "standard";
               };
             };
-            # 61 = Select next source in input menu (Cmd+Option+Space)
+            # 61 = Select next source in input menu
             "61" = {
+              enabled = false;
+            };
+            # 64 = Show Spotlight search (Cmd+Option+Space)
+            "64" = {
               enabled = true;
               value = {
                 parameters = [
@@ -215,11 +219,7 @@
                 type = "standard";
               };
             };
-            # 64 = Show Spotlight search — disabled (Cmd+Space now used by input source)
-            "64" = {
-              enabled = false;
-            };
-            # 65 = Show Finder search window — disabled (Cmd+Option+Space now used by input source)
+            # 65 = Show Finder search window
             "65" = {
               enabled = false;
             };

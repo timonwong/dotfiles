@@ -430,7 +430,7 @@ keybinding:
     markCommitAsBaseForRebase: B
     tagCommit: T
     checkoutCommit: <space>
-    resetCherryPick: <c-R>
+    resetCherryPick: <c+s+r>
     copyCommitAttributeToClipboard: "y"
     openLogMenu: <c-l>
     openInBrowser: o

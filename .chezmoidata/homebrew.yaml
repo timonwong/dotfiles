@@ -8,35 +8,33 @@ homebrew:
       - macos-trash
       - mole
       - cloudflared
-      - goreleaser
-      - syft
       - cliproxyapi
     work: []
     private:
       - mas # Required for masApps installation
   casks:
     shared:
-      - 1password
-      - 1password-cli
-      - ghostty
-      - codex-app
-      - visual-studio-code
-      - obs
-      - orbstack
-      - pdf-expert
+      #- 1password
+      #- 1password-cli
+      #- ghostty
+      #- codex-app
+      #- visual-studio-code
+      #- obs
+      #- orbstack
+      #- pdf-expert
     work: []
     private:
       # - betterdisplay
       # - bettermouse
-      - discord
-      - iina # video player
-      - telegram
+      #- discord
+      #- iina # video player
+      #- telegram
       - loop
       - itsycal
       - macpacker # 解压软件
-      - alma
-      - snipaste
-      - raycast
+      #- alma
+      #- snipaste
+      #- raycast
   masApps:
     shared: []
     work: []

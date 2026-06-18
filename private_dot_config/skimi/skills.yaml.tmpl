@@ -3,6 +3,10 @@ agents:
     - claude
     - standard
 
+{{- $nowledgeMemManaged := false }}
+{{- if hasKey . "nowledgeMemManaged" }}
+{{-   $nowledgeMemManaged = .nowledgeMemManaged }}
+{{- end }}
 packages:
   - repo: anthropics/skills
     target_dir: anthropics
@@ -24,25 +28,17 @@ packages:
       - security-best-practices
       - security-threat-model
       - security-ownership-map
-  #  - repo: nowledge-co/community/nowledge-mem-npx-skills
-  #    target_dir: nowledge-mem
-  #    agents:
-  #      excludes:
-  #        - claude
-  #    skills:
-  #      - distill-memory
-  #      - read-working-memory
-  #      - save-handoff
-  #      - save-thread
-  #      - search-memory
   - repo: https://github.com/blader/humanizer
   - repo: https://github.com/op7418/Humanizer-zh
   - repo: https://github.com/op7418/guizang-ppt-skill.git
-  - repo: multica-ai/andrej-karpathy-skills
-    skills:
-      - karpathy-guidelines
+  # - repo: multica-ai/andrej-karpathy-skills
+  #   skills:
+  #     - karpathy-guidelines
   - repo: epiral/bb-browser
     skills:
       - bb-browser
+{{- if not $nowledgeMemManaged }}
+  - local_path: ~/.config/skimi/ai-now
+{{- end }}
   #- local_path: ~/.config/skimi/skills/op-plugin-run
-  - local_path: ~/.config/skimi/skills/gitlab-cli
+  #- local_path: ~/.config/skimi/skills/gitlab-cli

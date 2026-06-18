@@ -41,4 +41,17 @@ printf '%s\n' "$override_rendered" | grep -q '^skipNix = true$' || {
     exit 1
 }
 
+printf '%s\n' "$default_rendered" | grep -q '^nowledgeMemManaged = false$' || {
+    echo "expected default nowledgeMemManaged = false" >&2
+    printf '%s\n' "$default_rendered" >&2
+    exit 1
+}
+
+nowledge_rendered="$(render_config --override-data '{"nowledgeMemManaged":true}')"
+printf '%s\n' "$nowledge_rendered" | grep -q '^nowledgeMemManaged = true$' || {
+    echo "expected override nowledgeMemManaged = true" >&2
+    printf '%s\n' "$nowledge_rendered" >&2
+    exit 1
+}
+
 echo "test_skip_nix_config: OK"

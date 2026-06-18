@@ -1,5 +1,5 @@
 [global]
-excludes = ["*.tmpl", "flake.lock", ".git/*", "node_modules/*"]
+excludes = ["*.tmpl", "flake.lock", ".git/*", "node_modules/*", "private_dot_config/skimi/ai-now/**"]
 
 [formatter.nix]
 command = "nixfmt"

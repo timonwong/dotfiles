@@ -23,6 +23,16 @@ encryption = "age"
 {{- end -}}
 {{- "" -}}
 
+{{/* Nowledge Mem can manage local skills directly on machines where it runs */}}
+{{- $nowledgeMemManaged := false -}}
+{{- if hasKey . "nowledgeMemManaged" -}}
+{{-   $nowledgeMemManaged = .nowledgeMemManaged -}}
+{{- end -}}
+{{- if stdinIsATTY -}}
+{{-   $nowledgeMemManaged = promptBoolOnce . "nowledgeMemManaged" "Are skills managed by Nowledge Mem on this machine" -}}
+{{- end -}}
+{{- "" -}}
+
 {{- $hostname := .chezmoi.hostname -}}
 {{- if not $work -}}
 {{- $hostname = promptStringOnce . "hostname" "Hostname" -}}{{/* set the hostname */}}
@@ -134,6 +144,7 @@ private = {{ $private }}
 headless = {{ $headless }}
 useEncryption = {{ $useEncryption }}
 skipNix = {{ $skipNix }}
+nowledgeMemManaged = {{ $nowledgeMemManaged }}
 installMasApps = {{ $installMasApps }}
 homeWifiSSIDs = {{ $homeWifiSSIDs | quote }}
 osid = {{ $osID | quote }}

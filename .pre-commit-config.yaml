@@ -3,9 +3,9 @@ repos:
     rev: v5.0.0
     hooks:
       - id: trailing-whitespace
-        exclude: \.(tmpl|md)$
+        exclude: (\.(tmpl|md)$|^private_dot_config/skimi/ai-now/)
       - id: end-of-file-fixer
-        exclude: \.tmpl$
+        exclude: (\.tmpl$|^private_dot_config/skimi/ai-now/)
       - id: check-yaml
         args: [--allow-multiple-documents]
         exclude: \.tmpl$
@@ -26,7 +26,7 @@ repos:
         language: system
         pass_filenames: false
         files: \.(sh|nix|lua|md|json|yaml|yml)$
-        exclude: \.tmpl$
+        exclude: (\.tmpl$|^private_dot_config/skimi/ai-now/)
         entry: treefmt
       #####################################
       # Lint: shell scripts (non-template)

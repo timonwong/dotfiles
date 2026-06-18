@@ -98,3 +98,14 @@ Before emitting, check:
 - [ ] Are there concrete shell commands in the debug section?
 - [ ] Did any secret sneak in? Scan for tokens, passwords, DSNs.
 If any answer is "no", revise before showing to the user.
+
+---
+
+<!-- nmem:skill-outcome-footer v1 -->
+## Improving this skill
+
+Nowledge Mem compiled this skill from the user's own experience. When you apply it, print one line so it keeps getting sharper (replace `<name>` with this skill's name from the frontmatter above):
+
+    nmem-skill-used: <name>
+
+If a step was wrong or missing, or it didn't work, also record that: call `report_skill_outcome` with `skill_id="skill_9cfec64d621f"`, `skill_version=1`, an `outcome` of `completed` / `completed_with_deviation` / `failed` / `abandoned`, and a one-line note on what was off. This is the user's own feedback loop, not telemetry.

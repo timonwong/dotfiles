@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-source_dir="${AI_NOW_SKILLS_DIR:-$HOME/ai-now/skills}"
+source_dir="${AI_NOW_SKILLS_DIR:-$HOME/ai-now/skills-active}"
 
 if [[ -n "${CHEZMOI_SOURCE_DIR:-}" ]]; then
     chezmoi_source_dir="$CHEZMOI_SOURCE_DIR"

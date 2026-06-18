@@ -215,3 +215,14 @@ Before any update, move, or delete, read the page first and verify it.
 - For Atlassian Cloud scoped tokens, use `CONFLUENCE_DOMAIN="api.atlassian.com"` and `CONFLUENCE_API_PATH="/ex/confluence/<your-cloud-id>/wiki/rest/api"`.
 - For self-hosted Confluence Server or Data Center with a personal access token, use bearer auth with `CONFLUENCE_API_PATH="/rest/api"`, `CONFLUENCE_AUTH_TYPE="bearer"`, and `CONFLUENCE_API_TOKEN="personal-access-token"`.
 - For Atlassian Cloud custom domains, add `export CONFLUENCE_FORCE_CLOUD=true` when links are being treated like Server or Data Center links.
+
+---
+
+<!-- nmem:skill-outcome-footer v1 -->
+## Improving this skill
+
+Nowledge Mem compiled this skill from the user's own experience. When you apply it, print one line so it keeps getting sharper (replace `<name>` with this skill's name from the frontmatter above):
+
+    nmem-skill-used: <name>
+
+If a step was wrong or missing, or it didn't work, also record that: call `report_skill_outcome` with `skill_id="skill_24c15f36b80c"`, `skill_version=3`, an `outcome` of `completed` / `completed_with_deviation` / `failed` / `abandoned`, and a one-line note on what was off. This is the user's own feedback loop, not telemetry.

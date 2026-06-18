@@ -52,4 +52,26 @@ AI_NOW_SKILLS_DIR="$SOURCE" CHEZMOI_SOURCE_DIR="$TARGET_SOURCE" "$SCRIPT" >/dev/
     exit 1
 }
 
+DEFAULT_HOME="$TMP_ROOT/home"
+DEFAULT_SOURCE="$DEFAULT_HOME/ai-now/skills-active"
+mkdir -p "$DEFAULT_SOURCE/skill_beta"
+cat >"$DEFAULT_SOURCE/skill_beta/SKILL.md" <<'EOF'
+---
+name: beta
+description: default source test skill
+---
+EOF
+
+HOME="$DEFAULT_HOME" CHEZMOI_SOURCE_DIR="$TARGET_SOURCE" "$SCRIPT" >/dev/null
+
+[[ -f "$TARGET/skill_beta/SKILL.md" ]] || {
+    echo "expected default skills-active source to be synced" >&2
+    exit 1
+}
+
+[[ ! -e "$TARGET/skill_alpha" ]] || {
+    echo "expected previous source content to be replaced" >&2
+    exit 1
+}
+
 echo "test_sync_ai_now_skills: OK"

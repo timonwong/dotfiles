@@ -9,4 +9,4 @@ versions:
   aquaVersion: v2.60.1
   miseVersion: v2026.6.14
   miseInstallerSha256: dc98fcc7af7c104b652b7ddea54f3d15cf2ef74948a7e82b754c647b04ad38f8
-  nixIndexDb: 2026-06-21-071954
+  nixIndexDb: 2026-06-28-064642

@@ -53,8 +53,8 @@ in
       extraEnv = {
         HOMEBREW_NO_INSTALL_FROM_API = "1";
       };
-      autoUpdate = true; # Fetch the newest stable branch of Homebrew's git repo
-      upgrade = true; # Upgrade outdated casks, formulae, and App Store apps
+      autoUpdate = false; # Leave Homebrew repository updates to explicit maintenance.
+      upgrade = false; # Keep activation focused on declared installs.
       # 'none': Keep manually installed Homebrew packages instead of pruning undeclared entries.
       cleanup = "none";
     };

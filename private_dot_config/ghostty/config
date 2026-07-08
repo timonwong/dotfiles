@@ -8,6 +8,8 @@ custom-shader = shaders/cursor_smear.glsl
 cursor-style = block
 
 font-family = "CommitMono Nerd Font"
+# Prefer the macOS Simplified Chinese system face for CJK fallback.
+font-family = "PingFang SC"
 font-size = 13
 font-feature = -liga, -calt
 

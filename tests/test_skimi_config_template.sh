@@ -13,12 +13,24 @@ render_skimi_config() {
     chezmoi execute-template --source "$ROOT" "$@" <"$TMPL"
 }
 
-unmanaged_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":false}')"
-printf '%s\n' "$unmanaged_rendered" | grep -qxF '  - local_path: ~/.config/skimi/ai-now' || {
-    echo "expected ai-now local_path when nowledgeMemManaged=false" >&2
-    printf '%s\n' "$unmanaged_rendered" >&2
-    exit 1
+assert_render_contains() {
+    local rendered="$1"
+    local expected="$2"
+
+    printf '%s\n' "$rendered" | grep -qxF "$expected" || {
+        echo "expected rendered skimi config to contain: $expected" >&2
+        printf '%s\n' "$rendered" >&2
+        exit 1
+    }
 }
+
+unmanaged_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":false}')"
+assert_render_contains "$unmanaged_rendered" '  - local_path: ~/.config/skimi/ai-now'
+assert_render_contains "$unmanaged_rendered" '  - repo: mattpocock/skills'
+assert_render_contains "$unmanaged_rendered" '    target_dir: mattpocock'
+assert_render_contains "$unmanaged_rendered" '      - setup-matt-pocock-skills'
+assert_render_contains "$unmanaged_rendered" '      - tdd'
+assert_render_contains "$unmanaged_rendered" '      - grill-me'
 
 managed_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":true}')"
 if printf '%s\n' "$managed_rendered" | grep -qxF '  - local_path: ~/.config/skimi/ai-now'; then
@@ -26,5 +38,7 @@ if printf '%s\n' "$managed_rendered" | grep -qxF '  - local_path: ~/.config/skim
     printf '%s\n' "$managed_rendered" >&2
     exit 1
 fi
+assert_render_contains "$managed_rendered" '  - repo: mattpocock/skills'
+assert_render_contains "$managed_rendered" '    target_dir: mattpocock'
 
 echo "test_skimi_config_template: OK"

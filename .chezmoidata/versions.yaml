@@ -6,7 +6,7 @@ versions:
   nixVersion: v2.34.8
   aquaInstaller: v4.0.5
   aquaInstallerSha256: 451028d56959cc738564885b1dbebc2691ea038ffde04e2472e4d486a3591146
-  aquaVersion: v2.60.2
+  aquaVersion: v2.61.0
   miseVersion: v2026.7.5
   miseInstallerSha256: f9dab663d963578f0fcae36038ddb1a8444bd3b9676f30ec823cf27370687b05
-  nixIndexDb: 2026-07-05-062608
+  nixIndexDb: 2026-07-12-134147

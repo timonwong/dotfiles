@@ -12,7 +12,7 @@ registries:
     ref: v4.477.0 # renovate: depName=aquaproj/aqua-registry
 
 packages:
-  - name: atuinsh/atuin@v18.17.0
+  - name: atuinsh/atuin@v18.17.1
   - name: eth-p/bat-extras@v2024.08.24
     # aqua update can downgrade to v20200408 due semver ordering;
     # keep a known-good release pinned.

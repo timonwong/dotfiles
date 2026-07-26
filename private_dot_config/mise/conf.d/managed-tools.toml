@@ -4,11 +4,11 @@
 
 [tools]
 "aqua:FiloSottile/age" = "1.3.1"
-apko = "1.2.27"
+apko = "1.2.28"
 "github:aria2/aria2" = "release-1.37.0"
 bat = "0.26.1"
 "bun" = "1.3.14"
-"claude-code" = "2.1.217"
+"claude-code" = "2.1.220"
 "aqua:openai/codex" = "0.145.0"
 crane = "0.21.7"
 direnv = "2.37.1"
@@ -26,11 +26,11 @@ hyperfine = "1.20.0"
 jq = "1.8.2"
 just = "1.57.0"
 krew = "0.5.0"
-kubectl = "1.36.2"
+kubectl = "1.36.3"
 lazygit = "0.63.1"
 melange = "0.56.3"
 # nowledge mem
-"pipx:nmem-cli" = "0.10.34"
+"pipx:nmem-cli" = "0.10.41"
 # Oxfmt is a high-performance formatter for the JavaScript ecosystem.
 "npm:oxfmt" = "0.60.0"
 rg = "15.2.0"

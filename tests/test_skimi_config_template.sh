@@ -9,8 +9,23 @@ command -v chezmoi >/dev/null 2>&1 || {
     exit 0
 }
 
+TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/skimi-config-template-test.XXXXXX")"
+cleanup() {
+    rm -rf "$TMP_ROOT"
+}
+trap cleanup EXIT
+
+export HOME="$TMP_ROOT/home"
+export XDG_CONFIG_HOME="$HOME/.config"
+SOURCE_ROOT="$TMP_ROOT/source"
+CONFIG="$XDG_CONFIG_HOME/chezmoi/chezmoi.toml"
+mkdir -p "$SOURCE_ROOT" "$(dirname "$CONFIG")"
+cat >"$CONFIG" <<'EOF'
+[data]
+EOF
+
 render_skimi_config() {
-    chezmoi execute-template --source "$ROOT" "$@" <"$TMPL"
+    chezmoi execute-template --config "$CONFIG" --source "$SOURCE_ROOT" "$@" <"$TMPL"
 }
 
 assert_render_contains() {
@@ -25,7 +40,7 @@ assert_render_contains() {
 }
 
 unmanaged_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":false}')"
-assert_render_contains "$unmanaged_rendered" '  - local_path: ~/.config/skimi/ai-now'
+assert_render_contains "$unmanaged_rendered" '  - repo: git@github.com:timonwong/private-ai-skills.git'
 assert_render_contains "$unmanaged_rendered" '  - repo: mattpocock/skills'
 assert_render_contains "$unmanaged_rendered" '    target_dir: mattpocock'
 assert_render_contains "$unmanaged_rendered" '      - setup-matt-pocock-skills'
@@ -33,8 +48,8 @@ assert_render_contains "$unmanaged_rendered" '      - tdd'
 assert_render_contains "$unmanaged_rendered" '      - grill-me'
 
 managed_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":true}')"
-if printf '%s\n' "$managed_rendered" | grep -qxF '  - local_path: ~/.config/skimi/ai-now'; then
-    echo "expected ai-now local_path to be omitted when nowledgeMemManaged=true" >&2
+if printf '%s\n' "$managed_rendered" | grep -qxF '  - repo: git@github.com:timonwong/private-ai-skills.git'; then
+    echo "expected private ai skills repo to be omitted when nowledgeMemManaged=true" >&2
     printf '%s\n' "$managed_rendered" >&2
     exit 1
 fi

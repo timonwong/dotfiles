@@ -64,7 +64,7 @@ packages:
   #     - bb-browser
   # - repo: tw93/Waza
 {{- if not $nowledgeMemManaged }}
-  - local_path: ~/.config/skimi/ai-now
+  - repo: git@github.com:timonwong/private-ai-skills.git
 {{- end }}
   #- local_path: ~/.config/skimi/skills/op-plugin-run
   #- local_path: ~/.config/skimi/skills/gitlab-cli

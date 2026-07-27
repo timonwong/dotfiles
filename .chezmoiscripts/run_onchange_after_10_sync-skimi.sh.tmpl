@@ -5,10 +5,8 @@ set -euo pipefail
 {{ $skillsYamlRel := "private_dot_config/skimi/skills.yaml.tmpl" -}}
 {{ $skillsYaml := joinPath .chezmoi.sourceDir $skillsYamlRel -}}
 {{ $skillsDigest := output "sh" "-c" (printf "cd %q && if [ -d private_dot_config/skimi/skills ]; then find private_dot_config/skimi/skills -type f -exec shasum -a 256 {} +; fi | LC_ALL=C sort | shasum -a 256 | awk '{print $1}'" .chezmoi.sourceDir) | trim -}}
-{{ $aiNowDigest := output "sh" "-c" (printf "cd %q && if [ -d private_dot_config/skimi/ai-now ]; then find private_dot_config/skimi/ai-now -type f -exec shasum -a 256 {} +; fi | LC_ALL=C sort | shasum -a 256 | awk '{print $1}'" .chezmoi.sourceDir) | trim -}}
 # {{ $skillsYamlRel }}: {{ if stat $skillsYaml }}{{ includeTemplate $skillsYaml . | sha256sum }}{{ else }}n/a{{ end }}
 # private_dot_config/skimi/skills digest: {{ $skillsDigest }}
-# private_dot_config/skimi/ai-now digest: {{ $aiNowDigest }}
 
 echo ":: [10] Syncing skimi skills"
 
@@ -34,15 +32,12 @@ sync_tree() {
 
 skills_source_dir="{{ joinPath .chezmoi.sourceDir "private_dot_config/skimi/skills" }}"
 skills_target_dir="{{ joinPath .chezmoi.homeDir ".config/skimi/skills" }}"
-ai_now_source_dir="{{ joinPath .chezmoi.sourceDir "private_dot_config/skimi/ai-now" }}"
-ai_now_target_dir="{{ joinPath .chezmoi.homeDir ".config/skimi/ai-now" }}"
 
 sync_tree "$skills_source_dir" "$skills_target_dir" "local skills"
-sync_tree "$ai_now_source_dir" "$ai_now_target_dir" "ai-now skills"
 
 while IFS= read -r sh_file; do
     chmod 755 "$sh_file"
-done < <(find "$skills_target_dir" "$ai_now_target_dir" -type f -name '*.sh' 2>/dev/null | LC_ALL=C sort)
+done < <(find "$skills_target_dir" -type f -name '*.sh' 2>/dev/null | LC_ALL=C sort)
 echo "    Updated executable mode for *.sh"
 
 {{ include ".chezmoitemplates/shell/source_nix_env.sh" }}

@@ -1,1 +1,4 @@
 set line-graphics = utf-8
+set truncation-delimiter = utf-8
+set main-view-author-maxwidth = 20
+set main-view-committer-maxwidth = 20

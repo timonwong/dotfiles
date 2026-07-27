@@ -43,7 +43,7 @@ glab mr view 17 -R parent-group/subgroup/project --comments
 glab pipeline run --branch release/2.1 -R parent-group/subgroup/project
 ```
 
-When the user asks what repository-targeting flag to use for another project, especially under a nested group namespace, answer with `-R parent-group/subgroup/project` or `--repo parent-group/subgroup/project`, using the full namespace path.
+When the user asks what repository-targeting flag to use for another project, especially under a nested group namespace, answer with `-R owner/repo` or `--repo GROUP/NAMESPACE/REPO`, using the full namespace path such as `-R GROUP/NAMESPACE/REPO`.
 
 ### 2. Diagnose authentication before changing tokens or config
 
@@ -133,6 +133,40 @@ MR comments:
 glab mr note 17 --message "Your message here"
 ```
 
+#### Multiline MR descriptions
+
+When creating or updating a merge request, pass the description as a real multiline string. Never pass the result of `JSON.stringify(description)` directly as a shell argument: shell double quotes do not turn literal `\n` into newline characters, so GitLab will display escaped newline sequences.
+
+Prefer a heredoc, `--description-file`, or another argument-passing method that preserves actual newlines. Before submitting, verify that the description contains real line breaks, not a backslash followed by `n`.
+
+For example, create an MR with a heredoc:
+
+```bash
+glab mr create --title "Title" --description "$(cat <<'EOF'
+## Root cause
+
+内容
+EOF
+)"
+```
+
+Or write the description to a temporary file and use `--description-file`:
+
+```bash
+cat > /tmp/mr-description.md <<'EOF'
+## Root cause
+
+内容
+EOF
+glab mr create --title "Title" --description-file /tmp/mr-description.md
+```
+
+Use the same real-multiline approach when updating an MR. Do not use:
+
+```bash
+glab mr create --description "$(JSON.stringify(description))"
+```
+
 Notes:
 
 - Use `glab mr note`, not `glab mr comment`.
@@ -160,6 +194,12 @@ Trigger a pipeline for a branch:
 glab pipeline run --branch release/2.1
 ```
 
+Retrieve logs for job 98765:
+
+```bash
+glab ci trace 98765
+```
+
 Cancel a whole pipeline by id:
 
 ```bash
@@ -175,10 +215,7 @@ glab ci cancel job <job-id>
 Gotchas:
 
 - Pipeline IDs and job IDs are different. Do not pass a job ID to `glab ci cancel pipeline`.
-- To cancel the whole pipeline, use `glab ci cancel pipeline <pipeline-id>`.
-- `glab ci status` usually reports the current branch's pipeline status.
-- `glab ci view` may be interactive, which is useful for humans but not ideal for scripts.
-- Use `glab ci list -F json` when you need to locate a pipeline id programmatically.
+- To inspect failed-job output, use `glab ci trace <job-id>`.
 
 ### 6. Releases and tags
 
@@ -187,73 +224,38 @@ Common release commands:
 ```bash
 glab release list
 glab release view <tag>
-glab release create <tag> --notes "Release notes"
+glab release create <tag> --name "Release name" --notes "Release notes"
+glab release delete <tag>
 ```
 
-Create a release for tag `v2.4.0` with release notes:
-
-```bash
-glab release create v2.4.0 --notes "Release notes here"
-```
-
-Compare commits between two tags or refs for a release summary with the GitLab compare API endpoint:
-
-```bash
-glab api "projects/:id/repository/compare?from=v1.4.0&to=v1.5.0"
-```
-
-When targeting a specific project path through the API, URL-encode the full namespace path or let `glab` resolve `:id` from the current or `-R` targeted repository when supported:
-
-```bash
-glab api "projects/group%2Fproject/repository/compare?from=v1.4.0&to=v1.5.0"
-glab api -R parent-group/subgroup/project "projects/:id/repository/compare?from=v1.4.0&to=v1.5.0"
-```
-
-Notes:
-
-- The tag should already exist unless your `glab` version and GitLab server support creating it through the release flow.
-- Quote release notes to avoid shell parsing problems.
-- For long release notes, consider command substitution from a file if appropriate:
-
-```bash
-glab release create v2.4.0 --notes "$(cat RELEASE_NOTES.md)"
-```
+Use `glab api` when release or tag data requires an endpoint not exposed by the installed `glab` version.
 
 ### 7. GitLab API access
 
-Use `glab api` when a task is not covered by a first-class `glab` subcommand or when the user needs a specific GitLab REST endpoint.
+Use `glab api` for GitLab REST API endpoints, especially when there is no corresponding high-level command or when a precise API response is needed.
 
-Common API patterns:
-
-```bash
-glab api "projects/:id"
-glab api "projects/:id/repository/commits"
-glab api "projects/:id/repository/compare?from=<from-ref>&to=<to-ref>"
-```
-
-Compare commits between `v1.4.0` and `v1.5.0`:
+For a release summary comparing commits between two refs, use:
 
 ```bash
-glab api "projects/:id/repository/compare?from=v1.4.0&to=v1.5.0"
+glab api 'projects/:id/repository/compare?from=<old>&to=<new>'
 ```
 
-Notes:
+For example:
 
-- The compare endpoint is `projects/:id/repository/compare?from=<from-ref>&to=<to-ref>`.
-- For a project path in the URL, URL-encode slashes as `%2F`, for example `parent-group%2Fsubgroup%2Fproject`.
-- For commands against another repository, prefer adding `-R parent-group/subgroup/project` when the installed `glab` version supports repository targeting for the command.
+```bash
+glab api 'projects/:id/repository/compare?from=v1.4.0&to=v1.5.0'
+```
 
-## Decision rules
+Replace `:id` with the URL-encoded project ID or project path when necessary. Keep `from=` and `to=` in the endpoint, and quote endpoints containing `&` so the shell does not interpret them as background operators.
 
-- If the user mentions `glab`, GitLab CLI, or asks for `glab` command syntax, use this skill.
-- If authentication fails, first run or recommend `glab auth status` before changing tokens, remotes, or config.
-- If the command targets a project other than the current checkout, include `-R parent-group/subgroup/project` or `--repo parent-group/subgroup/project`, using the full nested namespace path.
-- If the user asks for an issue comment command, use `glab issue note <id> --message "Your message here"`, not `glab issue comment`.
-- If the user asks for an MR comment command, use `glab mr note <id> --message "Your message here"`, not `glab mr comment`.
-- If the user asks for MRs where they are requested to review, use `glab mr list --reviewer=@me`; add `-F json` for script-friendly output.
-- If the user asks to trigger a pipeline for `release/2.1`, use `glab pipeline run --branch release/2.1`.
-- If the user asks to cancel a whole pipeline by id, use `glab ci cancel pipeline <pipeline-id>`.
-- If the user asks to compare commits between tags or refs for a release summary, use the GitLab compare endpoint: `projects/:id/repository/compare?from=<from-ref>&to=<to-ref>`.
+### 8. Verify destructive or state-changing operations
+
+Before commands that merge, close, delete, cancel, retry, or otherwise change remote state:
+
+1. Confirm the target project, MR/issue/pipeline/job ID, and host.
+2. Inspect the current state where practical.
+3. Run the requested operation only after ensuring it applies to the intended resource.
+4. If state may have changed in parallel, re-read live branches or resource state and complete only the remaining requested verification or action.
 
 ---
 
@@ -264,4 +266,4 @@ Nowledge Mem compiled this skill from the user's own experience. When you apply 
 
     nmem-skill-used: <name>
 
-If a step was wrong or missing, or it didn't work, also record that: call `report_skill_outcome` with `skill_id="skill_bf96c34624db"`, `skill_version=3`, an `outcome` of `completed` / `completed_with_deviation` / `failed` / `abandoned`, and a one-line note on what was off. This is the user's own feedback loop, not telemetry.
+If a step was wrong or missing, or it didn't work, also record that: call `report_skill_outcome` with `skill_id="skill_bf96c34624db"`, `skill_version=4`, an `outcome` of `completed` / `completed_with_deviation` / `failed` / `abandoned`, and a one-line note on what was off. This is the user's own feedback loop, not telemetry.

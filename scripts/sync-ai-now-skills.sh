@@ -2,7 +2,7 @@
 set -euo pipefail
 
 source_dir="${AI_NOW_SKILLS_DIR:-$HOME/ai-now/skills-active}"
-repo_url="${PRIVATE_AI_SKILLS_REPO_URL:-git@github.com:timonwong/private-ai-skills.git}"
+repo_url="${PRIVATE_AI_SKILLS_REPO_URL:-https://github.com/timonwong/private-ai-skills.git}"
 branch="${PRIVATE_AI_SKILLS_BRANCH:-main}"
 commit_message="chore: sync ai-now skills"
 
@@ -11,12 +11,14 @@ if [[ ! -d "$source_dir" ]]; then
     exit 1
 fi
 
-for command_name in git rsync; do
+for command_name in git gh rsync; do
     if ! command -v "$command_name" >/dev/null 2>&1; then
         echo "Error: ${command_name} is required" >&2
         exit 1
     fi
 done
+
+gh auth setup-git
 
 tmp_root="$(mktemp -d "${TMPDIR:-/tmp}/sync-ai-now-skills.XXXXXX")"
 cleanup() {

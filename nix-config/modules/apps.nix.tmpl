@@ -49,9 +49,9 @@ in
   homebrew = {
     enable = true;
     onActivation = {
-      # Force tap-based resolution for bundle install to avoid API loader crashes.
+      # Do not let bundle installs upgrade packages that are already present.
       extraEnv = {
-        HOMEBREW_NO_INSTALL_FROM_API = "1";
+        HOMEBREW_NO_INSTALL_UPGRADE = "1";
       };
       autoUpdate = false; # Leave Homebrew repository updates to explicit maintenance.
       upgrade = false; # Keep activation focused on declared installs.

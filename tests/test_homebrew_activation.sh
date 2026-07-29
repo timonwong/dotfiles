@@ -43,4 +43,16 @@ printf '%s\n' "$rendered" | grep -q 'upgrade = false;' || {
     exit 1
 }
 
+printf '%s\n' "$rendered" | grep -q 'HOMEBREW_NO_INSTALL_UPGRADE = "1";' || {
+    echo "expected Homebrew installs to preserve existing package versions" >&2
+    printf '%s\n' "$rendered" >&2
+    exit 1
+}
+
+if printf '%s\n' "$rendered" | grep -q 'HOMEBREW_NO_INSTALL_FROM_API'; then
+    echo "expected Homebrew activation to use API metadata" >&2
+    printf '%s\n' "$rendered" >&2
+    exit 1
+fi
+
 echo "test_homebrew_activation: OK"

@@ -8,26 +8,6 @@ agents:
 {{-   $nowledgeMemManaged = .nowledgeMemManaged }}
 {{- end }}
 packages:
-  - repo: anthropics/skills
-    target_dir: anthropics
-    agents:
-      excludes:
-        - claude
-    skills:
-      - skill-creator
-      # - brand-guidelines
-      - algorithmic-art
-  - repo: openai/skills
-    target_dir: ecosystem/openai
-    agents:
-      excludes:
-        - claude
-    skills:
-      - gh-fix-ci
-      # - playwright
-      # - security-best-practices
-      # - security-threat-model
-      # - security-ownership-map
   - repo: mattpocock/skills
     target_dir: mattpocock
     skills:
@@ -56,9 +36,6 @@ packages:
   - repo: https://github.com/blader/humanizer
   - repo: https://github.com/op7418/Humanizer-zh
   - repo: https://github.com/op7418/guizang-ppt-skill.git
-  # - repo: multica-ai/andrej-karpathy-skills
-  #   skills:
-  #     - karpathy-guidelines
   # - repo: epiral/bb-browser
   #   skills:
   #     - bb-browser
@@ -66,5 +43,3 @@ packages:
 {{- if not $nowledgeMemManaged }}
   - repo: git@github.com:timonwong/private-ai-skills.git
 {{- end }}
-  #- local_path: ~/.config/skimi/skills/op-plugin-run
-  #- local_path: ~/.config/skimi/skills/gitlab-cli

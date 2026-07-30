@@ -50,6 +50,11 @@ require_line "docs"
 require_line "tests"
 forbid_line ".claude"
 
+grep -qxF '.vscode/' "$ROOT/.chezmoiignore" || {
+    echo "expected .vscode to be excluded from chezmoi targets" >&2
+    exit 1
+}
+
 # When encryption is disabled, key-related scripts and targets must be ignored.
 require_line ".chezmoiscripts/01_setup-encryption-key.sh"
 require_line ".chezmoiscripts/04_setup-gopass.sh"

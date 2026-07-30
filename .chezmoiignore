@@ -15,6 +15,7 @@ SECURITY.md
 .git/
 .gitignore
 .github/
+.vscode/
 .pre-commit-config.yaml
 init.sh
 docs/

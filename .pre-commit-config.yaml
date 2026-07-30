@@ -61,7 +61,7 @@ repos:
         entry: statix check nix-config/
       #####################################
       # Template: render + format check + lint
-      # Requires: chezmoi, treefmt, shellcheck, selene, statix
+      # Requires: chezmoi, rsync, treefmt, shellcheck, selene, statix
       #####################################
       - id: check-templates
         name: Validate templates (render + check)
@@ -72,7 +72,16 @@ repos:
           bash -c '
             set -e
             tmpdir=$(mktemp -d)
-            trap "rm -rf $tmpdir" EXIT
+            source_dir=$(mktemp -d)
+            trap "rm -rf $tmpdir $source_dir" EXIT
+
+            # Render from a clean source snapshot so editor-generated state such
+            # as .vscode/mise-tools version symlinks is never traversed.
+            rsync -a \
+              --exclude "/.git/" \
+              --exclude "/.vscode/" \
+              --exclude "/node_modules/" \
+              ./ "$source_dir/"
 
             # Copy required config files (fail if missing)
             for cfg in treefmt.toml stylua.toml selene.toml; do
@@ -111,7 +120,7 @@ repos:
               local src="$1"
               local dest="$2"
 
-              if ! chezmoi execute-template --config "$tmpdir/chezmoi.toml" --source . < "$src" > "$dest" 2>> "$render_error_log"; then
+              if ! chezmoi execute-template --config "$tmpdir/chezmoi.toml" --source "$source_dir" < "$src" > "$dest" 2>> "$render_error_log"; then
                 echo "❌ Template render failed: $src" >&2
                 render_failed_files+=("$src")
                 return 1
@@ -119,7 +128,7 @@ repos:
               return 0
             }
 
-            for f in $(find . \( -name "*.sh.tmpl" -o -name "*.lua.tmpl" -o -name "*.json.tmpl" -o -name "*.yaml.tmpl" -o -name "*.yml.tmpl" -o -name "*.md.tmpl" \) ! -path "*/node_modules/*"); do
+            for f in $(find . \( -path "./.vscode" -o -path "*/node_modules" \) -prune -o \( -name "*.sh.tmpl" -o -name "*.lua.tmpl" -o -name "*.json.tmpl" -o -name "*.yaml.tmpl" -o -name "*.yml.tmpl" -o -name "*.md.tmpl" \) -print); do
               render_template "$f" "$tmpdir/$(basename "${f%.tmpl}")" || true
             done
 

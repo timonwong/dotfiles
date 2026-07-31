@@ -14,6 +14,23 @@
   "nix": {
     "enabled": false
   },
+  "mise": {
+    "managerFilePatterns": ["/^private_dot_config\\/mise\\/conf\\.d\\/.*\\.toml$/"]
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update glab from GitLab releases",
+      "managerFilePatterns": ["/^private_dot_config\\/mise\\/conf\\.d\\/managed-tools\\.toml$/"],
+      "matchStrings": ["glab\\s*=\\s*\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "gitlab-org/cli",
+      "packageNameTemplate": "gitlab-org/cli",
+      "datasourceTemplate": "gitlab-releases",
+      "registryUrlTemplate": "https://gitlab.com",
+      "versioningTemplate": "semver",
+      "extractVersionTemplate": "^v?(?<version>.+)$"
+    }
+  ],
   "packageRules": [
     {
       "description": "Nix updates are managed by repository-owned workflows",
@@ -33,6 +50,12 @@
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
+    },
+    {
+      "description": "Group mise managed tool non-major updates",
+      "matchManagers": ["mise"],
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "mise managed tools non-major"
     },
     {
       "description": "Require manual review for major updates",

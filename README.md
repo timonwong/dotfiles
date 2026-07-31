@@ -437,7 +437,8 @@ See:
 - `.github/workflows/scheduler.yml` (daily trigger)
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/workflows/update-toolchains.yml` (auto-updates `aqua.yaml` and `mise/conf.d` managed tools)
+- `.github/workflows/update-toolchains.yml` (auto-updates `aqua.yaml`)
+- `.github/renovate.json` (auto-updates `mise/conf.d` tool pins with Renovate's native `mise` manager)
 
 ---
 

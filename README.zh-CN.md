@@ -435,7 +435,8 @@ chezmoi init --apply --promptBool skipNix=true timonwong
 - `.github/workflows/scheduler.yml`（每日触发）
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/workflows/update-toolchains.yml`（自动更新 `aqua.yaml` 与 `mise/conf.d` 中托管的工具）
+- `.github/workflows/update-toolchains.yml`（自动更新 `aqua.yaml`）
+- `.github/renovate.json`（通过 Renovate 原生 `mise` manager 自动更新 `mise/conf.d` 工具版本）
 
 ---
 

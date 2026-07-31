@@ -1,5 +1,5 @@
 # mise managed tool versions
-# Managed by .github/workflows/update-toolchains.yml
+# Managed by Renovate's native mise manager.
 # Add new auto-updated tools in this file.
 
 [tools]

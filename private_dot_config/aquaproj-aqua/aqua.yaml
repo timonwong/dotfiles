@@ -12,7 +12,7 @@ registries:
     ref: v4.477.0 # renovate: depName=aquaproj/aqua-registry
 
 packages:
-  - name: atuinsh/atuin@v18.18.1
+  - name: atuinsh/atuin@v18.19.0
   - name: eth-p/bat-extras@v2024.08.24
     # aqua update can downgrade to v20200408 due semver ordering;
     # keep a known-good release pinned.
@@ -20,11 +20,11 @@ packages:
       enabled: false
   - name: dandavison/delta@0.19.2
   - name: Wilfred/difftastic@0.69.0
-  - name: junegunn/fzf@v0.74.1
+  - name: junegunn/fzf@v0.74.2
   - name: neovim/neovim@v0.12.4
   - name: LuaLS/lua-language-server@3.18.2
   - name: tree-sitter/tree-sitter@v0.26.11
-  - name: rclone/rclone@v1.74.4
+  - name: rclone/rclone@v1.75.0
   - name: starship/starship@v1.26.0
   - name: JohnnyMorganz/StyLua@v2.5.2
   - name: Kampfkarren/selene@0.31.0

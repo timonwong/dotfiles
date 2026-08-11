@@ -78,41 +78,27 @@ path_prepend_if_exists() {
     esac
 }
 
-ensure_aqua_environment() {
-    [[ "${__COMMON_AQUA_ENV_READY:-}" == "1" ]] && return 0
+ensure_mise_environment() {
+    [[ "${__COMMON_MISE_ENV_READY:-}" == "1" ]] && return 0
 
-    local candidate
-    local -a config_candidates=()
-    local -a bin_candidates=()
+    if [[ -n "${HOME:-}" ]]; then
+        path_prepend_if_exists "${HOME}/.local/bin"
+        path_prepend_if_exists "${HOME}/.local/share/mise/shims"
+    fi
+    if [[ -n "${XDG_DATA_HOME:-}" ]]; then
+        path_prepend_if_exists "${XDG_DATA_HOME}/mise/shims"
+    fi
+    if [[ -n "${MISE_DATA_DIR:-}" ]]; then
+        path_prepend_if_exists "${MISE_DATA_DIR}/shims"
+    fi
 
-    [[ -n "${AQUA_GLOBAL_CONFIG:-}" ]] && config_candidates+=("$AQUA_GLOBAL_CONFIG")
-    [[ -n "${AQUA_CONFIG:-}" ]] && config_candidates+=("$AQUA_CONFIG")
-    [[ -n "${XDG_CONFIG_HOME:-}" ]] && config_candidates+=("${XDG_CONFIG_HOME}/aquaproj-aqua/aqua.yaml")
-    [[ -n "${HOME:-}" ]] && config_candidates+=("${HOME}/.config/aquaproj-aqua/aqua.yaml")
-
-    for candidate in "${config_candidates[@]}"; do
-        if [[ -n "$candidate" && -f "$candidate" ]]; then
-            export AQUA_GLOBAL_CONFIG="$candidate"
-            export AQUA_CONFIG="$candidate"
-            break
-        fi
-    done
-
-    [[ -n "${AQUA_ROOT_DIR:-}" ]] && bin_candidates+=("${AQUA_ROOT_DIR}/bin")
-    [[ -n "${XDG_DATA_HOME:-}" ]] && bin_candidates+=("${XDG_DATA_HOME}/aquaproj-aqua/bin")
-    [[ -n "${HOME:-}" ]] && bin_candidates+=("${HOME}/.local/share/aquaproj-aqua/bin")
-
-    for candidate in "${bin_candidates[@]}"; do
-        path_prepend_if_exists "$candidate"
-    done
-
-    __COMMON_AQUA_ENV_READY=1
+    __COMMON_MISE_ENV_READY=1
 }
 
 ensure_gopass_environment() {
     [[ "${__COMMON_GOPASS_ENV_READY:-}" == "1" ]] && return 0
 
-    ensure_aqua_environment
+    ensure_mise_environment
 
     if [[ -n "${HOME:-}" ]]; then
         local active_cfg="${XDG_CONFIG_HOME:-$HOME/.config}/gopass/config"
@@ -139,15 +125,6 @@ gopass_exec_with_timeout() {
     if command -v gopass >/dev/null 2>&1; then
         if run_with_timeout "$timeout_sec" gopass "$@"; then
             return 0
-        fi
-    fi
-
-    if command -v aqua >/dev/null 2>&1; then
-        local aqua_cfg="${AQUA_CONFIG:-${AQUA_GLOBAL_CONFIG:-}}"
-        if [[ -n "$aqua_cfg" && -f "$aqua_cfg" ]]; then
-            if run_with_timeout "$timeout_sec" aqua --config "$aqua_cfg" exec -- gopass "$@"; then
-                return 0
-            fi
         fi
     fi
 
@@ -181,9 +158,6 @@ require_cmd() {
     local c
     for c in "$@"; do
         case "$c" in
-            aqua)
-                ensure_aqua_environment
-                ;;
             gopass)
                 ensure_gopass_environment
                 ;;

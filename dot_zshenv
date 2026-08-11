@@ -29,10 +29,7 @@ path_add_back() {
     PATH="${PATH:+$PATH:}$p"
 }
 
-# PATH order: user dirs first, then aqua, then system package managers.
-AQUA_BIN_DIR="${AQUA_ROOT_DIR:-${XDG_DATA_HOME}/aquaproj-aqua}/bin"
-[[ -d "$AQUA_BIN_DIR" ]] && path_add_front "$AQUA_BIN_DIR"
-
+# PATH order: user dirs first, then system package managers and mise shims.
 [[ -d "$HOME/.nix-profile/bin" ]] && path_add_front "$HOME/.nix-profile/bin"
 [[ -d "/opt/homebrew/bin" ]] && path_add_front "/opt/homebrew/bin"
 [[ -d "$HOME/.local/bin" ]] && path_add_front "$HOME/.local/bin"
@@ -44,14 +41,5 @@ export MISE_SHIMS_DIR="${MISE_DATA_DIR:-${XDG_DATA_HOME}/mise}/shims"
 path_add_back "$MISE_SHIMS_DIR"
 
 export PATH
-
-# aqua global config
-AQUA_CONFIG_PATH="${XDG_CONFIG_HOME}/aquaproj-aqua/aqua.yaml"
-if [[ -f "$AQUA_CONFIG_PATH" ]]; then
-    case ":${AQUA_GLOBAL_CONFIG:-}:" in
-    *":${AQUA_CONFIG_PATH}:"*) ;;
-    *) export AQUA_GLOBAL_CONFIG="${AQUA_CONFIG_PATH}${AQUA_GLOBAL_CONFIG:+:${AQUA_GLOBAL_CONFIG}}" ;;
-    esac
-fi
 
 export ZELLIJ_CONFIG_DIR=$HOME/.config/zellij

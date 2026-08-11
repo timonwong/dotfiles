@@ -57,7 +57,7 @@ grep -qxF '.vscode/' "$ROOT/.chezmoiignore" || {
 
 # When encryption is disabled, key-related scripts and targets must be ignored.
 require_line ".chezmoiscripts/01_setup-encryption-key.sh"
-require_line ".chezmoiscripts/04_setup-gopass.sh"
+require_line ".chezmoiscripts/07c_setup-gopass.sh"
 # Chezmoi may report source entries as either target-style or template/encrypted names.
 if rg -q '(^|/)(dot_ssh|private_dot_ssh)(/|$)' "$ROOT"; then
     require_any_line ".ssh/config" ".ssh/config.tmpl.age"

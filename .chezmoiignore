@@ -82,7 +82,7 @@ Library/
 # ─────────────────────────────────────────────────────────────────────────────
 {{- if not .useEncryption }}
 .chezmoiscripts/01_setup-encryption-key.sh
-.chezmoiscripts/04_setup-gopass.sh
+.chezmoiscripts/07c_setup-gopass.sh
 {{- end }}
 
 # ─────────────────────────────────────────────────────────────────────────────

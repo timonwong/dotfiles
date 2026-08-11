@@ -52,6 +52,12 @@
       "platformAutomerge": true
     },
     {
+      "description": "Keep bat-extras pinned because upstream release tags mix calendar formats",
+      "matchManagers": ["mise"],
+      "matchDepNames": ["aqua:eth-p/bat-extras"],
+      "enabled": false
+    },
+    {
       "description": "Group mise managed tool non-major updates",
       "matchManagers": ["mise"],
       "matchUpdateTypes": ["minor", "patch", "digest"],

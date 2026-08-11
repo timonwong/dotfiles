@@ -26,6 +26,7 @@ expected = {
     "rclone": "1.75.0",
     "aqua:Kampfkarren/selene": "0.31.0",
     "shellcheck": "0.11.0",
+    "shfmt": "3.13.1",
     "starship": "1.26.0",
     "stylua": "2.5.2",
     "tree-sitter": "0.26.12",
@@ -37,9 +38,6 @@ for name, version in expected.items():
     actual = tools.get(name)
     if actual != version:
         raise SystemExit(f"expected {name}={version}, got {actual!r}")
-
-if "shfmt" in tools:
-    raise SystemExit("shfmt must remain Nix-managed and absent from mise tools")
 
 retired_paths = [
     "private_dot_config/aquaproj-aqua/aqua.yaml",
@@ -77,7 +75,7 @@ if not (root / ".chezmoiscripts/run_onchange_after_07d_generate-zellij-completio
 
 nix_packages = (root / ".chezmoidata/nix.yaml").read_text()
 if "      - shfmt\n" not in nix_packages:
-    raise SystemExit("shfmt must remain managed by the Nix package set")
+    raise SystemExit("shfmt must remain in Nix while mise provides a non-Nix fallback")
 PY
 
 echo "test_mise_tool_migration: OK"

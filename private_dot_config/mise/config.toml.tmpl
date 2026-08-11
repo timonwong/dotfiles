@@ -5,6 +5,7 @@
 # Node.js (used for global JS CLIs via npm/npx)
 node = "lts"
 yarn = "latest"
+# Fast Node.js package manager used by mise's npm backend.
 aube = "1.9.1"
 
 # Python (for tools that need it)
@@ -19,13 +20,13 @@ uv = "latest"
 # Lua 5.4 runtime (replaces nix lua5_4)
 lua = "5.4"
 
-# pre-commit (Git hook framework, moved from nix to avoid dotnet-sdk compilation)
+# Multi-language Git hook framework, moved from Nix to avoid dotnet-sdk compilation.
 "pipx:pre-commit" = "latest"
 
-helm = "v3.5.4"   # 暂时 pin 到 3.5.x
+helm = "v3.5.4"
 
 {{ if eq .platform "darwin" -}}
-# bb-browser: https://github.com/epiral/bb-browser
+# Browser-control CLI and MCP server that reuses the active Chrome login state.
 "npm:bb-browser" = "latest"
 {{ end -}}
 

@@ -19,11 +19,11 @@ packages:
     update:
       enabled: false
   - name: dandavison/delta@0.19.2
-  - name: Wilfred/difftastic@0.69.0
+  - name: Wilfred/difftastic@0.70.0
   - name: junegunn/fzf@v0.74.2
   - name: neovim/neovim@v0.12.4
-  - name: LuaLS/lua-language-server@3.18.2
-  - name: tree-sitter/tree-sitter@v0.26.11
+  - name: LuaLS/lua-language-server@3.19.0
+  - name: tree-sitter/tree-sitter@v0.26.12
   - name: rclone/rclone@v1.75.0
   - name: starship/starship@v1.26.0
   - name: JohnnyMorganz/StyLua@v2.5.2

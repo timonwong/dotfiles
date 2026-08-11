@@ -28,7 +28,7 @@ def require_tool_comments(relative_path: str, famous_tools: set[str]) -> None:
             continue
 
         key = stripped.split("=", 1)[0].strip().strip('"')
-        if key in famous_tools:
+        if key in famous_tools or key.startswith("github:timonwong/"):
             continue
 
         previous = index - 1
@@ -55,7 +55,9 @@ require_tool_comments(
         "github:aria2/aria2",
         "jq",
         "kubectl",
+        "rclone",
         "rg",
+        "starship",
         "tmux",
         "yq",
     },
@@ -64,6 +66,7 @@ require_tool_comments(
 require_tool_comments(
     "private_dot_config/mise/config.toml.tmpl",
     {
+        "helm",
         "node",
         "python",
         "yarn",

@@ -23,7 +23,6 @@ lua = "5.4"
 # Multi-language Git hook framework, moved from Nix to avoid dotnet-sdk compilation.
 "pipx:pre-commit" = "latest"
 
-# Kubernetes package manager, temporarily pinned to the 3.5 release line.
 helm = "v3.5.4"
 
 {{ if eq .platform "darwin" -}}
@@ -31,7 +30,6 @@ helm = "v3.5.4"
 "npm:bb-browser" = "latest"
 {{ end -}}
 
-# Installs and synchronizes AI-agent skills from Git repositories.
 "github:timonwong/skimi" = { version = "latest" }
 
 [settings]

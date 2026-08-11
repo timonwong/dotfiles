@@ -46,7 +46,6 @@ golangci-lint = "2.12.2"
 gopass = "1.16.1"
 # Command-line benchmarking tool.
 hyperfine = "1.20.0"
-# Jira Data Center and Server CLI with stable agent-facing JSON.
 "github:timonwong/jiro" = "0.6.0"
 jq = "1.8.2"
 # Command runner for project recipes.
@@ -65,7 +64,6 @@ melange = "0.58.0"
 "pipx:nmem-cli" = "0.10.55"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.63.0"
-# Synchronizes files with cloud and remote storage providers.
 rclone = "1.75.0"
 rg = "15.2.0"
 # Fast Lua linter.
@@ -76,7 +74,6 @@ rg = "15.2.0"
 shellcheck = "0.11.0"
 # Shell parser and formatter, provided as a fallback on non-Nix hosts.
 shfmt = "3.13.1"
-# Customizable prompt shared across different shells.
 starship = "1.26.0"
 # Opinionated Lua code formatter.
 stylua = "2.5.2"

@@ -31,7 +31,7 @@ A reproducible personal workstation setup built around:
 
 - `chezmoi` for dotfiles, templating, and bootstrap orchestration
 - `Nix` for declarative packages (`nix-darwin` on macOS + `flakey-profile` on macOS/Linux)
-- `aqua` + `mise` for CLI/runtime pinning outside Nix where practical (`codex` and `claude-code` are pinned in global `mise`)
+- `mise` for CLI/runtime pinning outside Nix where practical
 - Shared AI tooling for `Claude Code` and `Codex CLI`
 
 This is a real daily-driver setup, not a demo template. The README focuses on what is actually implemented in this repository today.
@@ -40,7 +40,7 @@ This is a real daily-driver setup, not a demo template. The README focuses on wh
 
 ## Highlights
 
-- Unified bootstrap pipeline (`.chezmoiscripts/00..10`) with idempotent post-apply maintenance
+- Unified bootstrap pipeline (`.chezmoiscripts/00..13`) with idempotent post-apply maintenance
 - Cross-platform package strategy:
   - Nix user packages on macOS/Linux
   - nix-darwin system config on macOS
@@ -49,7 +49,7 @@ This is a real daily-driver setup, not a demo template. The README focuses on wh
 - Multi-provider account switching for managed wrappers:
   - `claude-manage` / `claude-with`
   - `codex-manage` / `codex-with`
-- Automated dependency upkeep via GitHub Actions (versions, flake locks, aqua packages, mise tools)
+- Automated dependency upkeep via GitHub Actions and Renovate (versions, flake locks, mise tools)
 - `C1/C2/C3/C4` routing: advisory in `C1`, direct deterministic flow in `C2`, OpenSpec governance for `C3`/`C4`
 
 ---
@@ -57,7 +57,7 @@ This is a real daily-driver setup, not a demo template. The README focuses on wh
 ## Why This Repo
 
 - **Profiles everywhere**: `.chezmoidata/` drives `shared` / `work` / `private` packages across Nix, Homebrew, and MAS
-- **End-to-end bootstrap**: staged scripts from `00` to `11` keep setup deterministic and composable
+- **End-to-end bootstrap**: numbered stages keep setup deterministic and composable
 - **macOS polish**: nix-darwin system defaults, Homebrew + MAS integration, post-apply maintenance scripts
 - **Workflow guardrails**: pre-commit checks + Claude hooks to reduce risky edits and command misuse
 - **DX automation**: Justfile routines, fzf navigation helpers, AI-assisted commit flows
@@ -134,7 +134,7 @@ This repository combines `chezmoi` templating with Nix-based package management 
 - `chezmoi`: source-of-truth orchestration for scripts/templates
 - `nix-darwin` (macOS): system-level configuration
 - `flakey-profile` (macOS/Linux): user package profile
-- `aqua` + `mise`: CLI/runtime tooling layer outside Nix (`codex` and `claude-code` are managed by global `mise`)
+- `mise`: CLI/runtime tooling layer outside Nix
 - `dot_claude` + `dot_codex`: tool-specific global guidance and configuration
 
 | Component     | macOS          | Linux          |
@@ -154,7 +154,7 @@ This repository combines `chezmoi` templating with Nix-based package management 
 │   ├── nix.yaml                # Nix package sets (shared/work/private)
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
 │   └── versions.yaml           # Pinned tool/plugin revisions
-├── .chezmoiscripts/            # Bootstrap + maintenance pipeline (00..10)
+├── .chezmoiscripts/            # Bootstrap + maintenance pipeline (00..13)
 ├── nix-config/
 │   ├── flake.nix.tmpl
 │   └── modules/
@@ -165,7 +165,7 @@ This repository combines `chezmoi` templating with Nix-based package management 
 ├── dot_local/bin/              # CLI wrappers (Claude/Codex/keys)
 ├── dot_claude/                 # Claude global instructions/hooks/templates
 ├── dot_codex/                  # Codex global instructions/config/prompts
-├── private_dot_config/         # Tool configs (tmux, mise, aqua, gopass, ...)
+├── private_dot_config/         # Tool configs (tmux, mise, gopass, ...)
 ├── docs/                       # Focused guides
 └── tests/                      # Bootstrap/script regression tests
 ```
@@ -180,13 +180,12 @@ The `chezmoi` script chain is staged and numbered:
 2. `01` optionally restore encrypted keys-manage files (`useEncryption=true`)
 3. `02` macOS: apply nix-darwin system configuration
 4. `03` switch flakey-profile package profile
-5. `04` bootstrap gopass store (interactive clone)
-6. `05` install pinned aqua installer/version
-7. `06` install tools from `private_dot_config/aquaproj-aqua/aqua.yaml` (excluding `codex`/`claude-code`)
-8. `07a` install pinned `mise` from GitHub Release installer
-9. `07b` install runtimes/tools via `mise` (including global `codex`/`claude-code`)
-10. `08` install pinned nix-index database
-11. `10` periodic Homebrew update/upgrade (7-day interval)
+5. `07a` install pinned `mise` from the GitHub Release installer
+6. `07b` install runtimes and tools via global `mise`
+7. `07c` bootstrap the gopass store after `gopass` is installed
+8. `07d` generate zellij shell completion
+9. `08` install the pinned nix-index database
+10. `10` run periodic Homebrew update/upgrade (7-day interval)
 
 Set `skipNix=true` to skip the Nix bootstrap chain. That skips `00`, `02`, `03`, `08`, and any Nix fallback installs inside wrappers/scripts.
 
@@ -367,21 +366,16 @@ create_py_project   # Quick Python project setup with uv
 
 ## Package Management
 
-| Source         | Platform     | Description                 |
-| -------------- | ------------ | --------------------------- |
-| Nix packages   | macOS, Linux | Reproducible, rollback-able |
-| Homebrew casks | macOS only   | GUI applications            |
-| Mac App Store  | macOS only   | App Store exclusives        |
+| Source         | Platform     | Description                   |
+| -------------- | ------------ | ----------------------------- |
+| Nix packages   | macOS, Linux | Reproducible, rollback-able   |
+| mise tools     | macOS, Linux | Pinned CLI tools and runtimes |
+| Homebrew casks | macOS only   | GUI applications              |
+| Mac App Store  | macOS only   | App Store exclusives          |
 
 Package lists live in `.chezmoidata/` and support `shared` / `work` / `private` segmentation.
 
-After migrating `codex` and `claude-code` from `aqua` to `mise`, reclaim old `aqua` package data with:
-
-```bash
-aqua rm -m pl openai/codex anthropics/claude-code
-aqua vacuum -d 0
-du -sh "${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua/pkgs"
-```
+Global CLI and runtime pins live in `private_dot_config/mise/conf.d/managed-tools.toml` and are updated by Renovate's native mise manager.
 
 ---
 
@@ -437,7 +431,6 @@ See:
 - `.github/workflows/scheduler.yml` (daily trigger)
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/workflows/update-toolchains.yml` (auto-updates `aqua.yaml`)
 - `.github/renovate.json` (auto-updates `mise/conf.d` tool pins with Renovate's native `mise` manager)
 
 ---

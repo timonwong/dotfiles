@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
-TMPL="$ROOT/.chezmoiscripts/run_onchange_after_04_setup-gopass.sh.tmpl"
+TMPL="$ROOT/.chezmoiscripts/run_onchange_after_07c_setup-gopass.sh.tmpl"
 
 require_cmd() {
     command -v "$1" >/dev/null 2>&1

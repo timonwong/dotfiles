@@ -5,7 +5,7 @@ set -euo pipefail
 {{ $managedToolsRel := "private_dot_config/mise/conf.d/managed-tools.toml" -}}
 # {{ $managedToolsRel }}: {{ include $managedToolsRel | sha256sum }}
 
-echo ":: [07c] Generating zellij zsh completion"
+echo ":: [07d] Generating zellij zsh completion"
 
 completion_dir="$HOME/.config/sheldon/completions"
 completion_file="$completion_dir/_zellij"

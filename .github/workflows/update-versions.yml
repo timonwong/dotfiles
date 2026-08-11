@@ -27,18 +27,12 @@ jobs:
 
           nix_installer=$(gh release view --repo DeterminateSystems/nix-installer --json tagName -q '.tagName')
           nix_version=$(gh release view --repo DeterminateSystems/nix --json tagName -q '.tagName')
-          aqua_installer=$(gh release view --repo aquaproj/aqua-installer --json tagName -q '.tagName')
-          aqua_installer_sha256=$(curl_sha256 "https://raw.githubusercontent.com/aquaproj/aqua-installer/${aqua_installer}/aqua-installer")
-          aqua_version=$(gh release view --repo aquaproj/aqua --json tagName -q '.tagName')
           mise_version=$(gh release view --repo jdx/mise --json tagName -q '.tagName')
           mise_installer_sha256=$(curl_sha256 "https://github.com/jdx/mise/releases/download/${mise_version}/install.sh")
           nix_index_db=$(gh release view --repo nix-community/nix-index-database --json tagName -q '.tagName')
           {
             echo "nix_installer=$nix_installer"
             echo "nix_version=$nix_version"
-            echo "aqua_installer=$aqua_installer"
-            echo "aqua_installer_sha256=$aqua_installer_sha256"
-            echo "aqua_version=$aqua_version"
             echo "mise_version=$mise_version"
             echo "mise_installer_sha256=$mise_installer_sha256"
             echo "nix_index_db=$nix_index_db"
@@ -47,9 +41,6 @@ jobs:
         run: |
           sed -i 's/nixInstaller: .*/nixInstaller: ${{ steps.versions.outputs.nix_installer }}/' .chezmoidata/versions.yaml
           sed -i 's/nixVersion: .*/nixVersion: ${{ steps.versions.outputs.nix_version }}/' .chezmoidata/versions.yaml
-          sed -i 's/aquaInstaller: .*/aquaInstaller: ${{ steps.versions.outputs.aqua_installer }}/' .chezmoidata/versions.yaml
-          sed -i 's/aquaInstallerSha256: .*/aquaInstallerSha256: ${{ steps.versions.outputs.aqua_installer_sha256 }}/' .chezmoidata/versions.yaml
-          sed -i 's/aquaVersion: .*/aquaVersion: ${{ steps.versions.outputs.aqua_version }}/' .chezmoidata/versions.yaml
           sed -i 's/miseVersion: .*/miseVersion: ${{ steps.versions.outputs.mise_version }}/' .chezmoidata/versions.yaml
           sed -i 's/miseInstallerSha256: .*/miseInstallerSha256: ${{ steps.versions.outputs.mise_installer_sha256 }}/' .chezmoidata/versions.yaml
           sed -i 's/nixIndexDb: .*/nixIndexDb: ${{ steps.versions.outputs.nix_index_db }}/' .chezmoidata/versions.yaml
@@ -81,9 +72,6 @@ jobs:
             |---------|---------|
             | nix-installer | `${{ steps.versions.outputs.nix_installer }}` |
             | nix | `${{ steps.versions.outputs.nix_version }}` |
-            | aqua-installer | `${{ steps.versions.outputs.aqua_installer }}` |
-            | aqua-installer sha256 | `${{ steps.versions.outputs.aqua_installer_sha256 }}` |
-            | aqua | `${{ steps.versions.outputs.aqua_version }}` |
             | mise | `${{ steps.versions.outputs.mise_version }}` |
             | mise installer sha256 | `${{ steps.versions.outputs.mise_installer_sha256 }}` |
             | nix-index-database | `${{ steps.versions.outputs.nix_index_db }}` |

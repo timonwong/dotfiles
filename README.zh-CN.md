@@ -31,7 +31,7 @@
 
 - `chezmoi`：管理 dotfiles、模板和 bootstrap 编排
 - `Nix`：声明式包管理（macOS 用 `nix-darwin`，macOS/Linux 都用 `flakey-profile`）
-- `aqua` + `mise`：补充 Nix 之外的 CLI 与 runtime 版本固定（`codex` 与 `claude-code` 已切到全局 `mise`）
+- `mise`：补充 Nix 之外的 CLI 与 runtime 版本固定
 - `Claude Code` + `Codex CLI`：共享 AI 工具链
 
 这不是展示型模板，而是日常真实使用的配置。本文档只描述仓库当前已经实现的能力。
@@ -40,7 +40,7 @@
 
 ## 亮点
 
-- 统一 bootstrap 流程（`.chezmoiscripts/00..10`），并带有幂等维护步骤
+- 统一 bootstrap 流程（`.chezmoiscripts/00..13`），并带有幂等维护步骤
 - 跨平台包管理策略：
   - macOS/Linux 共用 Nix user packages
   - macOS 使用 `nix-darwin` 管理系统配置
@@ -49,7 +49,7 @@
 - Claude/Codex wrapper 的 provider 切换：
   - `claude-manage` / `claude-with`
   - `codex-manage` / `codex-with`
-- GitHub Actions 自动维护依赖版本（versions、flake lock、aqua packages、mise tools）
+- GitHub Actions 与 Renovate 自动维护依赖版本（versions、flake lock、mise tools）
 - `C1/C2/C3/C4` 路由模型：`C1` 只读分析，`C2` 确定性变更直改，`C3`/`C4` 走 OpenSpec 治理
 
 ---
@@ -57,7 +57,7 @@
 ## 为什么选择这个仓库
 
 - **Profile 全覆盖**：`.chezmoidata/` 统一驱动 `shared` / `work` / `private`，覆盖 Nix、Homebrew、MAS
-- **端到端引导**：`00..11` 阶段脚本把安装、配置、工具同步串成稳定流水线
+- **端到端引导**：编号阶段脚本把安装、配置、工具同步串成稳定流水线
 - **macOS 打磨**：nix-darwin 系统项、Homebrew / MAS 联动、应用后维护脚本
 - **工作流护栏**：pre-commit + Claude hooks 组合，降低危险操作概率
 - **DX 自动化**：Justfile、fzf 导航、AI 辅助提交流程
@@ -132,7 +132,7 @@
 - `chezmoi`：模板与脚本编排中枢
 - `nix-darwin`（macOS）：系统层声明式配置
 - `flakey-profile`（macOS/Linux）：用户包 Profile
-- `aqua` + `mise`：Nix 外 CLI/runtime 管理层（`codex` 与 `claude-code` 由全局 `mise` 管理）
+- `mise`：Nix 外 CLI/runtime 管理层
 - `dot_claude` + `dot_codex`：AI 工具全局策略与配置
 
 | 组件     | macOS          | Linux          |
@@ -152,7 +152,7 @@
 │   ├── nix.yaml                # Nix 包集合（shared/work/private）
 │   ├── homebrew.yaml           # Homebrew taps/brews/casks/MAS apps
 │   └── versions.yaml           # 工具与插件版本固定
-├── .chezmoiscripts/            # Bootstrap 与维护脚本链（00..10）
+├── .chezmoiscripts/            # Bootstrap 与维护脚本链（00..13）
 ├── nix-config/
 │   ├── flake.nix.tmpl
 │   └── modules/
@@ -163,7 +163,7 @@
 ├── dot_local/bin/              # CLI 封装脚本（Claude/Codex/keys）
 ├── dot_claude/                 # Claude 全局指令、hooks、模板
 ├── dot_codex/                  # Codex 全局指令、配置、prompts
-├── private_dot_config/         # 工具配置（tmux、mise、aqua、gopass 等）
+├── private_dot_config/         # 工具配置（tmux、mise、gopass 等）
 ├── docs/                       # 专项文档
 └── tests/                      # bootstrap/脚本回归测试
 ```
@@ -178,13 +178,12 @@
 2. `01` 可选恢复 keys-manage 加密文件（`useEncryption=true`）
 3. `02` macOS：应用 nix-darwin 系统配置
 4. `03` 切换 flakey-profile 包配置
-5. `04` 初始化 gopass store（交互式 clone）
-6. `05` 安装固定版本的 aqua installer/aqua
-7. `06` 根据 `private_dot_config/aquaproj-aqua/aqua.yaml` 安装工具（不含 `codex`/`claude-code`）
-8. `07a` 通过 GitHub Release installer 安装固定版本 `mise`
-9. `07b` 通过 `mise` 安装 runtime 与工具（含全局 `codex`/`claude-code`）
-10. `08` 下载固定版本 nix-index 数据库
-11. `10` 周期性 Homebrew 更新（7 天间隔）
+5. `07a` 通过 GitHub Release installer 安装固定版本 `mise`
+6. `07b` 通过全局 `mise` 安装 runtime 与工具
+7. `07c` 在 `gopass` 安装完成后初始化密码库
+8. `07d` 生成 zellij shell completion
+9. `08` 下载固定版本 nix-index 数据库
+10. `10` 周期性 Homebrew 更新（7 天间隔）
 
 设置 `skipNix=true` 后，会跳过 Nix bootstrap 链。覆盖 `00`、`02`、`03`、`08`，以及脚本和 wrapper 里的 Nix 回退安装路径。
 
@@ -365,21 +364,16 @@ create_py_project   # 使用 uv 快速初始化 Python 项目
 
 ## 包管理
 
-| 来源           | 平台         | 说明               |
-| -------------- | ------------ | ------------------ |
-| Nix packages   | macOS, Linux | 可复现、可回滚     |
-| Homebrew casks | 仅 macOS     | GUI 应用           |
-| Mac App Store  | 仅 macOS     | App Store 独占应用 |
+| 来源           | 平台         | 说明                      |
+| -------------- | ------------ | ------------------------- |
+| Nix packages   | macOS, Linux | 可复现、可回滚            |
+| mise tools     | macOS, Linux | 固定版本的 CLI 与 runtime |
+| Homebrew casks | 仅 macOS     | GUI 应用                  |
+| Mac App Store  | 仅 macOS     | App Store 独占应用        |
 
 包清单统一定义在 `.chezmoidata/`，并按 `shared` / `work` / `private` 分层。
 
-将 `codex` 和 `claude-code` 从 `aqua` 迁移到 `mise` 后，可用以下命令回收旧 `aqua` 包数据：
-
-```bash
-aqua rm -m pl openai/codex anthropics/claude-code
-aqua vacuum -d 0
-du -sh "${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua/pkgs"
-```
+全局 CLI 与 runtime pin 统一放在 `private_dot_config/mise/conf.d/managed-tools.toml`，由 Renovate 原生 mise manager 更新。
 
 ---
 
@@ -435,7 +429,6 @@ chezmoi init --apply --promptBool skipNix=true timonwong
 - `.github/workflows/scheduler.yml`（每日触发）
 - `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/workflows/update-toolchains.yml`（自动更新 `aqua.yaml`）
 - `.github/renovate.json`（通过 Renovate 原生 `mise` manager 自动更新 `mise/conf.d` 工具版本）
 
 ---

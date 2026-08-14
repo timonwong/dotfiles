@@ -47,6 +47,7 @@ gopass = "1.16.1"
 # Command-line benchmarking tool.
 hyperfine = "1.20.0"
 "github:timonwong/jiro" = "0.8.0"
+"github:timonwong/skimi" = "0.3.0"
 jq = "1.8.2"
 # Command runner for project recipes.
 just = "1.58.0"

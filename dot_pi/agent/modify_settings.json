@@ -2,6 +2,14 @@
 {{- $config := .chezmoi.stdin | default "{}" | fromJson | default dict -}}
 {{- $config = mergeOverwrite $config (dict
   "theme" "dark"
+  "markdown" (dict
+    "mermaid" "streaming"
+  )
+  "steeringMode" "one-at-a-time"
+  "terminal" (dict
+    "showTerminalProgress" true
+  )
+  "tuiMode" "fullscreen"
   "packages" (list
     "npm:nowledge-mem-pi"
     "npm:pi-agent-browser-native"

@@ -1,0 +1,21 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $config := .chezmoi.stdin | default "{}" | fromJson | default dict -}}
+{{- $config = mergeOverwrite $config (dict
+  "theme" "dark"
+  "packages" (list
+    "npm:nowledge-mem-pi"
+    "npm:pi-agent-browser-native"
+    "npm:@juicesharp/rpiv-ask-user-question"
+    "npm:pi-subagents"
+    "npm:pi-prompt-template-model"
+    "npm:pi-tool-display"
+    "npm:@ff-labs/pi-fff"
+    "npm:pi-context-usage"
+    "npm:pi-smart-fetch"
+    "npm:pi-smart-web-search"
+    "npm:@narumitw/pi-btw"
+    "npm:pi-rtk-optimizer"
+    "npm:pi-effort"
+  )
+) -}}
+{{- $config | toPrettyJson -}}

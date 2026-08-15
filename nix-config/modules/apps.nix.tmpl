@@ -41,6 +41,10 @@ in
     EDITOR = "nvim";
     HOMEBREW_API_DOMAIN = "https://mirrors.ustc.edu.cn/homebrew-bottles/api";
     HOMEBREW_BOTTLE_DOMAIN = "https://mirrors.ustc.edu.cn/homebrew-bottles";
+    # nix-managed brew cannot self-update via git (its repo is a read-only store path,
+    # and the managed stub repo breaks brew's git-based update-report writes).
+    # Skipping auto-update avoids that failure; brew updates come from nix itself.
+    HOMEBREW_NO_AUTO_UPDATE = "1";
   };
 
   # Note: To make this work, Homebrew needs to be installed manually, see https://brew.sh

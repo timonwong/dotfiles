@@ -49,6 +49,12 @@ printf '%s\n' "$rendered" | grep -q 'HOMEBREW_NO_INSTALL_UPGRADE = "1";' || {
     exit 1
 }
 
+printf '%s\n' "$rendered" | grep -q 'HOMEBREW_NO_AUTO_UPDATE = "1";' || {
+    echo "expected Homebrew to skip self-update (nix-managed brew cannot git-update)" >&2
+    printf '%s\n' "$rendered" >&2
+    exit 1
+}
+
 if printf '%s\n' "$rendered" | grep -q 'HOMEBREW_NO_INSTALL_FROM_API'; then
     echo "expected Homebrew activation to use API metadata" >&2
     printf '%s\n' "$rendered" >&2

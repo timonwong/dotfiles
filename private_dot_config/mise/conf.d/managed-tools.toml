@@ -6,7 +6,7 @@
 actionlint = "1.7.12"
 # File encryption tool built around simple, explicit age keys.
 "aqua:FiloSottile/age" = "1.3.1"
-apko = "1.2.36"
+apko = "1.2.37"
 "github:aria2/aria2" = "release-1.37.0"
 # Searchable shell history database and interactive history UI.
 "aqua:atuinsh/atuin" = "18.19.0"
@@ -62,7 +62,7 @@ lua-language-server = "3.19.1"
 melange = "0.59.1"
 "aqua:neovim/neovim" = "0.12.4"
 # Command-line client for Nowledge Mem.
-"pipx:nmem-cli" = "0.10.63"
+"pipx:nmem-cli" = "0.10.64"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.63.0"
 # Pi is a minimal terminal coding harness.

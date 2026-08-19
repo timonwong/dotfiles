@@ -24,7 +24,8 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 SOURCE_ROOT="$TMP_ROOT/source"
 CONFIG="$XDG_CONFIG_HOME/chezmoi/chezmoi.toml"
-mkdir -p "$SOURCE_ROOT" "$(dirname "$CONFIG")"
+mkdir -p "$SOURCE_ROOT/.chezmoidata" "$(dirname "$CONFIG")"
+cp "$ROOT/.chezmoidata/pi-models.yaml" "$SOURCE_ROOT/.chezmoidata/pi-models.yaml"
 
 cat >"$CONFIG" <<'EOF'
 [data]
@@ -113,22 +114,25 @@ printf '%s' "$rendered_models" | jq -e '
   .providers.cpa.baseUrl == "http://localhost:8317/v1" and
   .providers.cpa.customProviderField == "keep" and
   .providers.cpa.compact.maxTokensField == "max_tokens" and
-  (.providers.cpa.models | length) == 2 and
-  .providers.cpa.models[0].id == "deepseek-v4-flash"
+  (.providers.cpa.models | length) == 9 and
+  .providers.cpa.models[0].id == "deepseek-v4-flash" and
+  .providers.cpa.models[2].id == "gpt-5.3-codex-spark" and
+  .providers.cpa.models[8].id == "gpt-5.6-terra"
 ' >/dev/null
 
 empty_models="$(render_models "")"
 printf '%s' "$empty_models" | jq -e '
   (.providers.cpa.apiKey? // null) == null and
   .providers.cpa.baseUrl == "http://localhost:8317/v1" and
-  (.providers.cpa.models | length) == 2
+  (.providers.cpa.models | length) == 9
 ' >/dev/null
 
 # Exercise the actual modify_ target type in an isolated destination.
 APPLY_SOURCE="$TMP_ROOT/apply-source"
 APPLY_HOME="$TMP_ROOT/apply-home"
 APPLY_CONFIG="$TMP_ROOT/apply-chezmoi.toml"
-mkdir -p "$APPLY_SOURCE/dot_pi/agent" "$APPLY_HOME/.pi/agent"
+mkdir -p "$APPLY_SOURCE/.chezmoidata" "$APPLY_SOURCE/dot_pi/agent" "$APPLY_HOME/.pi/agent"
+cp "$ROOT/.chezmoidata/pi-models.yaml" "$APPLY_SOURCE/.chezmoidata/pi-models.yaml"
 cp "$SETTINGS_TEMPLATE" "$APPLY_SOURCE/dot_pi/agent/modify_settings.json"
 cp "$MODELS_TEMPLATE" "$APPLY_SOURCE/dot_pi/agent/modify_models.json"
 cat >"$APPLY_CONFIG" <<EOF
@@ -155,7 +159,7 @@ jq -e '
   .providers.cpa.apiKey == "user-api-key" and
   .providers.cpa.customProviderField == "keep" and
   .providers.cpa.baseUrl == "http://localhost:8317/v1" and
-  (.providers.cpa.models | length) == 2
+  (.providers.cpa.models | length) == 9
 ' "$APPLY_HOME/.pi/agent/models.json" >/dev/null
 
 if rg -q --fixed-strings 'onepasswordRead' "$ROOT/dot_pi"; then

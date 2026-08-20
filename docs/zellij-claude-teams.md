@@ -7,6 +7,7 @@ This repo vendors the runtime files from [`stanislc/zellij-claude-teams`](https:
 - Repo: `https://github.com/stanislc/zellij-claude-teams`
 - Commit: `020f2a5ce7c38d888fc94cf18472aa816815e120`
 - Upstream date: `2026-04-19`
+- Local compatibility patch: Claude Code v2.1.190+ `cat` placeholder and `respawn-pane` flow (see GitHub issue #4)
 
 ## Managed Targets
 

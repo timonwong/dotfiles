@@ -113,4 +113,19 @@ if [[ -s "$stdout_file" ]]; then
     exit 1
 fi
 
+# Claude Code v2.1.190+ creates a pane with a `cat` placeholder and then
+# respawns it with the real command. Verify the placeholder is not delivered
+# and respawn-pane preserves shell operators such as `&&` verbatim.
+RESPAWN_STATE="$TMP_ROOT/respawn-state"
+mkdir -p "$RESPAWN_STATE"
+mkfifo "$RESPAWN_STATE/3.fifo"
+cat "$RESPAWN_STATE/3.fifo" >"$RESPAWN_STATE/3.received" &
+FIFO_READER_PID=$!
+touch "$RESPAWN_STATE/3.named"
+export ZELLIJ_TMUX_SHIM_STATE="$RESPAWN_STATE"
+export ZELLIJ_TMUX_SHIM_DIR="$HOME/.local/share/zellij-tmux-shim"
+"$HOME/.local/share/zellij-tmux-shim/bin/tmux" respawn-pane -k -t %3 -- cd /tmp '&&' env FOO=bar claude --agent-name X
+wait "$FIFO_READER_PID"
+[[ "$(<"$RESPAWN_STATE/3.received")" == 'cd /tmp && env FOO=bar claude --agent-name X' ]]
+
 echo "test_zellij_tmux_shim: OK"

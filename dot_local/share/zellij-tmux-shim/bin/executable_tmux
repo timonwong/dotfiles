@@ -351,7 +351,9 @@ split-window)
 
     # If the caller passed a command (not via send-keys), deliver it now
     # and wait for the wrapper to rename the pane before returning focus.
-    if [ ${#sw_command[@]} -gt 0 ]; then
+    # Claude Code v2.1.190+ creates the pane with a `cat` placeholder and
+    # replaces it through respawn-pane. Leave the FIFO open for that command.
+    if [ ${#sw_command[@]} -gt 0 ] && [ "${sw_command[*]}" != "cat" ]; then
         local_fifo="${STATE_DIR}/${PANE_KEY}.fifo"
         if [ -p "$local_fifo" ]; then
             serialize_command "${sw_command[@]}" > "$local_fifo"
@@ -618,8 +620,10 @@ new-window)
         exit 1
     fi
 
-    # Deliver command if provided, then wait for rename and refocus
-    if [ ${#nw_command[@]} -gt 0 ]; then
+    # Deliver command if provided, then wait for rename and refocus.
+    # See split-window above: respawn-pane supplies the real command after
+    # Claude Code's `cat` placeholder.
+    if [ ${#nw_command[@]} -gt 0 ] && [ "${nw_command[*]}" != "cat" ]; then
         local_fifo="${STATE_DIR}/${PANE_KEY}.fifo"
         if [ -p "$local_fifo" ]; then
             serialize_command "${nw_command[@]}" > "$local_fifo"
@@ -645,6 +649,56 @@ list-windows)
         esac
     done
     echo "main"
+    exit 0
+    ;;
+
+# --- respawn-pane ---
+# Claude Code creates a pane with a `cat` placeholder, then calls
+# respawn-pane with the real agent command. Feed that command to the wrapper
+# which is still waiting on the pane FIFO.
+respawn-pane)
+    rp_target=""
+    rp_command=()
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -k) shift ;;
+            -t) rp_target="${2:-}"; shift 2 || shift ;;
+            --)
+                shift
+                rp_command=("$@")
+                break
+                ;;
+            *)
+                rp_command=("$@")
+                break
+                ;;
+        esac
+    done
+
+    if [ -z "$rp_target" ]; then
+        log_debug "respawn-pane: no target"
+        exit 0
+    fi
+    PANE_KEY="${rp_target#%}"
+    validate_pane_key "$PANE_KEY" || { log_debug "respawn-pane: invalid pane key"; exit 1; }
+
+    if [ ${#rp_command[@]} -eq 0 ]; then
+        log_debug "respawn-pane: no command for ${rp_target}"
+        exit 0
+    fi
+
+    FIFO_PATH="${STATE_DIR}/${PANE_KEY}.fifo"
+    # The args form a ready-to-run shell line (for example, `cd X && env ...`).
+    # Do not use serialize_command here: %q escaping would mangle shell operators.
+    COMMAND_TEXT="${rp_command[*]}"
+    log_debug "respawn-pane: target=${rp_target} command='${COMMAND_TEXT}'"
+    if [ -p "$FIFO_PATH" ]; then
+        echo "$COMMAND_TEXT" > "$FIFO_PATH"
+        log_debug "respawn-pane: delivered to FIFO"
+        wait_for_named "$PANE_KEY"
+    else
+        log_debug "respawn-pane: no FIFO for ${rp_target} (wrapper already running?)"
+    fi
     exit 0
     ;;
 

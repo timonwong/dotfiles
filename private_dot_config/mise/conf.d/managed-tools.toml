@@ -63,6 +63,8 @@ melange = "0.59.1"
 "aqua:neovim/neovim" = "0.12.4"
 # Command-line client for Nowledge Mem.
 "pipx:nmem-cli" = "0.10.65"
+# Cloudflare Workers and Pages command-line tool.
+"npm:wrangler" = "4.124.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.64.0"
 # Pi is a minimal terminal coding harness.

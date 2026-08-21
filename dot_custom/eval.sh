@@ -25,12 +25,13 @@ eval_if_mise_activate() {
     [[ -n "$out" ]] && eval "$out"
 }
 
-# Initialize shell tools
+# Activate mise before initializing tools managed by mise so their binaries are
+# available when their shell hooks are generated.
+eval_if_mise_activate
 eval_if_cmd_exists "starship" starship init zsh
 eval_if_cmd_exists "fzf" fzf --zsh
 # Load sheldon after fzf so fzf-tab keeps Tab completion ownership.
 eval_if_cmd_exists "sheldon" sheldon source
 eval_if_cmd_exists "zoxide" zoxide init zsh
-eval_if_mise_activate
 eval_if_cmd_exists "atuin" atuin init zsh
 eval_if_cmd_exists "direnv" direnv hook zsh

@@ -39,3 +39,9 @@ packages:
 {{- if not $nowledgeMemManaged }}
   - repo: git@github.com:timonwong/private-ai-skills.git
 {{- end }}
+  - repo: git@github.com:timonwong/private-ai-skills.git/alauda
+    skills:
+      - builders-publish-errata
+    agents:
+      includes:
+        - codex

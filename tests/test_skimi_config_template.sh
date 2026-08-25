@@ -46,6 +46,9 @@ assert_render_contains "$unmanaged_rendered" '    target_dir: mattpocock'
 assert_render_contains "$unmanaged_rendered" '      - setup-matt-pocock-skills'
 assert_render_contains "$unmanaged_rendered" '      - tdd'
 assert_render_contains "$unmanaged_rendered" '      - grill-me'
+assert_render_contains "$unmanaged_rendered" '  - repo: git@github.com:timonwong/private-ai-skills.git/alauda'
+assert_render_contains "$unmanaged_rendered" '      - builders-publish-errata'
+assert_render_contains "$unmanaged_rendered" '        - codex'
 
 managed_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":true}')"
 if printf '%s\n' "$managed_rendered" | grep -qxF '  - repo: git@github.com:timonwong/private-ai-skills.git'; then
@@ -55,5 +58,8 @@ if printf '%s\n' "$managed_rendered" | grep -qxF '  - repo: git@github.com:timon
 fi
 assert_render_contains "$managed_rendered" '  - repo: mattpocock/skills'
 assert_render_contains "$managed_rendered" '    target_dir: mattpocock'
+assert_render_contains "$managed_rendered" '  - repo: git@github.com:timonwong/private-ai-skills.git/alauda'
+assert_render_contains "$managed_rendered" '      - builders-publish-errata'
+assert_render_contains "$managed_rendered" '        - codex'
 
 echo "test_skimi_config_template: OK"

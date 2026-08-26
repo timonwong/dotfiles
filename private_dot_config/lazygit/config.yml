@@ -163,11 +163,12 @@ git:
   # 1) difftastic for structured code diffs
   # 2) delta for text-oriented review
   # 3) less as final fallback
-  pagers:
-    - externalDiffCommand: difft --color=always
+  diffRenderers:
+    - command: difft --color=always
       colorArg: never
-    - pager: 'delta --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'
-    - pager: "less -FRX"
+      type: extDiff
+    - command: 'delta --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'
+    - command: "less -FRX"
   # Config relating to committing
   commit:
     # If true, pass '--signoff' flag when committing
@@ -370,6 +371,7 @@ keybinding:
     increaseRenameSimilarityThreshold: )
     decreaseRenameSimilarityThreshold: (
     openDiffTool: <c-t>
+    newWorktree: w
   status:
     checkForUpdate: u
     recentRepos: <enter>
@@ -409,8 +411,6 @@ keybinding:
     setUpstream: u
     fetchRemote: f
     sortOrder: s
-  worktrees:
-    viewWorktreeOptions: w
   commits:
     squashDown: s
     renameCommit: r

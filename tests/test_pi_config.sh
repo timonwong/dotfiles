@@ -117,7 +117,14 @@ printf '%s' "$rendered_models" | jq -e '
   (.providers.cpa.models | length) == 9 and
   .providers.cpa.models[0].id == "deepseek-v4-flash" and
   .providers.cpa.models[2].id == "gpt-5.3-codex-spark" and
-  .providers.cpa.models[8].id == "gpt-5.6-terra"
+  .providers.cpa.models[8].id == "gpt-5.6-terra" and
+  ([.providers.cpa.models[] | select(.id | startswith("gpt-")) |
+    .thinkingLevelMap.minimal == "low" and
+    .thinkingLevelMap.low == "low" and
+    .thinkingLevelMap.medium == "medium" and
+    .thinkingLevelMap.high == "high" and
+    .thinkingLevelMap.xhigh == "xhigh" and
+    .thinkingLevelMap.max == "max"] | all)
 ' >/dev/null
 
 empty_models="$(render_models "")"

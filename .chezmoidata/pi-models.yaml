@@ -68,11 +68,11 @@ pi:
         reasoning: true
         thinkingLevelMap:
           minimal: low
-          low: null
-          medium: null
-          high: null
+          low: low
+          medium: medium
+          high: high
           xhigh: xhigh
-          max: null
+          max: max
         cost:
           input: 1.75
           output: 14
@@ -90,11 +90,11 @@ pi:
         reasoning: true
         thinkingLevelMap:
           minimal: low
-          low: null
-          medium: null
-          high: null
+          low: low
+          medium: medium
+          high: high
           xhigh: xhigh
-          max: null
+          max: max
         cost:
           input: 2.5
           output: 15
@@ -119,11 +119,11 @@ pi:
         reasoning: true
         thinkingLevelMap:
           minimal: low
-          low: null
-          medium: null
-          high: null
+          low: low
+          medium: medium
+          high: high
           xhigh: xhigh
-          max: null
+          max: max
         cost:
           input: 0.75
           output: 4.5
@@ -142,11 +142,11 @@ pi:
         reasoning: true
         thinkingLevelMap:
           minimal: low
-          low: null
-          medium: null
-          high: null
+          low: low
+          medium: medium
+          high: high
           xhigh: xhigh
-          max: null
+          max: max
         cost:
           input: 5
           output: 30
@@ -171,9 +171,9 @@ pi:
         reasoning: true
         thinkingLevelMap:
           minimal: low
-          low: null
-          medium: null
-          high: null
+          low: low
+          medium: medium
+          high: high
           xhigh: xhigh
           max: max
         cost:
@@ -201,9 +201,9 @@ pi:
         reasoning: true
         thinkingLevelMap:
           minimal: low
-          low: null
-          medium: null
-          high: null
+          low: low
+          medium: medium
+          high: high
           xhigh: xhigh
           max: max
         cost:
@@ -231,9 +231,9 @@ pi:
         reasoning: true
         thinkingLevelMap:
           minimal: low
-          low: null
-          medium: null
-          high: null
+          low: low
+          medium: medium
+          high: high
           xhigh: xhigh
           max: max
         cost:

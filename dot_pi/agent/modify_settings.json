@@ -21,9 +21,12 @@
     "npm:pi-context-usage"
     "npm:pi-smart-fetch"
     "npm:pi-smart-web-search"
-    "npm:@narumitw/pi-btw"
+    "npm:@fradser/pi-btw"
     "npm:pi-rtk-optimizer"
-    "npm:pi-effort"
+    "npm:@fradser/pi-vision"
+    "npm:@fradser/pi-monitor"
+    "npm:@fradser/pi-utils"
+    "npm:@fradser/pi-agent-teams"
   )
 ) -}}
 {{- $config | toPrettyJson -}}

@@ -65,8 +65,16 @@ existing_settings='{
 rendered_settings="$(render_settings "$existing_settings")"
 printf '%s' "$rendered_settings" | jq -e '
   .theme == "dark" and
-  (.packages | length) == 13 and
-  (.packages | index("npm:pi-effort")) != null and
+  (.packages | length) == 16 and
+  (.packages | index("npm:pi-effort")) == null and
+  (.packages | index("npm:@narumitw/pi-btw")) == null and
+  (.packages | index("npm:@fradser/pi-btw")) != null and
+  (.packages | index("npm:@99percentpeople/pi-thinking-fold")) == null and
+  (.packages | index("npm:pi-vision-handoff")) == null and
+  (.packages | index("npm:@fradser/pi-vision")) != null and
+  (.packages | index("npm:@fradser/pi-monitor")) != null and
+  (.packages | index("npm:@fradser/pi-utils")) != null and
+  (.packages | index("npm:@fradser/pi-agent-teams")) != null and
   .lastChangelogVersion == "0.84.1" and
   .defaultProvider == "user-provider" and
   .defaultModel == "user-model" and
@@ -77,7 +85,7 @@ printf '%s' "$rendered_settings" | jq -e '
 empty_settings="$(render_settings "")"
 printf '%s' "$empty_settings" | jq -e '
   (.theme == "dark") and
-  ((.packages | length) == 13) and
+  ((.packages | length) == 16) and
   (has("lastChangelogVersion") | not) and
   (has("defaultProvider") | not) and
   (has("defaultModel") | not) and

@@ -32,7 +32,6 @@ if command -v bat >/dev/null 2>&1; then
     alias byaml='bat -lyaml'
 fi
 
-alias_if_cmd_exists "tldr" "man"
 alias_if_cmd_exists "hyperfine" "hf"
 alias_if_cmd_exists "lazygit" "lg"
 

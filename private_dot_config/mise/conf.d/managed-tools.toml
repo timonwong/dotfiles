@@ -15,7 +15,7 @@ bat = "0.26.1"
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.0"
-"claude-code" = "2.1.247"
+"claude-code" = "2.1.251"
 "aqua:openai/codex" = "0.146.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.0"
@@ -41,7 +41,7 @@ glab = "1.115.0"
 gitleaks = "8.30.1"
 go = "1.27.0"
 # Aggregated runner for fast Go linters.
-golangci-lint = "2.13.1"
+golangci-lint = "2.13.2"
 # Team-oriented command-line password manager.
 gopass = "1.16.1"
 # Command-line benchmarking tool.
@@ -64,11 +64,11 @@ melange = "0.59.2"
 # Command-line client for Nowledge Mem.
 "pipx:nmem-cli" = "0.10.73"
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.127.0"
+"npm:wrangler" = "4.127.1"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.65.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "0.84.3"
+"npm:@earendil-works/pi-coding-agent" = "0.84.4"
 rclone = "1.75.0"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.
@@ -80,7 +80,7 @@ rtk = "0.46.0"
 # Static analyzer for shell scripts.
 shellcheck = "0.11.0"
 # Shell parser and formatter, provided as a fallback on non-Nix hosts.
-shfmt = "3.13.1"
+shfmt = "3.14.0"
 starship = "1.26.0"
 # Opinionated Lua code formatter.
 stylua = "2.5.2"
@@ -101,6 +101,6 @@ tree-sitter = "0.26.13"
 yazi = "26.8.15"
 yq = "4.53.6"
 # Terminal workspace and multiplexer.
-zellij = "0.45.0"
+zellij = "0.45.1"
 # Smarter cd command backed by a directory database.
 zoxide = "0.10.0"

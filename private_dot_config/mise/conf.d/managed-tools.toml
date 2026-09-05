@@ -14,11 +14,11 @@ bat = "0.26.1"
 # Adds bat-powered commands such as batdiff, batgrep, and batman.
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
-"bun" = "1.4.0"
-"claude-code" = "2.1.257"
+"bun" = "1.4.2"
+"claude-code" = "2.1.261"
 "aqua:openai/codex" = "0.146.0"
 # Inspects and modifies container images and registries.
-crane = "0.22.0"
+crane = "0.22.1"
 # Syntax-highlighting pager for Git, diff, and grep output.
 delta = "0.19.2"
 # Syntax-aware structural diff tool.
@@ -33,7 +33,7 @@ fastfetch = "2.68.1"
 # Fast, user-friendly replacement for find.
 fd = "10.5.0"
 fzf = "0.74.3"
-gh = "2.99.0"
+gh = "2.100.0"
 git-lfs = "3.8.0"
 # GitLab command-line client.
 glab = "1.116.0"
@@ -59,24 +59,24 @@ lazygit = "0.64.1"
 # Language Server Protocol implementation for Lua.
 lua-language-server = "3.19.1"
 # Builds APK packages from declarative YAML recipes.
-melange = "0.59.3"
+melange = "0.59.4"
 "aqua:neovim/neovim" = "0.12.5"
 # Command-line client for Nowledge Mem.
-"pipx:nmem-cli" = "0.10.76"
+"pipx:nmem-cli" = "0.10.78"
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.128.0"
+"npm:wrangler" = "4.129.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.66.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "0.84.4"
-rclone = "1.75.0"
+"npm:@earendil-works/pi-coding-agent" = "0.85.0"
+rclone = "1.75.1"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.
-rtk = "0.46.0"
+rtk = "v0.48.0"
 # Fast Lua linter.
 "aqua:Kampfkarren/selene" = "0.31.0"
 # Smart tmux session manager.
-"aqua:joshmedeski/sesh" = "2.28.0"
+"aqua:joshmedeski/sesh" = "2.29.0"
 # Static analyzer for shell scripts.
 shellcheck = "0.11.0"
 # Shell parser and formatter, provided as a fallback on non-Nix hosts.

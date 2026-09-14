@@ -47,7 +47,7 @@ if cmp -s "$RENDERED_V1" "$RENDERED_V2"; then
 fi
 
 RENDERED="$TMP_ROOT/mise-install.sh"
-chezmoi execute-template --config "$HOME/.config/chezmoi/chezmoi.toml" --source "$ROOT" <"$TMPL" >"$RENDERED"
+chezmoi execute-template --config "$HOME/.config/chezmoi/chezmoi.toml" --source "$FINGERPRINT_SOURCE" <"$FINGERPRINT_SOURCE/.chezmoiscripts/run_onchange_after_07b_mise-install-tools.sh.tmpl" >"$RENDERED"
 chmod +x "$RENDERED"
 
 BIN="$TMP_ROOT/bin"

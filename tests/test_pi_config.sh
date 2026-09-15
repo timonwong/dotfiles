@@ -122,10 +122,24 @@ printf '%s' "$rendered_models" | jq -e '
   .providers.cpa.baseUrl == "http://localhost:8317/v1" and
   .providers.cpa.customProviderField == "keep" and
   .providers.cpa.compact.maxTokensField == "max_tokens" and
-  (.providers.cpa.models | length) == 9 and
+  (.providers.cpa.models | length) == 11 and
   .providers.cpa.models[0].id == "deepseek-v4-flash" and
   .providers.cpa.models[2].id == "gpt-5.3-codex-spark" and
   .providers.cpa.models[8].id == "gpt-5.6-terra" and
+  .providers.cpa.models[9].id == "gpt-6-astra" and
+  .providers.cpa.models[10].id == "grok-4.6" and
+  .providers.cpa.models[9].thinkingLevelMap.minimal == "low" and
+  .providers.cpa.models[9].thinkingLevelMap.low == "low" and
+  .providers.cpa.models[9].thinkingLevelMap.medium == "medium" and
+  .providers.cpa.models[9].thinkingLevelMap.high == "high" and
+  .providers.cpa.models[9].thinkingLevelMap.xhigh == "xhigh" and
+  .providers.cpa.models[9].thinkingLevelMap.max == "max" and
+  .providers.cpa.models[10].thinkingLevelMap.minimal == null and
+  .providers.cpa.models[10].thinkingLevelMap.low == "low" and
+  .providers.cpa.models[10].thinkingLevelMap.medium == "medium" and
+  .providers.cpa.models[10].thinkingLevelMap.high == "high" and
+  .providers.cpa.models[10].thinkingLevelMap.xhigh == "xhigh" and
+  .providers.cpa.models[10].thinkingLevelMap.max == null and
   ([.providers.cpa.models[] | select(.id | startswith("gpt-")) |
     .thinkingLevelMap.minimal == "low" and
     .thinkingLevelMap.low == "low" and
@@ -139,7 +153,7 @@ empty_models="$(render_models "")"
 printf '%s' "$empty_models" | jq -e '
   (.providers.cpa.apiKey? // null) == null and
   .providers.cpa.baseUrl == "http://localhost:8317/v1" and
-  (.providers.cpa.models | length) == 9
+  (.providers.cpa.models | length) == 11
 ' >/dev/null
 
 # Exercise the actual modify_ target type in an isolated destination.
@@ -174,7 +188,7 @@ jq -e '
   .providers.cpa.apiKey == "user-api-key" and
   .providers.cpa.customProviderField == "keep" and
   .providers.cpa.baseUrl == "http://localhost:8317/v1" and
-  (.providers.cpa.models | length) == 9
+  (.providers.cpa.models | length) == 11
 ' "$APPLY_HOME/.pi/agent/models.json" >/dev/null
 
 if rg -q --fixed-strings 'onepasswordRead' "$ROOT/dot_pi"; then

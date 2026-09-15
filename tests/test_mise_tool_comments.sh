@@ -68,6 +68,7 @@ require_tool_comments(
     {
         "helm",
         "node",
+        "pnpm",
         "python",
         "yarn",
     },

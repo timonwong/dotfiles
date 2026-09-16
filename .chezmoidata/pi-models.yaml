@@ -59,27 +59,6 @@ pi:
             reasoning_effort:
               $var: thinking.effort
               omitWhenOff: true
-      - id: gpt-5.3-codex-spark
-        name: GPT-5.3 Codex Spark
-        input:
-          - text
-        contextWindow: 128000
-        maxTokens: 128000
-        reasoning: true
-        thinkingLevelMap:
-          minimal: low
-          low: low
-          medium: medium
-          high: high
-          xhigh: xhigh
-          max: max
-        cost:
-          input: 1.75
-          output: 14
-          cacheRead: 0.175
-          cacheWrite: 0
-        compat:
-          supportsOpenAIGrammarTools: true
       - id: gpt-5.4
         name: GPT-5.4
         input:

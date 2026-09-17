@@ -79,6 +79,8 @@ printf '%s' "$rendered_settings" | jq -e '
   .defaultProvider == "user-provider" and
   .defaultModel == "user-model" and
   .defaultThinkingLevel == "medium" and
+  .retry.maxRetries == 5 and
+  .retry.baseDelayMs == 5000 and
   .customSetting == true
 ' >/dev/null
 
@@ -89,7 +91,9 @@ printf '%s' "$empty_settings" | jq -e '
   (has("lastChangelogVersion") | not) and
   (has("defaultProvider") | not) and
   (has("defaultModel") | not) and
-  (has("defaultThinkingLevel") | not)
+  (has("defaultThinkingLevel") | not) and
+  .retry.maxRetries == 5 and
+  .retry.baseDelayMs == 5000
 ' >/dev/null
 
 existing_models='{
@@ -179,6 +183,8 @@ jq -e '
   .defaultProvider == "user-provider" and
   .defaultModel == "user-model" and
   .defaultThinkingLevel == "medium" and
+  .retry.maxRetries == 5 and
+  .retry.baseDelayMs == 5000 and
   .customSetting == true
 ' "$APPLY_HOME/.pi/agent/settings.json" >/dev/null
 

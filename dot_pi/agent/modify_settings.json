@@ -9,6 +9,10 @@
   "terminal" (dict
     "showTerminalProgress" true
   )
+  "retry" (dict
+    "maxRetries" 5
+    "baseDelayMs" 5000
+  )
   "tuiMode" "fullscreen"
   "packages" (list
     "npm:nowledge-mem-pi"

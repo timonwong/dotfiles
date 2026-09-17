@@ -1,6 +1,7 @@
 nix:
   sysPkgs:
     - gitFull
+    - coreutils-prefixed # GNU coreutils with g* names so they do not shadow BSD tools
   homepkgs:
     shared:
       - sheldon # shell plugin manager (prefer nix build over aqua binary on macOS)

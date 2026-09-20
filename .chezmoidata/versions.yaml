@@ -2,8 +2,8 @@
 # Pinned versions (auto-updated by GitHub Actions)
 # ─────────────────────────────────────────────────────────────────────────────
 versions:
-  nixInstaller: v3.22.4
+  nixInstaller: v3.22.5
   nixVersion: v2.35.2
-  miseVersion: v2026.9.10
-  miseInstallerSha256: 9936b9658072ab94ff27f965a49166deafd783c74edb68636835d4ed4715f502
+  miseVersion: v2026.9.11
+  miseInstallerSha256: 43a2f382197fbd9cf9508017220d5fb84388a71c69c86df24f9bea9aceec9159
   nixIndexDb: 2026-09-13-074012

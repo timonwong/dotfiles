@@ -39,16 +39,24 @@ assert_render_contains() {
     }
 }
 
+assert_render_omits() {
+    local rendered="$1"
+    local unexpected="$2"
+
+    if printf '%s\n' "$rendered" | grep -Fqe "$unexpected"; then
+        echo "expected rendered skimi config to omit: $unexpected" >&2
+        printf '%s\n' "$rendered" >&2
+        exit 1
+    fi
+}
+
 unmanaged_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":false}')"
 assert_render_contains "$unmanaged_rendered" '  - repo: git@github.com:timonwong/private-ai-skills.git'
-assert_render_contains "$unmanaged_rendered" '  - repo: mattpocock/skills'
-assert_render_contains "$unmanaged_rendered" '    target_dir: mattpocock'
-assert_render_contains "$unmanaged_rendered" '      - setup-matt-pocock-skills'
-assert_render_contains "$unmanaged_rendered" '      - tdd'
-assert_render_contains "$unmanaged_rendered" '      - grill-me'
+assert_render_contains "$unmanaged_rendered" '  - repo: https://github.com/op7418/guizang-ppt-skill.git'
 assert_render_contains "$unmanaged_rendered" '  - repo: git@github.com:timonwong/private-ai-skills.git/alauda'
 assert_render_contains "$unmanaged_rendered" '      - builders-publish-errata'
 assert_render_contains "$unmanaged_rendered" '        - codex'
+assert_render_omits "$unmanaged_rendered" 'mattpocock'
 
 managed_rendered="$(render_skimi_config --override-data '{"nowledgeMemManaged":true}')"
 if printf '%s\n' "$managed_rendered" | grep -qxF '  - repo: git@github.com:timonwong/private-ai-skills.git'; then
@@ -56,10 +64,10 @@ if printf '%s\n' "$managed_rendered" | grep -qxF '  - repo: git@github.com:timon
     printf '%s\n' "$managed_rendered" >&2
     exit 1
 fi
-assert_render_contains "$managed_rendered" '  - repo: mattpocock/skills'
-assert_render_contains "$managed_rendered" '    target_dir: mattpocock'
+assert_render_contains "$managed_rendered" '  - repo: https://github.com/op7418/guizang-ppt-skill.git'
 assert_render_contains "$managed_rendered" '  - repo: git@github.com:timonwong/private-ai-skills.git/alauda'
 assert_render_contains "$managed_rendered" '      - builders-publish-errata'
 assert_render_contains "$managed_rendered" '        - codex'
+assert_render_omits "$managed_rendered" 'mattpocock'
 
 echo "test_skimi_config_template: OK"

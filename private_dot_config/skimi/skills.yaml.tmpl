@@ -8,33 +8,6 @@ agents:
 {{-   $nowledgeMemManaged = .nowledgeMemManaged }}
 {{- end }}
 packages:
-  - repo: mattpocock/skills
-    target_dir: mattpocock
-    skills:
-      - ask-matt
-      - code-review
-      - codebase-design
-      - diagnosing-bugs
-      - domain-modeling
-      - grill-with-docs
-      - implement
-      - improve-codebase-architecture
-      - prototype
-      - research
-      - resolving-merge-conflicts
-      - setup-matt-pocock-skills
-      - tdd
-      - to-spec
-      - to-tickets
-      - triage
-      - wayfinder
-      - grill-me
-      - grilling
-      - handoff
-      - teach
-      - writing-for-agents
-      - to-questionnaire
-      - wait-what
   - repo: https://github.com/op7418/guizang-ppt-skill.git
 {{- if not $nowledgeMemManaged }}
   - repo: git@github.com:timonwong/private-ai-skills.git

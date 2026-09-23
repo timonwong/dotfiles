@@ -58,6 +58,12 @@
       "enabled": false
     },
     {
+      "description": "Keep difftastic pinned because 0.71.0 lacks Apple Darwin archives",
+      "matchManagers": ["mise"],
+      "matchDepNames": ["difftastic"],
+      "enabled": false
+    },
+    {
       "description": "Group mise managed tool non-major updates",
       "matchManagers": ["mise"],
       "matchUpdateTypes": ["minor", "patch", "digest"],

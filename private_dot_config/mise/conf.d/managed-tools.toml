@@ -22,7 +22,8 @@ crane = "0.22.1"
 # Syntax-highlighting pager for Git, diff, and grep output.
 delta = "0.19.2"
 # Syntax-aware structural diff tool.
-difftastic = "0.71.0"
+# Keep pinned: 0.71.0 ships without Apple Darwin archives.
+difftastic = "0.70.0"
 direnv = "2.37.1"
 # Human-friendly replacement for df.
 duf = "0.9.1"

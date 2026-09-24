@@ -342,3 +342,25 @@ pi:
           cacheWrite: 0
         compat:
           supportsLongCacheRetention: false
+      - id: grok-4.7
+        name: Grok 4.7
+        input:
+          - text
+          - image
+        contextWindow: 500000
+        maxTokens: 500000
+        reasoning: true
+        thinkingLevelMap:
+          minimal: null
+          low: low
+          medium: medium
+          high: high
+          xhigh: xhigh
+          max: null
+        cost:
+          input: 2
+          output: 6
+          cacheRead: 0.5
+          cacheWrite: 0
+        compat:
+          supportsLongCacheRetention: false

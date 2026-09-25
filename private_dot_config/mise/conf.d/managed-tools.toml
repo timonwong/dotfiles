@@ -15,7 +15,7 @@ bat = "0.26.1"
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.2"
-"claude-code" = "2.1.280"
+"claude-code" = "2.1.283"
 "aqua:openai/codex" = "0.146.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"
@@ -30,7 +30,7 @@ duf = "0.9.1"
 # Human-friendly disk usage analyzer.
 dust = "1.2.6"
 # Fast system information summary tool.
-fastfetch = "2.68.1"
+fastfetch = "2.69.0"
 # Fast, user-friendly replacement for find.
 fd = "10.5.0"
 fzf = "0.74.4"
@@ -42,7 +42,7 @@ glab = "1.119.0"
 gitleaks = "8.30.1"
 go = "1.27.1"
 # Aggregated runner for fast Go linters.
-golangci-lint = "2.13.2"
+golangci-lint = "2.14.0"
 # Team-oriented command-line password manager.
 gopass = "1.17.3"
 # Command-line benchmarking tool.
@@ -54,7 +54,7 @@ jq = "1.8.2"
 just = "1.58.0"
 # Plugin manager for kubectl.
 krew = "0.5.0"
-kubectl = "1.37.0"
+kubectl = "1.37.1"
 # Terminal UI for Git operations.
 lazygit = "0.65.1"
 # Language Server Protocol implementation for Lua.
@@ -63,17 +63,17 @@ lua-language-server = "3.19.1"
 melange = "0.61.1"
 "aqua:neovim/neovim" = "0.12.5"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.85", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.88", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.136.3"
+"npm:wrangler" = "4.141.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.70.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "0.87.0"
+"npm:@earendil-works/pi-coding-agent" = "0.87.1"
 rclone = "1.75.1"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.
-rtk = "v0.49.0"
+rtk = "v0.50.0"
 # Fast Lua linter.
 "aqua:Kampfkarren/selene" = "0.31.0"
 # Smart tmux session manager.

@@ -4,6 +4,6 @@
 versions:
   nixInstaller: v3.22.5
   nixVersion: v2.35.2
-  miseVersion: v2026.9.14
-  miseInstallerSha256: 34a67da06b96115fd6e384aa5c6c651571d388bb9245a4c7cb69fc91991e5272
-  nixIndexDb: 2026-09-20-075601
+  miseVersion: v2026.9.15
+  miseInstallerSha256: f4fbd60b2a68e6fd6a140ad5a36ac7acd4d74336123e614548f03083aa9c6bf4
+  nixIndexDb: 2026-09-27-083517

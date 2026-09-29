@@ -62,9 +62,12 @@ jobs:
         id: date
         run: echo "date=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
       - name: Create PR
+        id: cpr
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN-created PRs never trigger CI, so required checks would
+          # never report and auto-merge would hang.
+          token: ${{ secrets.GH_PAT }}
           commit-message: "chore(nix): update flake.lock for ${{ matrix.platform }}"
           title: "chore(nix): update flake.lock for ${{ matrix.platform }} (${{ steps.date.outputs.date }})"
           branch: update-flake-lock-${{ matrix.platform }}
@@ -73,3 +76,8 @@ jobs:
             Automated flake.lock update for ${{ matrix.platform }}.
 
             Updates all flake inputs to their latest versions.
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}" --repo "${{ github.repository }}"

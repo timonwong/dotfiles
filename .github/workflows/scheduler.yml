@@ -17,12 +17,6 @@ jobs:
         run: |
           gh workflow run update-flake-lock.yml --repo ${{ github.repository }}
           echo "Triggered update-flake-lock.yml"
-      - name: Trigger update-versions
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
-        run: |
-          gh workflow run update-versions.yml --repo ${{ github.repository }}
-          echo "Triggered update-versions.yml"
       - name: Summary
         run: |
           echo "## Scheduler Results" >> "$GITHUB_STEP_SUMMARY"

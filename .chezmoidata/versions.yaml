@@ -1,9 +1,13 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Pinned versions (auto-updated by GitHub Actions)
+# Pinned versions (auto-updated by Renovate)
 # ─────────────────────────────────────────────────────────────────────────────
 versions:
+  # renovate: datasource=github-releases depName=DeterminateSystems/nix-installer
   nixInstaller: v3.22.5
+  # renovate: datasource=github-releases depName=DeterminateSystems/nix
   nixVersion: v2.35.2
+  # renovate: datasource=github-release-attachments depName=jdx/mise
   miseVersion: v2026.9.14
   miseInstallerSha256: 34a67da06b96115fd6e384aa5c6c651571d388bb9245a4c7cb69fc91991e5272
+  # renovate: datasource=github-releases depName=nix-community/nix-index-database
   nixIndexDb: 2026-09-20-075601

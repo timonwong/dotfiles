@@ -29,6 +29,14 @@
       "registryUrlTemplate": "https://gitlab.com",
       "versioningTemplate": "semver",
       "extractVersionTemplate": "^v?(?<version>.+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Update pinned bootstrap versions, keeping the mise installer checksum in sync",
+      "managerFilePatterns": ["/^\\.chezmoidata\\/versions\\.yaml$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+\\w+: (?<currentValue>\\S+)(?:\\n\\s+\\w+Sha256: (?<currentDigest>[a-f0-9]{64}))?"
+      ]
     }
   ],
   "packageRules": [
@@ -68,6 +76,16 @@
       "matchManagers": ["mise"],
       "matchUpdateTypes": ["minor", "patch", "digest"],
       "groupName": "mise managed tools non-major"
+    },
+    {
+      "description": "nix-index-database tags are timestamps, not semver",
+      "matchDepNames": ["nix-community/nix-index-database"],
+      "versioning": "regex:^(?<major>\\d{4})-(?<minor>\\d{2})-(?<patch>\\d{2})-(?<build>\\d+)$"
+    },
+    {
+      "description": "Group pinned bootstrap versions",
+      "matchFileNames": [".chezmoidata/versions.yaml"],
+      "groupName": "pinned bootstrap versions"
     },
     {
       "description": "Require manual review for major updates",

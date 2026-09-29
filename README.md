@@ -429,9 +429,8 @@ See:
 ### Automated Upkeep
 
 - `.github/workflows/scheduler.yml` (daily trigger)
-- `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/renovate.json` (auto-updates `mise/conf.d` tool pins with Renovate's native `mise` manager)
+- `.github/renovate.json` (auto-updates `mise/conf.d` tool pins with Renovate's native `mise` manager, and `.chezmoidata/versions.yaml` bootstrap pins including the mise installer checksum)
 
 ---
 

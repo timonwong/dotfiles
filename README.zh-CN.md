@@ -427,9 +427,8 @@ chezmoi init --apply --promptBool skipNix=true timonwong
 ### 自动维护
 
 - `.github/workflows/scheduler.yml`（每日触发）
-- `.github/workflows/update-versions.yml`
 - `.github/workflows/update-flake-lock.yml`
-- `.github/renovate.json`（通过 Renovate 原生 `mise` manager 自动更新 `mise/conf.d` 工具版本）
+- `.github/renovate.json`（通过 Renovate 原生 `mise` manager 自动更新 `mise/conf.d` 工具版本，并更新 `.chezmoidata/versions.yaml` 中的 bootstrap 版本及 mise installer checksum）
 
 ---
 

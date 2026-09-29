@@ -60,7 +60,6 @@ checks = {
     "dot_zshenv": ("AQUA_", "aquaproj-aqua"),
     "dot_local/bin/lib/common": ("ensure_aqua_environment", "command -v aqua"),
     ".github/workflows/scheduler.yml": ("update-toolchains",),
-    ".github/workflows/update-versions.yml": ("aqua_installer", "aqua_version"),
 }
 for relative, needles in checks.items():
     content = (root / relative).read_text()

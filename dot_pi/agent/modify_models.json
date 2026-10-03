@@ -2,10 +2,38 @@
 {{- $config := .chezmoi.stdin | default "{}" | fromJson | default dict -}}
 {{- $managed := include ".chezmoidata/pi-models.yaml" | fromYaml | default dict -}}
 {{- $managed = get $managed "pi" | default dict -}}
+{{- $catalog := get $managed "catalog" | default dict -}}
+{{- $catalogModels := get $catalog "models" | default list -}}
 {{- $providers := get $config "providers" | default dict -}}
 {{- $cpa := get $providers "cpa" | default dict -}}
 {{- $managedCpa := get $managed "cpa" | default dict -}}
 {{- $cpa = mergeOverwrite $cpa $managedCpa -}}
+{{- $_ := set $cpa "models" $catalogModels -}}
 {{- $providers = mergeOverwrite $providers (dict "cpa" $cpa) -}}
+{{- $magpie := get $providers "magpie" | default dict -}}
+{{- $managedMagpie := get $managed "magpie" | default dict -}}
+{{- $magpieGroups := get $managedMagpie "groups" | default list -}}
+{{- $managedMagpie = omit $managedMagpie "groups" -}}
+{{- $magpie = mergeOverwrite $magpie $managedMagpie -}}
+{{- $magpieModels := list -}}
+{{- range $model := $catalogModels -}}
+  {{- if not (hasPrefix "deepseek-" (get $model "id")) -}}
+    {{- $copy := deepCopy $model -}}
+    {{- $_ := set $copy "id" (printf "alauda/%s" (get $model "id")) -}}
+    {{- $magpieModels = append $magpieModels $copy -}}
+  {{- end -}}
+{{- end -}}
+{{- range $group := $magpieGroups -}}
+  {{- range $model := $catalogModels -}}
+    {{- if eq (get $model "id") (get $group "source") -}}
+      {{- $copy := deepCopy $model -}}
+      {{- $_ := set $copy "id" (get $group "id") -}}
+      {{- $_ := set $copy "name" (get $group "name") -}}
+      {{- $magpieModels = append $magpieModels $copy -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $_ := set $magpie "models" $magpieModels -}}
+{{- $providers = mergeOverwrite $providers (dict "magpie" $magpie) -}}
 {{- $config = mergeOverwrite $config (dict "providers" $providers) -}}
 {{- $config | toPrettyJson -}}

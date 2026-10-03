@@ -15,7 +15,7 @@ bat = "0.26.1"
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.2"
-"claude-code" = "2.1.287"
+"claude-code" = "2.1.288"
 "aqua:openai/codex" = "0.146.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"

@@ -69,7 +69,7 @@ melange = "0.61.2"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.71.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "0.99.2"
+"npm:@earendil-works/pi-coding-agent" = "1.0.0"
 rclone = "1.75.1"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.

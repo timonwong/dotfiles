@@ -11,9 +11,16 @@ import sys
 root = Path(sys.argv[1])
 config = json.loads((root / ".github/renovate.json").read_text())
 
+timezone = config.get("timezone")
+if timezone != "Asia/Tokyo":
+    raise SystemExit(f"expected timezone Asia/Tokyo, got {timezone!r}")
+
 schedule = config.get("schedule")
-if schedule not in (None, [], ["at any time"]):
-    raise SystemExit(f"expected unrestricted renovate schedule, got {schedule!r}")
+if schedule != ["after 12am and before 7am"]:
+    raise SystemExit(
+        "expected renovate schedule after 12am and before 7am Asia/Tokyo, "
+        f"got {schedule!r}"
+    )
 
 hourly = config.get("prHourlyLimit")
 if hourly != 0:

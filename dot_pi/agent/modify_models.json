@@ -13,7 +13,8 @@
 {{- $magpie := get $providers "magpie" | default dict -}}
 {{- $managedMagpie := get $managed "magpie" | default dict -}}
 {{- $magpieGroups := get $managedMagpie "groups" | default list -}}
-{{- $managedMagpie = omit $managedMagpie "groups" -}}
+{{- $magpieGroupDefaults := get $managedMagpie "groupDefaults" | default dict -}}
+{{- $managedMagpie = omit $managedMagpie "groups" "groupDefaults" -}}
 {{- $magpie = mergeOverwrite $magpie $managedMagpie -}}
 {{- $magpieModels := list -}}
 {{- range $model := $catalogModels -}}
@@ -27,6 +28,8 @@
   {{- range $model := $catalogModels -}}
     {{- if eq (get $model "id") (get $group "source") -}}
       {{- $copy := deepCopy $model -}}
+      {{- $groupOverrides := omit $group "id" "name" "source" -}}
+      {{- $copy = mergeOverwrite $copy $magpieGroupDefaults $groupOverrides -}}
       {{- $_ := set $copy "id" (get $group "id") -}}
       {{- $_ := set $copy "name" (get $group "name") -}}
       {{- $magpieModels = append $magpieModels $copy -}}

@@ -170,11 +170,23 @@ printf '%s' "$rendered_models" | jq -e '
   .providers.magpie.baseUrl == "http://127.0.0.1:3425/v1" and
   .providers.magpie.api == "openai-responses" and
   .providers.magpie.customProviderField == "keep-magpie" and
+  (.providers.magpie | has("groupDefaults") | not) and
   (has("catalog") | not) and
   ([.providers.magpie.models[].id | select(startswith("alauda/"))] | length) == 11 and
-  ([.providers.magpie.models[].id | select(startswith("group/"))] | length) == 4 and
+  ([.providers.magpie.models[].id | select(startswith("group/"))] | length) == 7 and
   (.providers.magpie.models | map(.id) | index("alauda/gpt-5.4")) != null and
-  (.providers.magpie.models | map(.id) | index("group/auto-gpt-6-luna")) != null
+  (.providers.magpie.models | map(.id) | index("group/auto-gpt-5-6-sol")) != null and
+  (.providers.magpie.models | map(.id) | index("group/auto-gpt-6-1-sol")) != null and
+  (.providers.magpie.models | map(.id) | index("group/auto-gpt-6-sol")) != null and
+  (.providers.magpie.models | map(.id) | index("group/auto-gpt-6-luna")) != null and
+  ([.providers.magpie.models[] | select(.id | startswith("group/")) |
+    .contextWindow == 922000 and
+    .maxTokens == 128000 and
+    .reasoning == true] | all) and
+  (.providers.magpie.models | map(select(.id == "group/auto-gpt-5-5")) | first |
+    .thinkingLevelMap.max) == null and
+  (.providers.magpie.models | map(select(.id == "group/auto-gpt-6-1-sol")) | first |
+    .name) == "GPT-6.1-Sol · routing group"
 ' >/dev/null
 
 empty_models="$(render_models "")"
@@ -183,7 +195,7 @@ printf '%s' "$empty_models" | jq -e '
   .providers.cpa.baseUrl == "http://localhost:8317/v1" and
   (.providers.cpa.models | length) == 13 and
   .providers.magpie.apiKey == "magpie" and
-  (.providers.magpie.models | length) == 15 and
+  (.providers.magpie.models | length) == 18 and
   (has("catalog") | not)
 ' >/dev/null
 
@@ -224,7 +236,11 @@ jq -e '
   (.providers.cpa.models | length) == 13 and
   .providers.magpie.apiKey == "magpie" and
   .providers.magpie.baseUrl == "http://127.0.0.1:3425/v1" and
-  (.providers.magpie.models | map(.id) | index("group/auto-gpt-5-6-terra")) != null
+  ([.providers.magpie.models[].id | select(startswith("group/"))] | length) == 7 and
+  (.providers.magpie.models | map(.id) | index("group/auto-gpt-5-6-terra")) != null and
+  (.providers.magpie.models | map(.id) | index("group/auto-gpt-6-1-sol")) != null and
+  ([.providers.magpie.models[] | select(.id | startswith("group/")) |
+    .contextWindow == 922000] | all)
 ' "$APPLY_HOME/.pi/agent/models.json" >/dev/null
 
 if rg -q --fixed-strings 'onepasswordRead' "$ROOT/dot_pi"; then

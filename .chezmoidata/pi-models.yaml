@@ -17,25 +17,25 @@ pi:
         max: max
     groups:
       - id: group/auto-gpt-5-6-sol
-        name: GPT-5.6-Sol · routing group
+        name: GPT-5.6-Sol (auto)
         source: gpt-5.6-sol
       - id: group/auto-gpt-5-6-terra
-        name: GPT-5.6-Terra · routing group
+        name: GPT-5.6-Terra (auto)
         source: gpt-5.6-terra
       - id: group/auto-gpt-5-6-luna
-        name: GPT-5.6-Luna · routing group
+        name: GPT-5.6-Luna (auto)
         source: gpt-5.6-luna
       - id: group/auto-gpt-6-1-sol
-        name: GPT-6.1-Sol · routing group
+        name: GPT-6.1-Sol (auto)
         source: gpt-6-sol
       - id: group/auto-gpt-6-sol
-        name: GPT-6-Sol · routing group
+        name: GPT-6-Sol (auto)
         source: gpt-6-sol
       - id: group/auto-gpt-6-luna
-        name: GPT-6-Luna · routing group
+        name: GPT-6-Luna (auto)
         source: gpt-6-luna
       - id: group/auto-gpt-5-5
-        name: GPT-5.5 · routing group
+        name: GPT-5.5 (auto)
         source: gpt-5.5
         thinkingLevelMap:
           max: null

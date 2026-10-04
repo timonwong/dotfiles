@@ -186,7 +186,7 @@ printf '%s' "$rendered_models" | jq -e '
   (.providers.magpie.models | map(select(.id == "group/auto-gpt-5-5")) | first |
     .thinkingLevelMap.max) == null and
   (.providers.magpie.models | map(select(.id == "group/auto-gpt-6-1-sol")) | first |
-    .name) == "GPT-6.1-Sol · routing group"
+    .name) == "GPT-6.1-Sol (auto)"
 ' >/dev/null
 
 empty_models="$(render_models "")"

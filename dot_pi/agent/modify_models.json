@@ -5,11 +5,13 @@
 {{- $catalog := get $managed "catalog" | default dict -}}
 {{- $catalogModels := get $catalog "models" | default list -}}
 {{- $providers := get $config "providers" | default dict -}}
+{{/* CPA is temporarily disabled; keep the configuration intact for re-enabling.
 {{- $cpa := get $providers "cpa" | default dict -}}
 {{- $managedCpa := get $managed "cpa" | default dict -}}
 {{- $cpa = mergeOverwrite $cpa $managedCpa -}}
 {{- $_ := set $cpa "models" $catalogModels -}}
 {{- $providers = mergeOverwrite $providers (dict "cpa" $cpa) -}}
+*/}}
 {{- $magpie := get $providers "magpie" | default dict -}}
 {{- $managedMagpie := get $managed "magpie" | default dict -}}
 {{- $magpieGroups := get $managedMagpie "groups" | default list -}}

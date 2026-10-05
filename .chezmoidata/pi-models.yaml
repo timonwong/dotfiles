@@ -400,8 +400,8 @@ pi:
           cacheWrite: 0
         compat:
           supportsLongCacheRetention: false
-  cpa:
-    baseUrl: http://localhost:8317/v1
-    api: openai-responses
-    compact:
-      maxTokensField: max_tokens
+  # cpa:
+  #   baseUrl: http://localhost:8317/v1
+  #   api: openai-responses
+  #   compact:
+  #     maxTokensField: max_tokens

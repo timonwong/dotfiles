@@ -126,43 +126,12 @@ printf '%s' "$rendered_models" | jq -e '
   .providers.other.apiKey == "other-key" and
   .providers.other.custom == true and
   .providers.cpa.apiKey == "user-api-key" and
-  .providers.cpa.baseUrl == "http://localhost:8317/v1" and
+  .providers.cpa.baseUrl == "http://localhost:old/v1" and
   .providers.cpa.customProviderField == "keep" and
-  .providers.cpa.compact.maxTokensField == "max_tokens" and
-  (.providers.cpa.models | length) == 13 and
-  .providers.cpa.models[0].id == "deepseek-v4-flash" and
-  .providers.cpa.models[2].id == "gpt-5.4" and
-  .providers.cpa.models[7].id == "gpt-5.6-terra" and
-  .providers.cpa.models[8].id == "gpt-6-astra" and
-  .providers.cpa.models[9].id == "gpt-6-luna" and
-  .providers.cpa.models[10].id == "gpt-6-sol" and
-  .providers.cpa.models[11].id == "grok-4.6" and
-  .providers.cpa.models[12].id == "grok-4.7" and
-  .providers.cpa.models[8].thinkingLevelMap.minimal == "low" and
-  .providers.cpa.models[8].thinkingLevelMap.low == "low" and
-  .providers.cpa.models[8].thinkingLevelMap.medium == "medium" and
-  .providers.cpa.models[8].thinkingLevelMap.high == "high" and
-  .providers.cpa.models[8].thinkingLevelMap.xhigh == "xhigh" and
-  .providers.cpa.models[8].thinkingLevelMap.max == "max" and
-  .providers.cpa.models[11].thinkingLevelMap.minimal == null and
-  .providers.cpa.models[11].thinkingLevelMap.low == "low" and
-  .providers.cpa.models[11].thinkingLevelMap.medium == "medium" and
-  .providers.cpa.models[11].thinkingLevelMap.high == "high" and
-  .providers.cpa.models[11].thinkingLevelMap.xhigh == "xhigh" and
-  .providers.cpa.models[11].thinkingLevelMap.max == null and
-  .providers.cpa.models[12].thinkingLevelMap.minimal == null and
-  .providers.cpa.models[12].thinkingLevelMap.low == "low" and
-  .providers.cpa.models[12].thinkingLevelMap.medium == "medium" and
-  .providers.cpa.models[12].thinkingLevelMap.high == "high" and
-  .providers.cpa.models[12].thinkingLevelMap.xhigh == "xhigh" and
-  .providers.cpa.models[12].thinkingLevelMap.max == null and
-  ([.providers.cpa.models[] | select(.id | startswith("gpt-")) |
-    .thinkingLevelMap.minimal == "low" and
-    .thinkingLevelMap.low == "low" and
-    .thinkingLevelMap.medium == "medium" and
-    .thinkingLevelMap.high == "high" and
-    .thinkingLevelMap.xhigh == "xhigh" and
-    .thinkingLevelMap.max == "max"] | all)
+  (.providers.cpa | has("compact") | not) and
+  (.providers.cpa.models | length) == 1 and
+  .providers.cpa.models[0].id == "user-model" and
+  .providers.cpa.models[0].custom == true
 ' >/dev/null
 
 printf '%s' "$rendered_models" | jq -e '
@@ -191,9 +160,7 @@ printf '%s' "$rendered_models" | jq -e '
 
 empty_models="$(render_models "")"
 printf '%s' "$empty_models" | jq -e '
-  (.providers.cpa.apiKey? // null) == null and
-  .providers.cpa.baseUrl == "http://localhost:8317/v1" and
-  (.providers.cpa.models | length) == 13 and
+  (.providers | has("cpa") | not) and
   .providers.magpie.apiKey == "magpie" and
   (.providers.magpie.models | length) == 18 and
   (has("catalog") | not)
@@ -232,8 +199,10 @@ jq -e '
   .providers.other.apiKey == "other-key" and
   .providers.cpa.apiKey == "user-api-key" and
   .providers.cpa.customProviderField == "keep" and
-  .providers.cpa.baseUrl == "http://localhost:8317/v1" and
-  (.providers.cpa.models | length) == 13 and
+  .providers.cpa.baseUrl == "http://localhost:old/v1" and
+  (.providers.cpa | has("compact") | not) and
+  (.providers.cpa.models | length) == 1 and
+  .providers.cpa.models[0].id == "user-model" and
   .providers.magpie.apiKey == "magpie" and
   .providers.magpie.baseUrl == "http://127.0.0.1:3425/v1" and
   ([.providers.magpie.models[].id | select(startswith("group/"))] | length) == 7 and

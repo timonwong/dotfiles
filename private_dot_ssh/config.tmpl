@@ -6,9 +6,9 @@ Include ~/.orbstack/ssh/config
 {{- end }}
 
 Host *
-    # IgnoreUnknown UseKeychain
-    # AddKeysToAgent yes
-    # UseKeychain yes
+    IgnoreUnknown UseKeychain
+    AddKeysToAgent yes
+    UseKeychain yes
     # ControlMaster auto
     # ControlPath /tmp/ssh-%h-%p-%r
     # ControlPersist yes

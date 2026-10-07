@@ -17,28 +17,76 @@ pi:
         max: max
     groups:
       - id: group/auto-gpt-5-6-sol
-        name: GPT-5.6-Sol (auto)
+        name: GPT-5.6-Sol · routing group
         source: gpt-5.6-sol
       - id: group/auto-gpt-5-6-terra
-        name: GPT-5.6-Terra (auto)
+        name: GPT-5.6-Terra · routing group
         source: gpt-5.6-terra
       - id: group/auto-gpt-5-6-luna
-        name: GPT-5.6-Luna (auto)
+        name: GPT-5.6-Luna · routing group
         source: gpt-5.6-luna
       - id: group/auto-gpt-6-1-sol
-        name: GPT-6.1-Sol (auto)
-        source: gpt-6-sol
+        name: GPT-6.1-Sol · routing group
+        source: gpt-6.1-sol
       - id: group/auto-gpt-6-sol
-        name: GPT-6-Sol (auto)
+        name: GPT-6-Sol · routing group
         source: gpt-6-sol
       - id: group/auto-gpt-6-luna
-        name: GPT-6-Luna (auto)
+        name: GPT-6-Luna · routing group
         source: gpt-6-luna
       - id: group/auto-gpt-5-5
-        name: GPT-5.5 (auto)
+        name: GPT-5.5 · routing group
         source: gpt-5.5
         thinkingLevelMap:
           max: null
+    alaudaModels:
+      - gpt-5.6-sol
+      - gpt-5.6
+      - gpt-5.6-terra
+      - gpt-5.6-luna
+      - gpt-6.1-sol
+      - gpt-6-sol
+      - gpt-6-luna
+      - gpt-6-astra
+      - gpt-5.5
+      - gpt-5.4
+      - gpt-5.4-mini
+      - gpt-5.3-codex-spark
+      - codex-auto-review
+      - gpt-5.2
+      - composer-2.5
+      - grok-4.6
+      - grok-4.7
+    codexDefaults:
+      api: openai-responses
+      contextWindow: 272000
+      promptCache:
+        short: 300
+      thinkingLevelMap:
+        off: null
+        minimal: null
+    codexModels:
+      - id: codex/gpt-6.1-sol
+        name: GPT-6.1-Sol · Codex
+        source: gpt-6.1-sol
+      - id: codex/gpt-6-sol
+        name: GPT-6-Sol · Codex
+        source: gpt-6-sol
+      - id: codex/gpt-6-luna
+        name: GPT-6-Luna · Codex
+        source: gpt-6-luna
+      - id: codex/gpt-5.6-sol
+        name: GPT-5.6-Sol · Codex
+        source: gpt-5.6-sol
+      - id: codex/gpt-5.6-terra
+        name: GPT-5.6-Terra · Codex
+        source: gpt-5.6-terra
+      - id: codex/gpt-5.6-luna
+        name: GPT-5.6-Luna · Codex
+        source: gpt-5.6-luna
+      - id: codex/gpt-5.5
+        name: GPT-5.5 · Codex
+        source: gpt-5.5
   catalog:
     models:
       - id: deepseek-v4-flash
@@ -356,6 +404,107 @@ pi:
           supportsOpenAIGrammarTools: true
           supportsAdditionalTools: true
           supportsToolSearch: true
+      - id: gpt-5.6
+        name: GPT-5.6
+        input:
+          - text
+          - image
+        contextWindow: 372000
+        maxTokens: 128000
+        reasoning: true
+        thinkingLevelMap:
+          off: none
+          minimal: null
+          low: low
+          medium: medium
+          high: high
+          xhigh: xhigh
+          max: max
+        cost:
+          input: 4
+          output: 20
+          cacheRead: 0.4
+          cacheWrite: 5
+      - id: gpt-6.1-sol
+        name: GPT-6.1 Sol
+        input:
+          - text
+          - image
+        contextWindow: 922000
+        maxTokens: 128000
+        reasoning: true
+        thinkingLevelMap:
+          off: null
+          minimal: null
+          low: low
+          medium: medium
+          high: high
+          xhigh: xhigh
+          max: max
+        cost:
+          input: 2
+          output: 10
+          cacheRead: 0.1
+          cacheWrite: 2.5
+      - id: gpt-5.3-codex-spark
+        name: GPT-5.3 Codex Spark
+        input:
+          - text
+          - image
+        contextWindow: 128000
+        maxTokens: 16384
+        reasoning: true
+        thinkingLevelMap:
+          off: none
+          minimal: null
+          low: low
+          medium: medium
+          high: high
+          xhigh: xhigh
+          max: null
+        cost:
+          input: 1.75
+          output: 14
+          cacheRead: 0.175
+          cacheWrite: 0
+      - id: codex-auto-review
+        name: Codex Auto Review
+        input:
+          - text
+          - image
+        reasoning: false
+        cost:
+          input: 0.2
+          output: 1.2
+          cacheRead: 0.02
+          cacheWrite: 0.25
+      - id: gpt-5.2
+        name: GPT-5.2
+        input:
+          - text
+          - image
+        contextWindow: 272000
+        maxTokens: 128000
+        reasoning: true
+        thinkingLevelMap:
+          off: none
+          minimal: null
+          low: low
+          medium: medium
+          high: high
+          xhigh: xhigh
+          max: null
+        cost:
+          input: 1.75
+          output: 14
+          cacheRead: 0.175
+          cacheWrite: 0
+      - id: composer-2.5
+        name: Composer 2.5
+        input:
+          - text
+          - image
+        reasoning: false
       - id: grok-4.6
         name: Grok 4.6
         input:

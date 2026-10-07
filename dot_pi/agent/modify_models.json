@@ -16,16 +16,12 @@
 {{- $managedMagpie := get $managed "magpie" | default dict -}}
 {{- $magpieGroups := get $managedMagpie "groups" | default list -}}
 {{- $magpieGroupDefaults := get $managedMagpie "groupDefaults" | default dict -}}
-{{- $managedMagpie = omit $managedMagpie "groups" "groupDefaults" -}}
+{{- $alaudaModels := get $managedMagpie "alaudaModels" | default list -}}
+{{- $codexModels := get $managedMagpie "codexModels" | default list -}}
+{{- $codexDefaults := get $managedMagpie "codexDefaults" | default dict -}}
+{{- $managedMagpie = omit $managedMagpie "groups" "groupDefaults" "alaudaModels" "codexModels" "codexDefaults" -}}
 {{- $magpie = mergeOverwrite $magpie $managedMagpie -}}
 {{- $magpieModels := list -}}
-{{- range $model := $catalogModels -}}
-  {{- if not (hasPrefix "deepseek-" (get $model "id")) -}}
-    {{- $copy := deepCopy $model -}}
-    {{- $_ := set $copy "id" (printf "alauda/%s" (get $model "id")) -}}
-    {{- $magpieModels = append $magpieModels $copy -}}
-  {{- end -}}
-{{- end -}}
 {{- range $group := $magpieGroups -}}
   {{- range $model := $catalogModels -}}
     {{- if eq (get $model "id") (get $group "source") -}}
@@ -34,6 +30,28 @@
       {{- $copy = mergeOverwrite $copy $magpieGroupDefaults $groupOverrides -}}
       {{- $_ := set $copy "id" (get $group "id") -}}
       {{- $_ := set $copy "name" (get $group "name") -}}
+      {{- $magpieModels = append $magpieModels $copy -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range $source := $alaudaModels -}}
+  {{- range $model := $catalogModels -}}
+    {{- if eq (get $model "id") $source -}}
+      {{- $copy := deepCopy $model -}}
+      {{- $_ := set $copy "id" (printf "alauda/%s" $source) -}}
+      {{- $_ := set $copy "name" (printf "%s · Alauda" $source) -}}
+      {{- $magpieModels = append $magpieModels $copy -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range $codexModel := $codexModels -}}
+  {{- range $model := $catalogModels -}}
+    {{- if eq (get $model "id") (get $codexModel "source") -}}
+      {{- $copy := deepCopy $model -}}
+      {{- $codexOverrides := omit $codexModel "id" "name" "source" -}}
+      {{- $copy = mergeOverwrite $copy $codexDefaults $codexOverrides -}}
+      {{- $_ := set $copy "id" (get $codexModel "id") -}}
+      {{- $_ := set $copy "name" (get $codexModel "name") -}}
       {{- $magpieModels = append $magpieModels $copy -}}
     {{- end -}}
   {{- end -}}

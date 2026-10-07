@@ -33,6 +33,7 @@ EOF
 
 SETTINGS_TEMPLATE="$ROOT/dot_pi/agent/modify_settings.json"
 MODELS_TEMPLATE="$ROOT/dot_pi/agent/modify_models.json"
+EXPECTED_MODELS_MANIFEST="$ROOT/tests/fixtures/pi_models_manifest.json"
 
 render_settings() {
     printf '%s' "$1" | chezmoi execute-template \
@@ -141,7 +142,7 @@ printf '%s' "$rendered_models" | jq -e '
   .providers.magpie.customProviderField == "keep-magpie" and
   (.providers.magpie | has("groupDefaults") | not) and
   (has("catalog") | not) and
-  ([.providers.magpie.models[].id | select(startswith("alauda/"))] | length) == 11 and
+  ([.providers.magpie.models[].id | select(startswith("alauda/"))] | length) == 17 and
   ([.providers.magpie.models[].id | select(startswith("group/"))] | length) == 7 and
   (.providers.magpie.models | map(.id) | index("alauda/gpt-5.4")) != null and
   (.providers.magpie.models | map(.id) | index("group/auto-gpt-5-6-sol")) != null and
@@ -155,14 +156,14 @@ printf '%s' "$rendered_models" | jq -e '
   (.providers.magpie.models | map(select(.id == "group/auto-gpt-5-5")) | first |
     .thinkingLevelMap.max) == null and
   (.providers.magpie.models | map(select(.id == "group/auto-gpt-6-1-sol")) | first |
-    .name) == "GPT-6.1-Sol (auto)"
+    .name) == "GPT-6.1-Sol · routing group"
 ' >/dev/null
 
 empty_models="$(render_models "")"
 printf '%s' "$empty_models" | jq -e '
   (.providers | has("cpa") | not) and
   .providers.magpie.apiKey == "magpie" and
-  (.providers.magpie.models | length) == 18 and
+  (.providers.magpie.models | length) == 31 and
   (has("catalog") | not)
 ' >/dev/null
 
@@ -211,6 +212,23 @@ jq -e '
   ([.providers.magpie.models[] | select(.id | startswith("group/")) |
     .contextWindow == 922000] | all)
 ' "$APPLY_HOME/.pi/agent/models.json" >/dev/null
+
+ACTUAL_MODELS_MANIFEST="$TMP_ROOT/pi_models_manifest.json"
+jq -S '.providers.magpie.api as $providerApi | {
+  providerApi: .providers.magpie.api,
+  models: [.providers.magpie.models[] as $model | {
+    api: ($model.api // $providerApi),
+    id: $model.id,
+    name: $model.name
+  }]
+}' "$APPLY_HOME/.pi/agent/models.json" >"$ACTUAL_MODELS_MANIFEST"
+
+if ! cmp -s "$EXPECTED_MODELS_MANIFEST" "$ACTUAL_MODELS_MANIFEST"; then
+    diff -u "$EXPECTED_MODELS_MANIFEST" "$ACTUAL_MODELS_MANIFEST" >&2 || true
+    exit 1
+fi
+
+printf 'pi_models_manifest_sha256=%s\n' "$(shasum -a 256 "$ACTUAL_MODELS_MANIFEST" | awk '{print $1}')"
 
 if rg -q --fixed-strings 'onepasswordRead' "$ROOT/dot_pi"; then
     echo "onepasswordRead leaked into Pi source state" >&2

@@ -13,6 +13,7 @@ nix:
       - eza
       - shfmt
       - ouch
+      - nodejs
     work: []
     private:
       - btop

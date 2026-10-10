@@ -8,7 +8,6 @@ homebrew:
       - macos-trash
       - mole
       - cloudflared
-      - cliproxyapi
     work: []
     private:
       - mas # Required for masApps installation

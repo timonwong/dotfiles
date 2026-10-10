@@ -6,7 +6,7 @@
 actionlint = "1.7.12"
 # File encryption tool built around simple, explicit age keys.
 "aqua:FiloSottile/age" = "1.3.2"
-apko = "1.4.9"
+apko = "1.4.10"
 "github:aria2/aria2" = "release-1.37.0"
 # Searchable shell history database and interactive history UI.
 "aqua:atuinsh/atuin" = "18.23.0"
@@ -14,8 +14,8 @@ bat = "0.26.1"
 # Adds bat-powered commands such as batdiff, batgrep, and batman.
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
-"bun" = "1.4.2"
-"claude-code" = "2.1.295"
+"bun" = "1.4.3"
+"claude-code" = "2.1.296"
 "aqua:openai/codex" = "0.146.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"
@@ -24,7 +24,7 @@ delta = "0.20.1"
 # Syntax-aware structural diff tool.
 # Keep pinned: 0.71.0 ships without Apple Darwin archives.
 difftastic = "0.70.0"
-direnv = "2.38.1"
+direnv = "2.38.2"
 # Human-friendly replacement for df.
 duf = "0.9.1"
 # Human-friendly disk usage analyzer.
@@ -44,7 +44,7 @@ go = "1.27.2"
 # Aggregated runner for fast Go linters.
 golangci-lint = "2.14.0"
 # Team-oriented command-line password manager.
-gopass = "1.17.3"
+gopass = "1.17.4"
 # Command-line benchmarking tool.
 hyperfine = "2.0.0"
 "github:timonwong/jiro" = "0.12.0"
@@ -63,7 +63,7 @@ lua-language-server = "3.19.1"
 melange = "0.62.0"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.98", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.99", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
 "npm:wrangler" = "4.149.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
@@ -84,7 +84,7 @@ shellcheck = "0.11.0"
 shfmt = "3.14.1"
 starship = "1.26.0"
 # Opinionated Lua code formatter.
-stylua = "2.5.2"
+stylua = "2.6.0"
 # Command-line client for interacting with Tekton Pipelines.
 "aqua:tektoncd/cli" = "0.46.1"
 # Command-line client for Tekton Pipelines as Code.

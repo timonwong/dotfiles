@@ -31,6 +31,7 @@ cat >"$CONFIG" <<'EOF'
 EOF
 
 SETTINGS_TEMPLATE="$ROOT/dot_pi/agent/modify_settings.json"
+KEYBINDINGS_SOURCE="$ROOT/dot_pi/agent/keybindings.json"
 
 render_settings() {
     printf '%s' "$1" | chezmoi execute-template \
@@ -70,6 +71,8 @@ printf '%s' "$rendered_settings" | jq -e '
   .defaultThinkingLevel == "medium" and
   .retry.maxRetries == 5 and
   .retry.baseDelayMs == 5000 and
+  .steeringMode == "all" and
+  .followUpMode == "all" and
   .customSetting == true
 ' >/dev/null
 
@@ -82,8 +85,12 @@ printf '%s' "$empty_settings" | jq -e '
   (has("defaultModel") | not) and
   (has("defaultThinkingLevel") | not) and
   .retry.maxRetries == 5 and
-  .retry.baseDelayMs == 5000
+  .retry.baseDelayMs == 5000 and
+  .steeringMode == "all" and
+  .followUpMode == "all"
 ' >/dev/null
+
+jq -e '."app.interrupt" == "ctrl+shift+c"' "$KEYBINDINGS_SOURCE" >/dev/null
 
 if [[ -e "$ROOT/dot_pi/agent/modify_models.json" ]]; then
     echo "chezmoi must not manage ~/.pi/agent/models.json" >&2
@@ -126,6 +133,7 @@ APPLY_HOME="$TMP_ROOT/apply-home"
 APPLY_CONFIG="$TMP_ROOT/apply-chezmoi.toml"
 mkdir -p "$APPLY_SOURCE/dot_pi/agent" "$APPLY_HOME/.pi/agent"
 cp "$SETTINGS_TEMPLATE" "$APPLY_SOURCE/dot_pi/agent/modify_settings.json"
+cp "$KEYBINDINGS_SOURCE" "$APPLY_SOURCE/dot_pi/agent/keybindings.json"
 cat >"$APPLY_CONFIG" <<EOF
 sourceDir = "$APPLY_SOURCE"
 destDir = "$APPLY_HOME"
@@ -143,8 +151,12 @@ jq -e '
   .defaultThinkingLevel == "medium" and
   .retry.maxRetries == 5 and
   .retry.baseDelayMs == 5000 and
+  .steeringMode == "all" and
+  .followUpMode == "all" and
   .customSetting == true
 ' "$APPLY_HOME/.pi/agent/settings.json" >/dev/null
+
+jq -e '."app.interrupt" == "ctrl+shift+c"' "$APPLY_HOME/.pi/agent/keybindings.json" >/dev/null
 
 if ! cmp -s <(printf '%s' "$existing_models") "$APPLY_HOME/.pi/agent/models.json"; then
     echo "isolated apply rewrote unmanaged models.json" >&2

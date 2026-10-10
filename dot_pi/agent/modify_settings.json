@@ -5,7 +5,8 @@
   "markdown" (dict
     "mermaid" "streaming"
   )
-  "steeringMode" "one-at-a-time"
+  "steeringMode" "all"
+  "followUpMode" "all"
   "terminal" (dict
     "showTerminalProgress" true
   )

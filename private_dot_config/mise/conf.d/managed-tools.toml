@@ -37,7 +37,7 @@ fzf = "0.74.5"
 gh = "2.102.0"
 git-lfs = "3.8.0"
 # GitLab command-line client.
-glab = "1.122.0"
+glab = "1.123.0"
 # Detects secrets in files and Git history.
 gitleaks = "8.30.1"
 go = "1.27.2"
@@ -58,26 +58,26 @@ kubectl = "1.37.1"
 # Terminal UI for Git operations.
 lazygit = "0.66.1"
 # Language Server Protocol implementation for Lua.
-lua-language-server = "3.19.1"
+lua-language-server = "3.19.2"
 # Builds APK packages from declarative YAML recipes.
 melange = "0.62.1"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
 "pipx:nmem-cli" = { version = "0.10.100", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.149.0"
+"npm:wrangler" = "4.150.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
-"npm:oxfmt" = "0.72.0"
+"npm:oxfmt" = "0.73.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "1.1.0"
+"npm:@earendil-works/pi-coding-agent" = "1.2.0"
 rclone = "1.75.2"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.
-rtk = "v0.51.0"
+rtk = "v0.52.0"
 # Fast Lua linter.
 "aqua:Kampfkarren/selene" = "0.32.0"
 # Smart tmux session manager.
-"aqua:joshmedeski/sesh" = "2.32.0"
+"aqua:joshmedeski/sesh" = "2.33.0"
 # Static analyzer for shell scripts.
 shellcheck = "0.11.0"
 # Shell parser and formatter, provided as a fallback on non-Nix hosts.
@@ -88,7 +88,7 @@ stylua = "2.6.0"
 # Command-line client for interacting with Tekton Pipelines.
 "aqua:tektoncd/cli" = "0.46.1"
 # Command-line client for Tekton Pipelines as Code.
-"aqua:tektoncd/pipelines-as-code" = "0.51.0"
+"aqua:tektoncd/pipelines-as-code" = "0.52.0"
 # Rust implementation of the tldr command-line help client.
 tlrc = "1.13.1"
 tmux = "3.7b"

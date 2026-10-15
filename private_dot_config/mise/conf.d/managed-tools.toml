@@ -15,7 +15,7 @@ bat = "0.26.1"
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.3"
-"claude-code" = "2.1.300"
+"claude-code" = "2.1.301"
 "aqua:openai/codex" = "0.146.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"
@@ -69,7 +69,7 @@ melange = "0.62.1"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.73.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "1.2.0"
+"npm:@earendil-works/pi-coding-agent" = "1.3.0"
 rclone = "1.75.2"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.

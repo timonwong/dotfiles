@@ -9,7 +9,7 @@ actionlint = "1.7.12"
 apko = "1.4.11"
 "github:aria2/aria2" = "release-1.37.0"
 # Searchable shell history database and interactive history UI.
-"aqua:atuinsh/atuin" = "18.23.0"
+"aqua:atuinsh/atuin" = "18.24.0"
 bat = "0.26.1"
 # Adds bat-powered commands such as batdiff, batgrep, and batman.
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
@@ -42,7 +42,7 @@ glab = "1.123.0"
 gitleaks = "8.30.1"
 go = "1.27.2"
 # Aggregated runner for fast Go linters.
-golangci-lint = "2.14.0"
+golangci-lint = "2.15.0"
 # Team-oriented command-line password manager.
 gopass = "1.17.4"
 # Command-line benchmarking tool.
@@ -56,7 +56,7 @@ just = "1.59.0"
 krew = "0.5.0"
 kubectl = "1.37.1"
 # Terminal UI for Git operations.
-lazygit = "0.66.1"
+lazygit = "0.66.2"
 # Language Server Protocol implementation for Lua.
 lua-language-server = "3.19.2"
 # Builds APK packages from declarative YAML recipes.
@@ -65,7 +65,7 @@ melange = "0.62.1"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
 "pipx:nmem-cli" = { version = "0.10.101", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.151.0"
+"npm:wrangler" = "4.151.1"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.73.0"
 # Pi is a minimal terminal coding harness.

@@ -3,11 +3,11 @@
 # ─────────────────────────────────────────────────────────────────────────────
 versions:
   # renovate: datasource=github-releases depName=DeterminateSystems/nix-installer
-  nixInstaller: v3.23.2
+  nixInstaller: v3.23.3
   # renovate: datasource=github-releases depName=DeterminateSystems/nix
   nixVersion: v2.35.3
   # renovate: datasource=github-release-attachments depName=jdx/mise
-  miseVersion: v2026.10.13
-  miseInstallerSha256: d2c31e93cd13f7686f151e2f85faae77111d7ce2c1e5474209e19fd8bc7b861b
+  miseVersion: v2026.10.15
+  miseInstallerSha256: 79db94aec4c40bfa1ff8d696621c0f5f96e2282b6675fdb71d834cf4ab4a70d0
   # renovate: datasource=github-releases depName=nix-community/nix-index-database
   nixIndexDb: 2026-10-18-072618

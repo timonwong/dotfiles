@@ -9,13 +9,13 @@ actionlint = "1.7.12"
 apko = "1.4.12"
 "github:aria2/aria2" = "release-1.37.0"
 # Searchable shell history database and interactive history UI.
-"aqua:atuinsh/atuin" = "18.24.1"
+"aqua:atuinsh/atuin" = "18.24.2"
 bat = "0.26.1"
 # Adds bat-powered commands such as batdiff, batgrep, and batman.
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
-"bun" = "1.4.3"
-"claude-code" = "2.1.306"
+"bun" = "1.4.4"
+"claude-code" = "2.1.308"
 "aqua:openai/codex" = "0.146.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"
@@ -65,11 +65,11 @@ melange = "0.63.1"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
 "pipx:nmem-cli" = { version = "0.10.105", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.151.3"
+"npm:wrangler" = "4.152.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.74.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "1.3.0"
+"npm:@earendil-works/pi-coding-agent" = "1.4.0"
 rclone = "1.75.2"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.

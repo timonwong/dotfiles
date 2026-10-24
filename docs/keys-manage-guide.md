@@ -431,7 +431,7 @@ Or in `~/.config/chezmoi/chezmoi.toml`:
 
 ```toml
 [data]
-    keysRepository = "git@github.com:username/keys-backup.git"
+keysRepository = "git@github.com:username/keys-backup.git"
 ```
 
 ## Encryption Details

@@ -73,7 +73,7 @@ melange = "0.63.1"
 rclone = "1.75.2"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.
-rtk = "v1.0.1"
+rtk = "v1.1.0"
 # Fast Lua linter.
 "aqua:Kampfkarren/selene" = "0.32.0"
 # Smart tmux session manager.

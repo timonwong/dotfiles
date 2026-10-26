@@ -60,12 +60,12 @@ lazygit = "0.66.2"
 # Language Server Protocol implementation for Lua.
 lua-language-server = "3.19.2"
 # Builds APK packages from declarative YAML recipes.
-melange = "0.63.1"
+melange = "0.63.2"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.107", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.108", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.152.0"
+"npm:wrangler" = "4.153.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.74.0"
 # Pi is a minimal terminal coding harness.

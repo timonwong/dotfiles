@@ -71,6 +71,12 @@
       "enabled": false
     },
     {
+      "description": "openai/codex GitHub tags use a rust-v prefix that aqua strips",
+      "matchManagers": ["mise"],
+      "matchDepNames": ["aqua:openai/codex"],
+      "extractVersion": "^rust-v(?<version>.+)$"
+    },
+    {
       "description": "Group mise managed tool non-major updates",
       "matchManagers": ["mise"],
       "matchUpdateTypes": ["minor", "patch", "digest"],

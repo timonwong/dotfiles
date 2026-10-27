@@ -16,7 +16,8 @@ bat = "0.26.1"
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.4"
 "claude-code" = "2.1.310"
-"aqua:openai/codex" = "0.146.0"
+# OpenAI Codex CLI. Keep the aqua backend: the unprefixed shorthand can resolve to npm.
+"aqua:openai/codex" = "0.163.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"
 # Syntax-highlighting pager for Git, diff, and grep output.

@@ -9,7 +9,7 @@ actionlint = "1.7.12"
 apko = "1.4.13"
 "github:aria2/aria2" = "release-1.37.0"
 # Searchable shell history database and interactive history UI.
-"aqua:atuinsh/atuin" = "18.24.2"
+"aqua:atuinsh/atuin" = "18.24.3"
 bat = "0.26.1"
 # Adds bat-powered commands such as batdiff, batgrep, and batman.
 # Keep pinned: upstream tags mix dotted and compact calendar versions.

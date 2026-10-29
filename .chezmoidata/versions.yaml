@@ -7,7 +7,7 @@ versions:
   # renovate: datasource=github-releases depName=DeterminateSystems/nix
   nixVersion: v2.35.4
   # renovate: datasource=github-release-attachments depName=jdx/mise
-  miseVersion: v2026.10.21
-  miseInstallerSha256: 06a474f4c64042d2f774f3a3427b165ba0be22f19f4837209ad238ad98d52248
+  miseVersion: v2026.10.23
+  miseInstallerSha256: 0f8c5212184c41bae5597fc4abbbd032cb7716021e9be1c6c5b720e022af449d
   # renovate: datasource=github-releases depName=nix-community/nix-index-database
   nixIndexDb: 2026-10-25-074941

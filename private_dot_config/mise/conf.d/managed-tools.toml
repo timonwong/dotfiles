@@ -17,7 +17,7 @@ bat = "0.26.1"
 "bun" = "1.4.4"
 "claude-code" = "2.1.312"
 # OpenAI Codex CLI. Keep the aqua backend: the unprefixed shorthand can resolve to npm.
-"aqua:openai/codex" = "0.165.0"
+"aqua:openai/codex" = "0.166.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"
 # Syntax-highlighting pager for Git, diff, and grep output.
@@ -66,7 +66,7 @@ melange = "0.63.2"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
 "pipx:nmem-cli" = { version = "0.10.110", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.155.0"
+"npm:wrangler" = "4.156.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.75.0"
 # Pi is a minimal terminal coding harness.

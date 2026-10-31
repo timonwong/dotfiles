@@ -15,7 +15,7 @@ bat = "0.26.1"
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.4"
-"claude-code" = "2.1.314"
+"claude-code" = "2.1.316"
 # OpenAI Codex CLI. Keep the aqua backend: the unprefixed shorthand can resolve to npm.
 "aqua:openai/codex" = "0.166.0"
 # Inspects and modifies container images and registries.
@@ -64,7 +64,7 @@ lua-language-server = "3.19.2"
 melange = "0.63.2"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.111", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.112", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
 "npm:wrangler" = "4.156.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.

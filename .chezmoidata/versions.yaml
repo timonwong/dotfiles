@@ -10,4 +10,4 @@ versions:
   miseVersion: v2026.10.25
   miseInstallerSha256: 61cb4d61d523a90fc9c479891897f8d0bbf0f622bd909119c06d32cd2202a414
   # renovate: datasource=github-releases depName=nix-community/nix-index-database
-  nixIndexDb: 2026-10-25-074941
+  nixIndexDb: 2026-11-01-134459

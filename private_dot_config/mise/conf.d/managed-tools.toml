@@ -29,7 +29,7 @@ direnv = "2.38.2"
 # Human-friendly replacement for df.
 duf = "0.9.1"
 # Human-friendly disk usage analyzer.
-dust = "1.2.6"
+dust = "1.2.7"
 # Fast system information summary tool.
 fastfetch = "2.70.0"
 # Fast, user-friendly replacement for find.

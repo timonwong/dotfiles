@@ -6,16 +6,16 @@
 actionlint = "1.7.12"
 # File encryption tool built around simple, explicit age keys.
 "aqua:FiloSottile/age" = "1.3.2"
-apko = "1.4.15"
+apko = "1.4.16"
 "github:aria2/aria2" = "release-1.37.0"
 # Searchable shell history database and interactive history UI.
-"aqua:atuinsh/atuin" = "18.24.4"
+"aqua:atuinsh/atuin" = "18.24.5"
 bat = "0.26.1"
 # Adds bat-powered commands such as batdiff, batgrep, and batman.
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.4"
-"claude-code" = "2.1.317"
+"claude-code" = "2.1.318"
 # OpenAI Codex CLI. Keep the aqua backend: the unprefixed shorthand can resolve to npm.
 "aqua:openai/codex" = "0.166.0"
 # Inspects and modifies container images and registries.
@@ -33,12 +33,12 @@ dust = "1.2.7"
 # Fast system information summary tool.
 fastfetch = "2.70.0"
 # Fast, user-friendly replacement for find.
-fd = "10.5.0"
+fd = "10.5.1"
 fzf = "0.74.5"
 gh = "2.103.3"
 git-lfs = "3.8.1"
 # GitLab command-line client.
-glab = "1.127.0"
+glab = "1.128.0"
 # Detects secrets in files and Git history.
 gitleaks = "8.30.1"
 go = "1.27.3"
@@ -66,9 +66,9 @@ melange = "0.64.0"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
 "pipx:nmem-cli" = { version = "0.10.113", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.156.2"
+"npm:wrangler" = "4.157.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
-"npm:oxfmt" = "0.75.0"
+"npm:oxfmt" = "0.76.0"
 # Pi is a minimal terminal coding harness.
 "npm:@earendil-works/pi-coding-agent" = "1.5.0"
 rclone = "1.75.2"

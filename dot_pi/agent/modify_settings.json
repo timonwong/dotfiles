@@ -19,21 +19,20 @@
   )
   "tuiMode" "fullscreen"
   "packages" (list
-    "npm:nowledge-mem-pi"
-    "npm:pi-agent-browser-native"
-    "npm:@juicesharp/rpiv-ask-user-question"
-    "npm:pi-subagents"
-    "npm:pi-prompt-template-model"
-    "npm:pi-tool-display"
     "npm:@ff-labs/pi-fff"
-    "npm:pi-context-usage"
-    "npm:pi-smart-fetch"
-    "npm:pi-smart-web-search"
+    "npm:@fradser/pi-agent-teams"
     "npm:@fradser/pi-btw"
-    "npm:pi-rtk-optimizer"
     "npm:@fradser/pi-monitor"
     "npm:@fradser/pi-utils"
-    "npm:@fradser/pi-agent-teams"
+    "npm:@juicesharp/rpiv-ask-user-question"
+    "npm:nowledge-mem-pi"
+    "npm:pi-context-usage"
+    "npm:pi-prompt-template-model"
+    "npm:pi-rtk-optimizer"
+    "npm:pi-smart-fetch"
+    "npm:pi-smart-web-search"
+    "npm:pi-subagents"
+    "npm:pi-tool-display"
   )
 ) -}}
 {{- $config | toPrettyJson -}}

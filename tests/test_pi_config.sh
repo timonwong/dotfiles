@@ -55,13 +55,14 @@ existing_settings='{
 rendered_settings="$(render_settings "$existing_settings")"
 printf '%s' "$rendered_settings" | jq -e '
   .theme == "dark" and
-  (.packages | length) == 15 and
+  (.packages | length) == 14 and
   (.packages | index("npm:pi-effort")) == null and
   (.packages | index("npm:@narumitw/pi-btw")) == null and
   (.packages | index("npm:@fradser/pi-btw")) != null and
   (.packages | index("npm:@99percentpeople/pi-thinking-fold")) == null and
   (.packages | index("npm:pi-vision-handoff")) == null and
   (.packages | index("npm:@fradser/pi-vision")) == null and
+  (.packages | index("npm:pi-agent-browser-native")) == null and
   (.packages | index("npm:@fradser/pi-monitor")) != null and
   (.packages | index("npm:@fradser/pi-utils")) != null and
   (.packages | index("npm:@fradser/pi-agent-teams")) != null and
@@ -79,7 +80,7 @@ printf '%s' "$rendered_settings" | jq -e '
 empty_settings="$(render_settings "")"
 printf '%s' "$empty_settings" | jq -e '
   (.theme == "dark") and
-  ((.packages | length) == 15) and
+  ((.packages | length) == 14) and
   (has("lastChangelogVersion") | not) and
   (has("defaultProvider") | not) and
   (has("defaultModel") | not) and

@@ -1,6 +1,9 @@
 {{- /* chezmoi:modify-template */ -}}
 {{- $config := .chezmoi.stdin | default "{}" | fromJson | default dict -}}
 {{- $config = mergeOverwrite $config (dict
+  "defaultTools" (list
+    "+codemode"
+  )
   "theme" "dark"
   "markdown" (dict
     "mermaid" "streaming"

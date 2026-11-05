@@ -7,13 +7,16 @@ if [[ -d "$HOME/.nix-profile/bin" ]]; then
     export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH"
+if [[ -n "${OH_MY_RIME_PATH_PREFIX:-}" ]]; then
+    PATH="$OH_MY_RIME_PATH_PREFIX:$PATH"
+fi
 
 OH_MY_RIME_REPO_URL="https://github.com/Mintimate/oh-my-rime"
-OH_MY_RIME_COMMIT="8e7ea62de1aa53f8ae2be049f9762629b63a218e"
+OH_MY_RIME_COMMIT="cb4f7dda2fb74332cda0a7712ffc89ea5ded856f"
 OH_MY_RIME_TARBALL_URL="${OH_MY_RIME_REPO_URL}/archive/${OH_MY_RIME_COMMIT}.tar.gz"
 WANXIANG_GRAM_URL="https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram"
 WANXIANG_GRAM_FILENAME="wanxiang-lts-zh-hans.gram"
-SQUIRREL_BIN="/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel"
+SQUIRREL_BIN="${SQUIRREL_BIN:-/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel}"
 
 echo ":: [12] Syncing oh-my-rime"
 echo "    Source: ${OH_MY_RIME_REPO_URL}"
@@ -171,11 +174,9 @@ else
         rel="$(basename "$src")"
 
         case "$rel" in
-        ibus_rime.yaml)
+        ibus_rime.yaml | squirrel.yaml)
             [[ "$PLATFORM_FILE" == "$rel" ]] || continue
-            ;;
-        squirrel.yaml)
-            [[ "$PLATFORM_FILE" == "$rel" ]] || continue
+            copy_file "$repo_root" "$rel" "$new_upstream_manifest"
             ;;
         weasel.yaml)
             continue

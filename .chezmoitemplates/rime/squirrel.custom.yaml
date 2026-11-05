@@ -3,6 +3,9 @@
 
 patch:
   style/candidate_list_layout: linear
+  # oh-my-rime squirrel.yaml selects mint skins; keep the previous native scheme.
+  style/color_scheme: native
+  style/color_scheme_dark: native
   app_options:
     com.apple.Terminal:
       #ascii_mode: true

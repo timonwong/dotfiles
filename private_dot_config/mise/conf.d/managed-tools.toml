@@ -33,8 +33,8 @@ dust = "1.2.7"
 # Fast system information summary tool.
 fastfetch = "2.71.0"
 # Fast, user-friendly replacement for find.
-fd = "10.5.1"
-fzf = "0.74.5"
+fd = "10.5.2"
+fzf = "0.75.0"
 gh = "2.103.3"
 git-lfs = "3.8.1"
 # GitLab command-line client.
@@ -64,7 +64,7 @@ lua-language-server = "3.19.2"
 melange = "0.64.0"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.115", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.116", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
 "npm:wrangler" = "4.158.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
@@ -96,7 +96,7 @@ tmux = "3.7b"
 # Improved tree command for displaying directory structures.
 "aqua:dduan/tre" = "0.4.0"
 # Incremental parser generator and syntax tree tooling CLI.
-tree-sitter = "0.27.1"
+tree-sitter = "0.27.2"
 # Runs multiple repository formatters through one interface.
 "aqua:numtide/treefmt" = "2.6.0"
 # Fast terminal file manager with asynchronous I/O.

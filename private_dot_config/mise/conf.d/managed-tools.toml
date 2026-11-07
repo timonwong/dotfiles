@@ -92,7 +92,7 @@ stylua = "2.6.0"
 "aqua:tektoncd/pipelines-as-code" = "0.52.0"
 # Rust implementation of the tldr command-line help client.
 tlrc = "1.13.1"
-tmux = "3.7b"
+tmux = "3.8"
 # Improved tree command for displaying directory structures.
 "aqua:dduan/tre" = "0.4.0"
 # Incremental parser generator and syntax tree tooling CLI.

@@ -57,7 +57,7 @@ just = "1.59.0"
 krew = "0.5.0"
 kubectl = "1.37.2"
 # Terminal UI for Git operations.
-lazygit = "0.66.2"
+lazygit = "0.66.3"
 # Language Server Protocol implementation for Lua.
 lua-language-server = "3.19.2"
 # Builds APK packages from declarative YAML recipes.
@@ -74,7 +74,7 @@ melange = "0.64.0"
 rclone = "1.76.0"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.
-rtk = "v1.1.0"
+rtk = "v1.2.0"
 # Fast Lua linter.
 "aqua:Kampfkarren/selene" = "0.32.0"
 # Smart tmux session manager.

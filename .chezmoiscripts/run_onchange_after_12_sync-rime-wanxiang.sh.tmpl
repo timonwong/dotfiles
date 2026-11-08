@@ -7,20 +7,20 @@ if [[ -d "$HOME/.nix-profile/bin" ]]; then
     export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH"
-if [[ -n "${OH_MY_RIME_PATH_PREFIX:-}" ]]; then
-    PATH="$OH_MY_RIME_PATH_PREFIX:$PATH"
+if [[ -n "${RIME_WANXIANG_PATH_PREFIX:-}" ]]; then
+    PATH="$RIME_WANXIANG_PATH_PREFIX:$PATH"
 fi
 
-OH_MY_RIME_REPO_URL="https://github.com/Mintimate/oh-my-rime"
-OH_MY_RIME_COMMIT="cb4f7dda2fb74332cda0a7712ffc89ea5ded856f"
-OH_MY_RIME_TARBALL_URL="${OH_MY_RIME_REPO_URL}/archive/${OH_MY_RIME_COMMIT}.tar.gz"
+WANXIANG_REPO_URL="https://github.com/amzxyz/rime-wanxiang"
+WANXIANG_VERSION="v18.1.9"
+WANXIANG_ZIP_URL="${WANXIANG_REPO_URL}/releases/download/${WANXIANG_VERSION}/rime-wanxiang-base.zip"
 WANXIANG_GRAM_URL="https://github.com/amzxyz/RIME-LMDG/releases/download/LTS/wanxiang-lts-zh-hans.gram"
 WANXIANG_GRAM_FILENAME="wanxiang-lts-zh-hans.gram"
 SQUIRREL_BIN="${SQUIRREL_BIN:-/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel}"
 
-echo ":: [12] Syncing oh-my-rime"
-echo "    Source: ${OH_MY_RIME_REPO_URL}"
-echo "    Commit: ${OH_MY_RIME_COMMIT}"
+echo ":: [12] Syncing rime-wanxiang"
+echo "    Source: ${WANXIANG_REPO_URL}"
+echo "    Version: ${WANXIANG_VERSION}"
 {{- if .headless }}
 echo "    Skipped (headless profile)"
 exit 0
@@ -44,9 +44,10 @@ esac
 
 GRAM_TARGET_FILE="$TARGET_DIR/$WANXIANG_GRAM_FILENAME"
 
-STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/oh-my-rime"
-INSTALLED_COMMIT_FILE="$STATE_DIR/installed_commit"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/rime-wanxiang"
+INSTALLED_VERSION_FILE="$STATE_DIR/installed_version"
 UPSTREAM_MANAGED_FILES_FILE="$STATE_DIR/upstream-managed-files.txt"
+LEGACY_OH_MY_RIME_MANIFEST="${XDG_STATE_HOME:-$HOME/.local/state}/oh-my-rime/upstream-managed-files.txt"
 
 pretty_path() {
     local path="$1"
@@ -132,6 +133,18 @@ remove_stale_managed_files() {
         fi
     done <"$manifest"
 }
+
+combine_previous_manifests() {
+    local combined="$1"
+
+    : >"$combined"
+    if [[ -f "$UPSTREAM_MANAGED_FILES_FILE" ]]; then
+        cat "$UPSTREAM_MANAGED_FILES_FILE" >>"$combined"
+    fi
+    if [[ -f "$LEGACY_OH_MY_RIME_MANIFEST" ]]; then
+        cat "$LEGACY_OH_MY_RIME_MANIFEST" >>"$combined"
+    fi
+}
 {{ include ".chezmoitemplates/shell/rime_deploy.sh" }}
 mkdir -p "$STATE_DIR"
 if [[ ! -d "$TARGET_DIR" ]]; then
@@ -144,28 +157,39 @@ download_file "$WANXIANG_GRAM_URL" "$gram_tmp"
 mv -f "$gram_tmp" "$GRAM_TARGET_FILE"
 echo "    Synced grammar: $(pretty_path "$GRAM_TARGET_FILE")"
 
-if [[ -f "$INSTALLED_COMMIT_FILE" ]] && [[ "$(cat "$INSTALLED_COMMIT_FILE")" == "$OH_MY_RIME_COMMIT" ]] && manifest_is_complete "$UPSTREAM_MANAGED_FILES_FILE"; then
+if [[ -f "$INSTALLED_VERSION_FILE" ]] && [[ "$(cat "$INSTALLED_VERSION_FILE")" == "$WANXIANG_VERSION" ]] && manifest_is_complete "$UPSTREAM_MANAGED_FILES_FILE"; then
     echo "    Upstream already synced: $(pretty_path "$TARGET_DIR")"
 else
-    tmpdir="$(mktemp -d "${TMPDIR:-/tmp}/oh-my-rime.XXXXXX")"
+    tmpdir="$(mktemp -d "${TMPDIR:-/tmp}/rime-wanxiang.XXXXXX")"
     cleanup() {
         rm -rf "$tmpdir"
     }
     trap cleanup EXIT
 
-    archive_file="$tmpdir/oh-my-rime.tar.gz"
+    archive_file="$tmpdir/rime-wanxiang-base.zip"
     extract_dir="$tmpdir/extract"
     new_upstream_manifest="$tmpdir/upstream-managed-files.txt"
+    previous_manifest="$tmpdir/previous-managed-files.txt"
 
     mkdir -p "$extract_dir"
     : >"$new_upstream_manifest"
 
-    download_file "$OH_MY_RIME_TARBALL_URL" "$archive_file"
-    tar -xzf "$archive_file" -C "$extract_dir"
+    if ! command -v unzip >/dev/null 2>&1; then
+        echo "    Error: unzip is required to extract rime-wanxiang" >&2
+        exit 1
+    fi
 
-    repo_root="$(find "$extract_dir" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+    download_file "$WANXIANG_ZIP_URL" "$archive_file"
+    unzip -q "$archive_file" -d "$extract_dir"
+
+    repo_root=""
+    if [[ -f "$extract_dir/wanxiang.schema.yaml" ]]; then
+        repo_root="$extract_dir"
+    else
+        repo_root="$(find "$extract_dir" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+    fi
     if [[ -z "$repo_root" ]]; then
-        echo "    Error: failed to locate extracted oh-my-rime sources" >&2
+        echo "    Error: failed to locate extracted rime-wanxiang sources" >&2
         exit 1
     fi
 
@@ -181,7 +205,10 @@ else
         weasel.yaml)
             continue
             ;;
-        *.yaml | rime.lua)
+        README.md | LICENSE | CHANGELOG.md | AGENTS.md | mkdocs.yml | .gitattributes | .gitignore | .yamlfmt)
+            continue
+            ;;
+        *.yaml | *.txt | rime.lua)
             copy_file "$repo_root" "$rel" "$new_upstream_manifest"
             ;;
         esac
@@ -192,9 +219,10 @@ else
     copy_dir_files "$repo_root" "opencc" "$new_upstream_manifest"
 
     LC_ALL=C sort -u "$new_upstream_manifest" -o "$new_upstream_manifest"
-    remove_stale_managed_files "$UPSTREAM_MANAGED_FILES_FILE" "$new_upstream_manifest"
+    combine_previous_manifests "$previous_manifest"
+    remove_stale_managed_files "$previous_manifest" "$new_upstream_manifest"
     cp "$new_upstream_manifest" "$UPSTREAM_MANAGED_FILES_FILE"
-    printf '%s\n' "$OH_MY_RIME_COMMIT" >"$INSTALLED_COMMIT_FILE"
+    printf '%s\n' "$WANXIANG_VERSION" >"$INSTALLED_VERSION_FILE"
     echo "    Synced upstream: $(pretty_path "$TARGET_DIR")"
 fi
 

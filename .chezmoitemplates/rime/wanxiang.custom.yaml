@@ -1,0 +1,30 @@
+# Rime schema
+# encoding: utf-8
+
+patch:
+  # 候选词个数
+  menu/page_size: 9
+
+  # 语言模型
+  "grammar/language": wanxiang-lts-zh-hans
+  "grammar/collocation_max_length": 8
+  "grammar/collocation_min_length": 2
+  "grammar/collocation_penalty": -16
+  "grammar/non_collocation_penalty": -8
+  "grammar/weak_collocation_penalty": -100
+  "grammar/rear_penalty": -20
+
+  # translator 内加载
+  "translator/contextual_suggestions": true
+  "translator/max_homophones": 7
+  "translator/max_homographs": 7
+
+  speller/algebra:
+    __patch:
+      - wanxiang_algebra:/模糊音_nl
+      - wanxiang_algebra:/模糊音_z_zh
+      - wanxiang_algebra:/模糊音_c_ch
+      - wanxiang_algebra:/模糊音_s_sh
+      - wanxiang_algebra:/模糊音_en_eng
+      - wanxiang_algebra:/模糊音_in_ing
+      - wanxiang_algebra:/base/全拼

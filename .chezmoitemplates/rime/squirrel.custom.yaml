@@ -3,7 +3,7 @@
 
 patch:
   style/candidate_list_layout: linear
-  # oh-my-rime squirrel.yaml selects mint skins; keep the previous native scheme.
+  # Keep the previous native scheme instead of upstream skins.
   style/color_scheme: native
   style/color_scheme_dark: native
   app_options:

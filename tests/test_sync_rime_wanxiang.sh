@@ -58,6 +58,11 @@ grep -q 'wanxiang_algebra:/模糊音_nl' "$WANXIANG_CUSTOM" || {
     exit 1
 }
 
+grep -q '"switches/@3/reset": 1' "$WANXIANG_CUSTOM" || {
+    echo "expected emoji switch default on" >&2
+    exit 1
+}
+
 grep -q 'style/color_scheme: native' "$CUSTOM_TMPL" || {
     echo "expected squirrel.custom.yaml to keep native color scheme" >&2
     exit 1

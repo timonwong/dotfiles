@@ -5,6 +5,9 @@ patch:
   # 候选词个数
   menu/page_size: 9
 
+  # Default emoji candidates on. Index matches wanxiang.schema.yaml switches.
+  "switches/@3/reset": 1
+
   # 语言模型
   "grammar/language": wanxiang-lts-zh-hans
   "grammar/collocation_max_length": 8

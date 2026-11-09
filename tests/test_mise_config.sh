@@ -26,11 +26,19 @@ cat >"$CONFIG" <<'EOF'
 [data]
 EOF
 
+LINUX_ARTIFACT="$TMP_ROOT/rendered-mise-config-linux.toml"
+
 chezmoi execute-template \
     --config "$CONFIG" \
     --source "$SOURCE_ROOT" \
     --override-data '{"platform":"darwin"}' \
     <"$TEMPLATE" >"$ARTIFACT"
+
+chezmoi execute-template \
+    --config "$CONFIG" \
+    --source "$SOURCE_ROOT" \
+    --override-data '{"platform":"linux"}' \
+    <"$TEMPLATE" >"$LINUX_ARTIFACT"
 
 if grep -nE '^[[:space:]]*always_keep_download[[:space:]]*=' "$TEMPLATE" "$ARTIFACT"; then
     echo "mise config must not set deprecated always_keep_download; finished downloads use download_cache" >&2
@@ -42,10 +50,22 @@ if [[ -e "$ROOT/private_dot_config/mise/private_config.toml.tmpl" ]]; then
     exit 1
 fi
 
-if grep -nE 'mr-boxington|^[[:space:]]*wrappers[[:space:]]*=' "$TEMPLATE" "$ARTIFACT"; then
-    echo "machine-local mise tools/wrappers must live in config.local.toml, not the managed config" >&2
-    exit 1
-fi
+for rendered in "$ARTIFACT" "$LINUX_ARTIFACT"; do
+    for wanted in \
+        'wrappers = { cargo = { command = "mbx", env = { MBX_CARGO_SHIM_MODE = "1" } } }' \
+        'rust = { version = "latest", mr_boxington = true }' \
+        'mr-boxington = { version = "latest", workflow = "release.yml@refs/heads/main" }'; do
+        grep -qxF "$wanted" "$rendered" || {
+            echo "managed mise config must set '$wanted' on every platform: $rendered" >&2
+            exit 1
+        }
+    done
+    # wrappers is a top-level key, so it must come before the first table.
+    if [[ "$(grep -nE '^(wrappers = |\[)' "$rendered" | head -1)" != *"wrappers = "* ]]; then
+        echo "wrappers must be set before the first TOML table: $rendered" >&2
+        exit 1
+    fi
+done
 
 grep -q 'config.local.toml' "$TEMPLATE" || {
     echo "managed mise config must point machine-local overlays at config.local.toml" >&2

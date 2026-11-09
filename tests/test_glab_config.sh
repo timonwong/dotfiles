@@ -34,6 +34,7 @@ EOF
 printf '{{ .chezmoi.stdin | fromYaml | toJson }}\n' >"$TMP_ROOT/yaml2json.tmpl"
 
 TEMPLATE="$ROOT/private_dot_config/glab-cli/modify_private_config.yml"
+MANAGED_YAML="$ROOT/.chezmoitemplates/glab-cli/config.yml.tmpl"
 ARTIFACT="$TMP_ROOT/rendered-glab-config.yml"
 
 if [[ -e "$ROOT/private_dot_config/glab-cli/private_config.yml.tmpl" ]]; then
@@ -41,10 +42,13 @@ if [[ -e "$ROOT/private_dot_config/glab-cli/private_config.yml.tmpl" ]]; then
     exit 1
 fi
 
-if grep -qi token "$TEMPLATE"; then
-    echo "glab modify template must not set token" >&2
+grep -Fq "Set your desired Markdown renderer style" "$MANAGED_YAML" || {
+    echo "glab managed YAML must keep the original config comments" >&2
     exit 1
-fi
+}
+
+mkdir -p "$SOURCE_ROOT/.chezmoitemplates/glab-cli"
+cp "$MANAGED_YAML" "$SOURCE_ROOT/.chezmoitemplates/glab-cli/config.yml.tmpl"
 
 yaml_to_json() {
     printf '%s' "$1" | chezmoi execute-template \
@@ -116,8 +120,9 @@ yaml_to_json "$empty_rendered" | jq -e '
 APPLY_SOURCE="$TMP_ROOT/apply-source"
 APPLY_HOME="$TMP_ROOT/apply-home"
 APPLY_CONFIG="$TMP_ROOT/apply-chezmoi.toml"
-mkdir -p "$APPLY_SOURCE/private_dot_config/glab-cli" "$APPLY_HOME/.config/glab-cli"
+mkdir -p "$APPLY_SOURCE/private_dot_config/glab-cli" "$APPLY_SOURCE/.chezmoitemplates/glab-cli" "$APPLY_HOME/.config/glab-cli"
 cp "$TEMPLATE" "$APPLY_SOURCE/private_dot_config/glab-cli/modify_private_config.yml"
+cp "$MANAGED_YAML" "$APPLY_SOURCE/.chezmoitemplates/glab-cli/config.yml.tmpl"
 cat >"$APPLY_CONFIG" <<EOF
 sourceDir = "$APPLY_SOURCE"
 destDir = "$APPLY_HOME"

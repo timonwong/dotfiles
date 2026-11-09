@@ -5,15 +5,5 @@
 Include ~/.orbstack/ssh/config
 {{- end }}
 
-Host *
-    IgnoreUnknown UseKeychain
-    AddKeysToAgent no
-    UseKeychain yes
-    # ControlMaster auto
-    # ControlPath /tmp/ssh-%h-%p-%r
-    # ControlPersist yes
-    ServerAliveInterval 60
-    ForwardAgent yes
-    #PubkeyAcceptedKeyTypes +ssh-rsa
-
+Include ~/.ssh/config.d/*.conf
 Include ~/.ssh/hosts.d/*.conf

@@ -78,6 +78,11 @@ Library/
 .config/skimi/ai-now/
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Machine-local overlays (never add back into chezmoi)
+# ─────────────────────────────────────────────────────────────────────────────
+.config/mise/config.local.toml
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Encryption-related exclusions (skip when useEncryption is false)
 # ─────────────────────────────────────────────────────────────────────────────
 {{- if not .useEncryption }}

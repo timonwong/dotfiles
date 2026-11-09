@@ -1,0 +1,15 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $raw := .chezmoi.stdin | default "" -}}
+{{- $config := dict -}}
+{{- if $raw -}}
+{{- $parsed := fromYaml $raw -}}
+{{- if $parsed -}}
+{{- $config = $parsed -}}
+{{- end -}}
+{{- end -}}
+{{- $config = mergeOverwrite $config (dict
+  "github.com" (dict
+    "git_protocol" "https"
+  )
+) -}}
+{{- $config | toYaml -}}

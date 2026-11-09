@@ -1,0 +1,4 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- $existing := .chezmoi.stdin | default "" | fromYaml | default dict -}}
+{{- $managed := includeTemplate "glab-cli/config.yml.tmpl" . | fromYaml -}}
+{{- mergeOverwrite $existing $managed | toYaml -}}

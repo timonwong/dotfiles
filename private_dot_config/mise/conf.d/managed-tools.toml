@@ -66,7 +66,7 @@ melange = "0.64.1"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
 "pipx:nmem-cli" = { version = "0.10.118", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.161.0"
+"npm:wrangler" = "4.162.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.78.0"
 # Pi is a minimal terminal coding harness.

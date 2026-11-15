@@ -64,7 +64,7 @@ lua-language-server = "3.19.2"
 melange = "0.64.1"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.118", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.119", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
 "npm:wrangler" = "4.162.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.

@@ -20,7 +20,10 @@ jobs:
           use-gha-cache: true
       - name: Install tools
         run: |
-          nix profile install nixpkgs#pre-commit nixpkgs#treefmt nixpkgs#shfmt nixpkgs#shellcheck nixpkgs#statix nixpkgs#nixfmt nixpkgs#stylua nixpkgs#selene nixpkgs#chezmoi nixpkgs#oxfmt
+          # pre-commit/action installs pre-commit. nixpkgs#pre-commit hardcodes
+          # weekly's virtualenv, which currently crashes importing packaging and
+          # would shadow the action binary on PATH.
+          nix profile install nixpkgs#treefmt nixpkgs#shfmt nixpkgs#shellcheck nixpkgs#statix nixpkgs#nixfmt nixpkgs#stylua nixpkgs#selene nixpkgs#chezmoi nixpkgs#oxfmt
       - name: Setup chezmoi
         run: |
           mkdir -p ~/.config/chezmoi

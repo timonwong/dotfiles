@@ -45,7 +45,7 @@ go = "1.27.4"
 # Aggregated runner for fast Go linters.
 golangci-lint = "2.15.0"
 # Team-oriented command-line password manager.
-gopass = "1.17.4"
+gopass = "1.17.5"
 # Command-line benchmarking tool.
 hyperfine = "2.0.0"
 "github:timonwong/jiro" = "0.13.0"

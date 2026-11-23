@@ -72,7 +72,7 @@ melange = "0.65.0"
 # Pi is a minimal terminal coding harness.
 "npm:@earendil-works/pi-coding-agent" = "1.6.0"
 rclone = "1.76.0"
-rg = "15.2.0"
+rg = "16.0.0"
 # CLI proxy that reduces LLM token consumption from command output.
 rtk = "v1.2.1"
 # Fast Lua linter.

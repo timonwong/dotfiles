@@ -77,6 +77,15 @@
       "extractVersion": "^rust-v(?<version>.+)$"
     },
     {
+      "description": "Follow the npm nightly dist-tag for lody",
+      "matchManagers": ["mise"],
+      "matchDatasources": ["npm"],
+      "matchPackageNames": ["lody"],
+      "followTag": "nightly",
+      "ignoreUnstable": false,
+      "automerge": true
+    },
+    {
       "description": "Group mise managed tool non-major updates",
       "matchManagers": ["mise"],
       "matchUpdateTypes": ["minor", "patch", "digest"],

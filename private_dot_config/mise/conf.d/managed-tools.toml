@@ -15,9 +15,9 @@ bat = "0.26.1"
 # Keep pinned: upstream tags mix dotted and compact calendar versions.
 "aqua:eth-p/bat-extras" = "2024.08.24"
 "bun" = "1.4.5"
-"claude-code" = "2.1.330"
+"claude-code" = "2.1.332"
 # OpenAI Codex CLI. Keep the aqua backend: the unprefixed shorthand can resolve to npm.
-"aqua:openai/codex" = "0.171.0"
+"aqua:openai/codex" = "0.172.0"
 # Inspects and modifies container images and registries.
 crane = "0.22.1"
 # Syntax-highlighting pager for Git, diff, and grep output.
@@ -29,7 +29,7 @@ direnv = "2.38.2"
 # Human-friendly replacement for df.
 duf = "0.9.1"
 # Human-friendly disk usage analyzer.
-dust = "1.2.7"
+dust = "1.2.8"
 # Fast system information summary tool.
 fastfetch = "2.71.0"
 # Fast, user-friendly replacement for find.
@@ -38,7 +38,7 @@ fzf = "0.75.0"
 gh = "2.105.0"
 git-lfs = "3.8.1"
 # GitLab command-line client.
-glab = "1.131.0"
+glab = "1.133.0"
 # Detects secrets in files and Git history.
 gitleaks = "8.30.1"
 go = "1.27.4"
@@ -55,24 +55,24 @@ jq = "1.8.2"
 just = "1.59.0"
 # Plugin manager for kubectl.
 krew = "0.5.0"
-kubectl = "1.37.2"
+kubectl = "1.37.3"
 # Terminal UI for Git operations.
 lazygit = "0.66.3"
 # Lody Agent CLI tool for managing remote command execution.
-"npm:lody" = "0.114.0-nightly.14"
+"npm:lody" = "0.114.0-nightly.16"
 # Language Server Protocol implementation for Lua.
 lua-language-server = "3.19.2"
 # Builds APK packages from declarative YAML recipes.
-melange = "0.65.0"
+melange = "0.66.0"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.122", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.123", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.167.0"
+"npm:wrangler" = "4.168.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.80.0"
 # Pi is a minimal terminal coding harness.
-"npm:@earendil-works/pi-coding-agent" = "1.6.0"
+"npm:@earendil-works/pi-coding-agent" = "1.6.1"
 rclone = "1.76.0"
 rg = "15.2.0"
 # CLI proxy that reduces LLM token consumption from command output.
@@ -105,6 +105,6 @@ tree-sitter = "0.27.2"
 yazi = "26.9.1"
 yq = "4.54.3"
 # Terminal workspace and multiplexer.
-zellij = "0.46.0"
+zellij = "0.46.1"
 # Smarter cd command backed by a directory database.
 zoxide = "0.10.0"

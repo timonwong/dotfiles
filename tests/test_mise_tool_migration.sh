@@ -14,7 +14,6 @@ with (root / "private_dot_config/mise/conf.d/managed-tools.toml").open("rb") as 
     tools = tomllib.load(handle)["tools"]
 
 expected = {
-    "actionlint": "1.7.12",
     "aqua:atuinsh/atuin": "18.19.0",
     "aqua:eth-p/bat-extras": "2024.08.24",
     "delta": "0.19.2",
@@ -38,6 +37,21 @@ for name, version in expected.items():
     actual = tools.get(name)
     if actual != version:
         raise SystemExit(f"expected {name}={version}, got {actual!r}")
+
+retired_managed = {
+    "actionlint",
+    "github:aria2/aria2",
+    "bun",
+    "gitleaks",
+}
+for name in sorted(retired_managed):
+    if name in tools:
+        raise SystemExit(f"retired tool still declared in managed-tools.toml: {name}")
+
+config_tmpl = (root / "private_dot_config/mise/config.toml.tmpl").read_text()
+for needle in ("helm", "bb-browser"):
+    if needle in config_tmpl:
+        raise SystemExit(f"retired tool still declared in config.toml.tmpl: {needle}")
 
 retired_paths = [
     "private_dot_config/aquaproj-aqua/aqua.yaml",

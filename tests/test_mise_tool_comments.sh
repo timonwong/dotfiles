@@ -45,14 +45,12 @@ require_tool_comments(
         "aqua:openai/codex",
         "apko",
         "bat",
-        "bun",
         "claude-code",
         "direnv",
         "fzf",
         "gh",
         "git-lfs",
         "go",
-        "github:aria2/aria2",
         "jq",
         "kubectl",
         "rclone",
@@ -66,7 +64,6 @@ require_tool_comments(
 require_tool_comments(
     "private_dot_config/mise/config.toml.tmpl",
     {
-        "helm",
         "node",
         "pnpm",
         "python",

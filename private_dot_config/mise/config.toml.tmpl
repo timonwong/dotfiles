@@ -31,13 +31,6 @@ lua = "5.4"
 # Multi-language Git hook framework, moved from Nix to avoid dotnet-sdk compilation.
 "pipx:pre-commit" = "latest"
 
-helm = "v3.5.4"
-
-{{ if eq .platform "darwin" -}}
-# Browser-control CLI and MCP server that reuses the active Chrome login state.
-"npm:bb-browser" = "latest"
-{{ end -}}
-
 [settings]
 lockfile = true
 locked_verify_provenance = false

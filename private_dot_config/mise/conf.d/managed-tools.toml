@@ -31,7 +31,7 @@ fastfetch = "2.71.0"
 # Fast, user-friendly replacement for find.
 fd = "10.5.2"
 fzf = "0.75.0"
-gh = "2.105.0"
+gh = "2.106.0"
 git-lfs = "3.8.1"
 # GitLab command-line client.
 glab = "1.133.0"
@@ -53,16 +53,16 @@ kubectl = "1.37.3"
 # Terminal UI for Git operations.
 lazygit = "0.66.3"
 # Lody Agent CLI tool for managing remote command execution.
-"npm:lody" = "0.114.0-nightly.16"
+"npm:lody" = "0.118.0-nightly.0"
 # Language Server Protocol implementation for Lua.
 lua-language-server = "3.19.2"
 # Builds APK packages from declarative YAML recipes.
 melange = "0.66.0"
 "aqua:neovim/neovim" = "0.12.6"
 # nmem-cli's standalone wheel binary requires the pipx installer path.
-"pipx:nmem-cli" = { version = "0.10.123", uvx = false }
+"pipx:nmem-cli" = { version = "0.10.125", uvx = false }
 # Cloudflare Workers and Pages command-line tool.
-"npm:wrangler" = "4.168.0"
+"npm:wrangler" = "4.169.0"
 # High-performance JavaScript and TypeScript formatter from Oxc.
 "npm:oxfmt" = "0.80.0"
 # Pi is a minimal terminal coding harness.
